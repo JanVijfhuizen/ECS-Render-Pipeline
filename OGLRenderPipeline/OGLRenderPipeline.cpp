@@ -1,25 +1,25 @@
 #include "Cecsar.h"
-#include <glfw3.h>
 #include "RenderSystem.h"
 #include "SparseSet.h"
+#include "Renderer.h"
+#include "WindowModule.h"
 
 int main()
 {
 	jecs::Cecsar cecsar;
 
-	glfwInit();
-
+	auto& windowModule = rpi::WindowModule::Get();
 	auto& renderSystem = rpi::RenderSystem::Get();
 	auto& renderers = jecs::SparseSet<rpi::Renderer>::Get();
 
 	while(true)
 	{
 		bool quit = false;
-		renderSystem.BeginFrame(&quit);
+		windowModule.BeginFrame(&quit);
 		if (quit)
 			break;
 
-		renderSystem.EndFrame();
+		windowModule.EndFrame();
 	}
 
 	return 0;

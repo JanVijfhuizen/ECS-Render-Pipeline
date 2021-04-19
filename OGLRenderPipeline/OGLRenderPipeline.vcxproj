@@ -155,7 +155,9 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
+    <ClCompile Include="Source\ShaderLoader.cpp" />
     <ClCompile Include="Source\RenderSystem.cpp" />
+    <ClCompile Include="Source\WindowModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cECSar\Cecsar.vcxproj">
@@ -163,7 +165,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Renderer.h" />
     <ClInclude Include="Include\RenderSystem.h" />
+    <ClInclude Include="Include\ShaderLoader.h" />
+    <ClInclude Include="Include\WindowModule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
