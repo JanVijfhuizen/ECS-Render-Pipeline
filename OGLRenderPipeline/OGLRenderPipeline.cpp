@@ -1,16 +1,17 @@
 #include "Cecsar.h"
 #include "RenderSystem.h"
-#include "SparseSet.h"
-#include "Renderer.h"
 #include "WindowModule.h"
+#include "ExampleFactory.h"
 
 int main()
 {
-	jecs::Cecsar cecsar;
+	jecs::Cecsar cecsar{10};
 
 	auto& windowModule = rpi::WindowModule::Get();
 	auto& renderSystem = rpi::RenderSystem::Get();
-	auto& renderers = jecs::SparseSet<rpi::Renderer>::Get();
+
+	auto& factory = rpi::example::ExampleFactory::Get();
+	factory.Load();
 
 	while(true)
 	{
@@ -18,6 +19,8 @@ int main()
 		windowModule.BeginFrame(&quit);
 		if (quit)
 			break;
+
+		renderSystem.Update();
 
 		windowModule.EndFrame();
 	}

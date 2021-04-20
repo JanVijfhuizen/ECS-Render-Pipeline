@@ -5,5 +5,7 @@ namespace rpi
 {
 	class RenderSystem final : public jecs::Module<RenderSystem>
 	{
+	public:
+		void Update();
 	};
 }
