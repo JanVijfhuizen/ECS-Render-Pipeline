@@ -5,15 +5,15 @@
 
 namespace rpi
 {
-	class Mesh final
+	class Mesh
 	{
 	public:
 		Mesh(std::vector<Vertex>& vertices, std::vector<int32_t>& indices, 
 			GLuint mode = GL_TRIANGLES);
 		~Mesh();
 
-		void UpdateInstanceBuffer(glm::mat4* models, int32_t count);
-		void Draw() const;
+		virtual void UpdateInstanceBuffer(const glm::mat4* models, int32_t count);
+		virtual void Draw() const;
 
 		[[nodiscard]] GLuint GenerateBuffer();
 

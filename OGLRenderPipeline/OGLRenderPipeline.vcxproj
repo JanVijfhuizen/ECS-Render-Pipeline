@@ -120,7 +120,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -138,7 +138,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -153,7 +153,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Shader.cpp" />
+    <ClCompile Include="Source\CameraSystem.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Source\ModelQuad.cpp" />
     <ClCompile Include="Source\ExampleFactory.cpp" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
@@ -161,6 +164,7 @@
     <ClCompile Include="Source\RenderSystem.cpp" />
     <ClCompile Include="Source\WindowModule.cpp" />
     <ClCompile Include="Source\TextureModule.cpp" />
+    <ClCompile Include="Source\TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cECSar\Cecsar.vcxproj">
@@ -168,15 +172,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\CameraSystem.h" />
+    <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\ExampleFactory.h" />
     <ClInclude Include="Include\Mesh.h" />
     <ClInclude Include="Include\Renderer.h" />
     <ClInclude Include="Include\RenderSystem.h" />
     <ClInclude Include="Include\ShaderLoader.h" />
     <ClInclude Include="Include\stb_image.h" />
+    <ClInclude Include="Include\Transform.h" />
+    <ClInclude Include="Include\TransformSystem.h" />
     <ClInclude Include="Include\Vertex.h" />
     <ClInclude Include="Include\WindowModule.h" />
     <ClInclude Include="Include\TextureModule.h" />
+    <ClInclude Include="Include\ModelQuad.h" />
+    <ClInclude Include="Include\Shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\frag.frag" />
+    <None Include="Resources\vert.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

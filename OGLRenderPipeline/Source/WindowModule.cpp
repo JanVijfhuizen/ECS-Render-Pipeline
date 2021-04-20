@@ -4,10 +4,18 @@
 
 namespace rpi
 {
+	float WindowModule::Settings::GetAspectRatio() const
+	{
+		return static_cast<float>(width) / height;
+	}
+
 	WindowModule::WindowModule(const Settings& settings)
 	{
 		// Initialize GLFW.
 		glfwInit();
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, settings.version);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, settings.version);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, settings.profile);
 
 		// Create window.
 		_window = glfwCreateWindow(
@@ -25,6 +33,9 @@ namespace rpi
 		// Setup viewport and viewport related callbacks.
 		glViewport(0, 0, settings.width, settings.height);
 		glfwSetFramebufferSizeCallback(_window, ResizeCallback);
+
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
 	}
 
 	WindowModule::~WindowModule()
@@ -35,11 +46,18 @@ namespace rpi
 	void WindowModule::BeginFrame(bool* quit) const
 	{
 		*quit = glfwWindowShouldClose(_window);
+		if (*quit)
+			return;
+
+		glClearColor(clearColor.x, clearColor.y, clearColor.z, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwPollEvents();
 	}
 
 	void WindowModule::EndFrame()
 	{
+		glFlush();
+		glfwSwapBuffers(_window);
 	}
 
 	WindowModule::Settings WindowModule::GetSettings() const

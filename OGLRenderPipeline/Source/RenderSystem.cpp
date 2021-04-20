@@ -1,15 +1,38 @@
 #include "RenderSystem.h"
 #include "Renderer.h"
 #include "SparseSet.h"
+#include "MapSet.h"
+#include "Camera.h"
+#include "CameraSystem.h"
+#include "Transform.h"
+#include "TransformSystem.h"
+#include <iostream>
 
 namespace rpi
 {
 	void RenderSystem::Update()
 	{
+		auto& cameras = jecs::MapSet<Camera>::Get();
 		auto& renderers = jecs::SparseSet<Renderer>::Get();
-		for (auto [renderer, index] : renderers)
+		auto& transforms = jecs::SparseSet<Transform>::Get();
+
+		for (const auto [camera, camIndex] : cameras)
 		{
-			// Do the thing.
+			const auto projection = CameraSystem::GetProjection(camIndex);
+			const auto view = CameraSystem::GetView(camIndex);
+
+			for (const auto [renderer, renIndex] : renderers)
+			{
+				const auto& transform = transforms[renIndex];
+				const auto model = TransformSystem::GetMatrix(transform);
+
+				assert(renderer.mesh);
+				assert(renderer.shader);
+				
+				renderer.shader->Use(view, projection);
+				renderer.mesh->UpdateInstanceBuffer(&model, 1);
+				renderer.mesh->Draw();
+			}
 		}
 	}
 }

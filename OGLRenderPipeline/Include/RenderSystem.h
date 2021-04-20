@@ -1,11 +1,10 @@
 #pragma once
-#include "Module.h"
 
 namespace rpi
 {
-	class RenderSystem final : public jecs::Module<RenderSystem>
+	class RenderSystem final
 	{
 	public:
-		void Update();
+		static void Update();
 	};
 }

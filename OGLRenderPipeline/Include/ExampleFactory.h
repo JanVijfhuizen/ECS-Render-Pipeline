@@ -4,6 +4,7 @@
 #include <memory>
 #include "Renderer.h"
 #include "SparseSet.h"
+#include "Transform.h"
 
 namespace rpi::example
 {
@@ -23,7 +24,9 @@ namespace rpi::example
 	private:
 		jecs::SparseSet<ExampleFactoryLoader>& _loaders;
 		jecs::SparseSet<Renderer>& _renderers;
+		jecs::SparseSet<Transform>& _transforms;
 
 		std::unique_ptr<Mesh> _mesh{};
+		std::unique_ptr<Shader> _shader{};
 	};
 }

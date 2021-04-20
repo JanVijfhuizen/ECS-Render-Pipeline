@@ -13,7 +13,7 @@ namespace rpi
 		static GLuint LinkShaders(Args ... shaders);
 
 	private:
-#define _BUFFER 200
+#define _BUFFER 1000
 	};
 
 	template <typename ... Args>
@@ -36,6 +36,8 @@ namespace rpi
 			glDeleteProgram(program);
 			return 0;
 		}
+
+		(glDeleteShader(shaders), ...);
 		return program;
 	}
 }

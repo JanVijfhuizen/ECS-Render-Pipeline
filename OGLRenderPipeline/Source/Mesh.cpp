@@ -19,6 +19,7 @@ namespace rpi
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
 			indices.data(), GL_STATIC_DRAW);
+		_size = indices.size();
 
 		// Position attribute.
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 
@@ -69,7 +70,7 @@ namespace rpi
 			glDeleteBuffers(1, &bufferObject);
 	}
 
-	void Mesh::UpdateInstanceBuffer(glm::mat4* models, const int32_t count)
+	void Mesh::UpdateInstanceBuffer(const glm::mat4* models, const int32_t count)
 	{
 		_count = count;
 		glBindBuffer(GL_ARRAY_BUFFER, _ibo);

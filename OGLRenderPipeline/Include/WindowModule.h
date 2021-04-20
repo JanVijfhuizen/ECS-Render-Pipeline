@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Module.h"
 #include <glfw3.h>
+#include <glm/vec3.hpp>
 
 namespace rpi
 {
@@ -15,7 +16,12 @@ namespace rpi
 			int32_t height = 480;
 
 			int32_t profile = GLFW_OPENGL_CORE_PROFILE;
+			int32_t version = 4;
+
+			[[nodiscard]] float GetAspectRatio() const;
 		};
+
+		glm::vec3 clearColor{.2f, .4f, .2f};
 
 		explicit WindowModule(const Settings& settings = {});
 		~WindowModule();
