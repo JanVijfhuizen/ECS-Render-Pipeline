@@ -14,9 +14,9 @@ namespace rpi
 		_ambient = GetUniformLoc("ambient");
 
 		_ptCount = GetUniformLoc("ptCount");
-		//_dirCount = GetUniformLoc("dirCount");
+		_dirCount = GetUniformLoc("dirCount");
 
-		//SetupDirLights();
+		SetupDirLights();
 		SetupPointLights();
 	}
 

@@ -8,7 +8,7 @@
 
 int main()
 {
-	jecs::Cecsar cecsar{10};
+	jecs::Cecsar cecsar{50};
 
 	auto& windowModule = rpi::WindowModule::Get();
 
@@ -16,14 +16,13 @@ int main()
 	auto& factory = rpi::example::ExampleFactory::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();
 
-	for (int32_t i = 0; i < 1; ++i)
+	for (int32_t i = 0; i < 10; ++i)
 	{
 		const auto quad = cecsar.Spawn();
 		factory.Construct(quad.index);
 		auto& transform = transforms[quad.index];
-		//transform.position = { rand() % 4 - 2, rand() % 2 - 1, rand() % 4 - 2 };
-		//transform.rotation = { rand() % 360, rand() % 360, rand() % 360 };
-		transform.scale = glm::vec3{ 2 };
+		transform.position = { rand() % 4 - 2, rand() % 2 - 1, rand() % 4 - 2 };
+		transform.rotation = { rand() % 360, rand() % 360, rand() % 360 };
 	}
 
 	// Construct a entity camera.
@@ -37,7 +36,7 @@ int main()
 	auto& lights = jecs::MapSet<rpi::Light>::Get();
 	auto& lightComponent = lights.Insert(light.index);
 
-	lightComponent.type = rpi::Light::Directional();
+	lightComponent.type = rpi::Light::Point();
 	auto& lightTrans = transforms.Insert(light.index);
 
 	float dt = 0;

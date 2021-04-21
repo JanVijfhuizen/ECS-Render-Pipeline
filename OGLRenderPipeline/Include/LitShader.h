@@ -45,7 +45,7 @@ namespace rpi
 			explicit DefaultVisitor(LitShader& shader);
 
 			void operator()(const Light::Point& point);
-			void operator()(const Light::Direction& direction);
+			void operator()(const Light::Directional& direction);
 			void operator()(const Light::Ambient& ambient) const;
 
 			void PostVisit() const;
