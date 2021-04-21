@@ -25,8 +25,11 @@ namespace rpi
 		Shader::Use(camPos, view, projection);
 
 		// Forward textures.
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _diffuseTexture);
+		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, _normalTexture);
+		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_2D, _specularTexture);
 
 		// Forward camera position.

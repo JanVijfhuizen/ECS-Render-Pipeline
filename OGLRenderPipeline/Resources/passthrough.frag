@@ -19,7 +19,5 @@ void main()
 	vec4 result = texture(cameras[0], TexCoords);
 	for(int i = 1; i < camCount; i++)
 		StackTextures(result, texture(cameras[i], TexCoords));
-
-	// Stacking does not work correctly.
-	FragColor = texture(cameras[0], TexCoords);
+	FragColor = result;
 }

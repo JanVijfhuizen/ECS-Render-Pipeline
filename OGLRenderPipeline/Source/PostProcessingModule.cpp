@@ -69,8 +69,8 @@ void rpi::PostProcessingModule::GenerateBuffers()
 		auto& buffer = _camBuffers[i];
 
 		glGenFramebuffers(1, &buffer.fbo);
-
 		glGenTextures(1, &buffer.texture);
+
 		glBindTexture(GL_TEXTURE_2D, buffer.texture);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, windowSettings.width, windowSettings.height,

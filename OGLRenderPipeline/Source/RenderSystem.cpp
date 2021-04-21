@@ -17,10 +17,11 @@ namespace rpi
 		auto& transforms = jecs::SparseSet<Transform>::Get();
 
 		auto& postProcModule = PostProcessingModule::Get();
-		postProcModule.RenderNext();
-
+		
 		for (const auto [camera, camIndex] : cameras)
 		{
+			postProcModule.RenderNext();
+
 			const auto& camPos = transforms[camIndex].position;
 			const auto projection = CameraSystem::GetProjection(camIndex);
 			const auto view = CameraSystem::GetView(camIndex);
