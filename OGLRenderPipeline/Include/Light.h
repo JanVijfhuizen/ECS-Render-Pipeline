@@ -8,7 +8,9 @@ namespace rpi
 	{
 		struct Point final
 		{
-			
+			float constant = 1;
+			float linear = 0.09f;
+			float quadratic = 0.032f;
 		};
 
 		struct Direction final

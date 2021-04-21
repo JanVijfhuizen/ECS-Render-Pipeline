@@ -25,6 +25,10 @@ namespace rpi
 		{
 			GLint diffuse = -1;
 			GLint pos = -1;
+
+			GLint constant = -1;
+			GLint linear = -1;
+			GLint quadratic = -1;
 		};
 
 		struct DirLight final
@@ -74,7 +78,7 @@ namespace rpi
 		glm::vec3 _colorVal{ 1 };
 
 		GLuint _specularity = -1;
-		float _specularityVal = .2f;
+		int32_t _specularityVal = 32;
 
 		GLint _diffuseTexture = -1;
 		GLint _normalTexture = -1;

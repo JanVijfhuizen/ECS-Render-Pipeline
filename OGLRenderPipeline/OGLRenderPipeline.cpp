@@ -49,13 +49,13 @@ int main()
 			break;
 
 		// Just some testing code.
-		dt += .002f;
-		camTransform.position.x = sin(1) * 4;
-		camTransform.position.z = cos(1) * 4;
-		camTransform.position.y = sin(1 / 2) + 2;
+		dt += .001f;
+		camTransform.position.x = sin(dt) * 4;
+		camTransform.position.z = cos(dt) * 4;
+		camTransform.position.y = sin(dt / 2) + 2;
 
-		lightTrans.position.x = sin(-dt);
-		lightTrans.position.z = cos(-dt);
+		lightTrans.position.x = cos(-dt) * .5f;
+		lightTrans.position.z = sin(-dt) * .5f;
 		lightTrans.position.y = .2f;
 
 		rpi::RenderSystem::Update();

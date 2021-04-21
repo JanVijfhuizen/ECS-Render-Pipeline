@@ -34,7 +34,7 @@ namespace rpi
 
 		// Forward material.
 		glUniform3f(_color, _colorVal.x, _colorVal.y, _colorVal.z);
-		glUniform1f(_specularity, _specularityVal);
+		glUniform1i(_specularity, _specularityVal);
 
 		HandleLighting();
 
@@ -88,6 +88,10 @@ namespace rpi
 		// Set diffuse.
 		const auto& diffuse = light->diffuse;
 		glUniform3f(ptLight.diffuse, diffuse.x, diffuse.y, diffuse.z);
+
+		glUniform1f(ptLight.constant, point.constant);
+		glUniform1f(ptLight.linear, point.linear);
+		glUniform1f(ptLight.quadratic, point.quadratic);
 
 		// Set position.
 		const auto& position = transform.position;
@@ -189,6 +193,11 @@ namespace rpi
 			PointLight light;
 			light.diffuse = GetUniformLoc(str + "diffuse");
 			light.pos = GetUniformLoc(str + "pos");
+
+			light.constant = GetUniformLoc(str + "constant");
+			light.linear = GetUniformLoc(str + "linear");
+			light.quadratic = GetUniformLoc(str + "quadratic");
+
 			_ptLights.push_back(light);
 		}
 	}
