@@ -69,18 +69,19 @@ void rpi::PostProcessingModule::GenerateBuffers()
 		auto& buffer = _camBuffers[i];
 
 		glGenFramebuffers(1, &buffer.fbo);
-		glGenTextures(1, &buffer.texture);
+		glBindFramebuffer(GL_FRAMEBUFFER, buffer.fbo);
 
+		glGenTextures(1, &buffer.texture);
 		glBindTexture(GL_TEXTURE_2D, buffer.texture);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, windowSettings.width, windowSettings.height,
 			0, GL_RGBA, GL_FLOAT, nullptr);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		glBindFramebuffer(GL_FRAMEBUFFER, buffer.fbo);
+		
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, 
 			GL_TEXTURE_2D, buffer.texture, 0);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// Check if the framebuffer is correctly created.
 		assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
