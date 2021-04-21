@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include "Module.h"
 #include "Mesh.h"
-#include <memory>
 #include "Renderer.h"
 #include "SparseSet.h"
 #include "Transform.h"
+#include "LitShader.h"
+#include <memory>
 
 namespace rpi::example
 {
@@ -19,7 +20,7 @@ namespace rpi::example
 		ExampleFactory();
 
 		void Construct(int32_t index) const;
-		void Load() override;
+		void Load() const;
 
 	private:
 		jecs::SparseSet<ExampleFactoryLoader>& _loaders;
@@ -27,6 +28,6 @@ namespace rpi::example
 		jecs::SparseSet<Transform>& _transforms;
 
 		std::unique_ptr<Mesh> _mesh{};
-		std::unique_ptr<Shader> _shader{};
+		std::unique_ptr<LitShader> _shader{};
 	};
 }

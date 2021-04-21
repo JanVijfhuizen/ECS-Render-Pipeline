@@ -30,9 +30,6 @@
     <ClCompile Include="Source\WindowModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TextureModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ExampleFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,6 +48,12 @@
     <ClCompile Include="Source\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LitShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\RenderSystem.h">
@@ -63,9 +66,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\WindowModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\TextureModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\stb_image.h">
@@ -98,9 +98,23 @@
     <ClInclude Include="Include\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\LitShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\TextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
     <None Include="Resources\vert.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

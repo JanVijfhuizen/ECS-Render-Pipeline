@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "ModelQuad.h"
 #include "ShaderLoader.h"
+#include "TextureLoader.h"
 
 namespace rpi::example
 {
@@ -23,7 +24,10 @@ namespace rpi::example
 		const GLuint vert = ShaderLoader::CreateShader(
 			"Resources/vert.vert", GL_VERTEX_SHADER);
 		const GLuint linked = ShaderLoader::LinkShaders(frag, vert);
-		_shader = std::make_unique<Shader>(linked);
+		_shader = std::make_unique<LitShader>(linked);
+
+		_shader->SetDiffuseTex(TextureLoader::Load("Resources/texture.png"));
+		_shader->SetNormalTex(TextureLoader::Load("Resources/texture.png"));
 	}
 
 	void ExampleFactory::Construct(const int32_t index) const
@@ -36,7 +40,7 @@ namespace rpi::example
 		renderer.shader = _shader.get();
 	}
 
-	void ExampleFactory::Load()
+	void ExampleFactory::Load() const
 	{
 		for (const auto [_, index] : _loaders)
 			Construct(index);

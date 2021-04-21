@@ -6,8 +6,8 @@ namespace rpi
 	Shader::Shader(const GLuint memProgram) : _program(memProgram)
 	{
 		glUseProgram(_program);
-		_view = glGetUniformLocation(memProgram, "view");
-		_projection = glGetUniformLocation(memProgram, "projection");
+		_view = GetUniformLoc("view");
+		_projection = GetUniformLoc("projection");
 	}
 
 	Shader::~Shader()
@@ -39,5 +39,12 @@ namespace rpi
 	GLuint Shader::GetProjection() const
 	{
 		return _projection;
+	}
+
+	GLuint Shader::GetUniformLoc(const std::string& name) const
+	{
+		const GLint loc = glGetUniformLocation(_program, name.c_str());
+		assert(loc != -1);
+		return loc;
 	}
 }

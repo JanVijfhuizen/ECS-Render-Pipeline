@@ -4,7 +4,7 @@
 
 namespace rpi
 {
-	class TextureModule final : public jecs::Module<TextureModule>
+	class TextureLoader final : public jecs::Module<TextureLoader>
 	{
 	public:
 		static GLuint Load(const std::string& path);

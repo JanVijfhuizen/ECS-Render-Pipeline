@@ -1,10 +1,10 @@
-﻿#include "TextureModule.h"
+﻿#include "TextureLoader.h"
 #define STB_IMAGE_IMPLEMENTATION    
 #include "stb_image.h"
 
 namespace rpi
 {
-	GLuint TextureModule::Load(const std::string& path)
+	GLuint TextureLoader::Load(const std::string& path)
 	{
 		GLuint texture;
 		glGenTextures(1, &texture);
@@ -26,8 +26,9 @@ namespace rpi
 
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-				width, height, 0, GL_RGBA,
+			const int32_t channels = nrChannels == 3 ? GL_RGB : GL_RGBA;
+			glTexImage2D(GL_TEXTURE_2D, 0, channels,
+				width, height, 0, channels,
 				GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}

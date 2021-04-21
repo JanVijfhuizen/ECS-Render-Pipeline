@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\LitShader.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\CameraSystem.cpp" />
     <ClCompile Include="glad.c" />
@@ -163,7 +164,7 @@
     <ClCompile Include="Source\ShaderLoader.cpp" />
     <ClCompile Include="Source\RenderSystem.cpp" />
     <ClCompile Include="Source\WindowModule.cpp" />
-    <ClCompile Include="Source\TextureModule.cpp" />
+    <ClCompile Include="Source\TextureLoader.cpp" />
     <ClCompile Include="Source\TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="Include\CameraSystem.h" />
     <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\ExampleFactory.h" />
+    <ClInclude Include="Include\Light.h" />
     <ClInclude Include="Include\Mesh.h" />
     <ClInclude Include="Include\Renderer.h" />
     <ClInclude Include="Include\RenderSystem.h" />
@@ -184,13 +186,20 @@
     <ClInclude Include="Include\TransformSystem.h" />
     <ClInclude Include="Include\Vertex.h" />
     <ClInclude Include="Include\WindowModule.h" />
-    <ClInclude Include="Include\TextureModule.h" />
+    <ClInclude Include="Include\TextureLoader.h" />
     <ClInclude Include="Include\ModelQuad.h" />
     <ClInclude Include="Include\Shader.h" />
+    <ClInclude Include="Include\LitShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
     <None Include="Resources\vert.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\texture.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

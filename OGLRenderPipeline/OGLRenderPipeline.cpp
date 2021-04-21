@@ -33,10 +33,10 @@ int main()
 		if (quit)
 			break;
 
-		dt += .02f;
+		dt += .002f;
 		camTransform.position.x = sin(dt) * 4;
 		camTransform.position.z = cos(dt) * 4;
-		camTransform.position.y = sin(dt / 2);
+		camTransform.position.y = sin(dt / 2) + 2;
 
 		rpi::RenderSystem::Update();
 
