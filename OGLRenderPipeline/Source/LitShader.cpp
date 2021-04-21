@@ -98,7 +98,7 @@ namespace rpi
 		glUniform3f(ptLight.pos, position.x, position.y, position.z);
 	}
 
-	void LitShader::DefaultVisitor::operator()(const Light::Direction& direction)
+	void LitShader::DefaultVisitor::operator()(const Light::Directional& direction)
 	{
 		if (_dirCount >= _shader._maxDirLights)
 			return;

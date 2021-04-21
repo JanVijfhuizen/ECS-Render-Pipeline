@@ -36,7 +36,8 @@ int main()
 	const auto light = cecsar.Spawn();
 	auto& lights = jecs::MapSet<rpi::Light>::Get();
 	auto& lightComponent = lights.Insert(light.index);
-	lightComponent.type = rpi::Light::Point();
+
+	lightComponent.type = rpi::Light::Directional();
 	auto& lightTrans = transforms.Insert(light.index);
 
 	float dt = 0;

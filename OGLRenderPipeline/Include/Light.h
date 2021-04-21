@@ -13,7 +13,7 @@ namespace rpi
 			float quadratic = 0.032f;
 		};
 
-		struct Direction final
+		struct Directional final
 		{
 			glm::vec3 forward{0, 0, 1};
 		};
@@ -23,7 +23,7 @@ namespace rpi
 			
 		};
 
-		using Type = std::variant<Point, Direction, Ambient>;
+		using Type = std::variant<Point, Directional, Ambient>;
 
 		glm::vec3 diffuse{ 1 };
 
