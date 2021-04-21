@@ -23,7 +23,7 @@ namespace rpi
 
 		using Type = std::variant<Point, Direction, Ambient>;
 
-		glm::vec3 diffuse{ .5 };
+		glm::vec3 diffuse{ 1 };
 
 		Type type = Point();
 	};

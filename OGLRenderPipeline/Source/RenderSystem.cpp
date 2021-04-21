@@ -6,7 +6,6 @@
 #include "CameraSystem.h"
 #include "Transform.h"
 #include "TransformSystem.h"
-#include <iostream>
 
 namespace rpi
 {
@@ -18,6 +17,7 @@ namespace rpi
 
 		for (const auto [camera, camIndex] : cameras)
 		{
+			const auto& camPos = transforms[camIndex].position;
 			const auto projection = CameraSystem::GetProjection(camIndex);
 			const auto view = CameraSystem::GetView(camIndex);
 
@@ -29,7 +29,7 @@ namespace rpi
 				assert(renderer.mesh);
 				assert(renderer.shader);
 				
-				renderer.shader->Use(view, projection);
+				renderer.shader->Use(camPos, view, projection);
 				renderer.mesh->UpdateInstanceBuffer(&model, 1);
 				renderer.mesh->Draw();
 			}

@@ -8,7 +8,9 @@ namespace rpi
 {
 	LitShader::LitShader(const GLuint memProgram) : Shader(memProgram)
 	{
+		_viewPos = GetUniformLoc("viewPos");
 		_color = GetUniformLoc("mat.color");
+		_specularity = GetUniformLoc("mat.specularity");
 		_ambient = GetUniformLoc("ambient");
 
 		_ptCount = GetUniformLoc("ptCount");
@@ -18,17 +20,21 @@ namespace rpi
 		SetupPointLights();
 	}
 
-	void LitShader::Use(const glm::mat4& view, const glm::mat4& projection)
+	void LitShader::Use(const glm::vec3 camPos, const glm::mat4& view, const glm::mat4& projection)
 	{
-		Shader::Use(view, projection);
+		Shader::Use(camPos, view, projection);
 
 		// Forward textures.
 		glBindTexture(GL_TEXTURE_2D, _diffuseTexture);
 		glBindTexture(GL_TEXTURE_2D, _normalTexture);
 		glBindTexture(GL_TEXTURE_2D, _specularTexture);
 
-		// Forward color.
+		// Forward camera position.
+		glUniform3f(_viewPos, camPos.x, camPos.y, camPos.z);
+
+		// Forward material.
 		glUniform3f(_color, _colorVal.x, _colorVal.y, _colorVal.z);
+		glUniform1f(_specularity, _specularityVal);
 
 		HandleLighting();
 
@@ -43,6 +49,11 @@ namespace rpi
 	void LitShader::SetColor(const glm::vec3 color)
 	{
 		_colorVal = color;
+	}
+
+	void LitShader::SetSpecularity(const float val)
+	{
+		_specularity = val;
 	}
 
 	void LitShader::SetDiffuseTex(const GLint handle)

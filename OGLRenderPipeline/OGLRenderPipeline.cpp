@@ -23,7 +23,7 @@ int main()
 		auto& transform = transforms[quad.index];
 		//transform.position = { rand() % 4 - 2, rand() % 2 - 1, rand() % 4 - 2 };
 		//transform.rotation = { rand() % 360, rand() % 360, rand() % 360 };
-		transform.scale = glm::vec3{ 8 };
+		transform.scale = glm::vec3{ 2 };
 	}
 
 	// Construct a entity camera.
@@ -54,8 +54,8 @@ int main()
 		camTransform.position.z = cos(1) * 4;
 		camTransform.position.y = sin(1 / 2) + 2;
 
-		lightTrans.position.x = sin(-dt) * 2;
-		lightTrans.position.z = cos(-dt) * 2;
+		lightTrans.position.x = sin(-dt);
+		lightTrans.position.z = cos(-dt);
 		lightTrans.position.y = .2f;
 
 		rpi::RenderSystem::Update();
