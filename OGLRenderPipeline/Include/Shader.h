@@ -11,7 +11,7 @@ namespace rpi
 		explicit Shader(GLuint memProgram);
 		~Shader();
 
-		virtual void Use(const glm::mat4& view, const glm::mat4& projection);
+		virtual void Use(glm::vec3 camPos, const glm::mat4& view, const glm::mat4& projection);
 
 	protected:
 		[[nodiscard]] GLuint GetProgram() const;

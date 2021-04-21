@@ -8,10 +8,12 @@ namespace rpi
 	{
 		struct Point final
 		{
-			
+			float constant = 1;
+			float linear = 0.09f;
+			float quadratic = 0.032f;
 		};
 
-		struct Direction final
+		struct Directional final
 		{
 			glm::vec3 forward{0, 0, 1};
 		};
@@ -21,9 +23,9 @@ namespace rpi
 			
 		};
 
-		using Type = std::variant<Point, Direction, Ambient>;
+		using Type = std::variant<Point, Directional, Ambient>;
 
-		glm::vec3 diffuse{ .5 };
+		glm::vec3 diffuse{ 1 };
 
 		Type type = Point();
 	};

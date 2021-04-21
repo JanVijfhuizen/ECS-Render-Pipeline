@@ -11,9 +11,11 @@ namespace rpi
 	public:
 		explicit LitShader(GLuint memProgram);
 
-		void Use(const glm::mat4& view, const glm::mat4& projection) override;
+		void Use(glm::vec3 camPos, const glm::mat4& view, const glm::mat4& projection) override;
 
 		void SetColor(glm::vec3 color = glm::vec3{1});
+		void SetSpecularity(float val);
+
 		void SetDiffuseTex(GLint handle = -1);
 		void SetNormalTex(GLint handle = -1);
 		void SetSpecularTex(GLint handle = -1);
@@ -23,6 +25,10 @@ namespace rpi
 		{
 			GLint diffuse = -1;
 			GLint pos = -1;
+
+			GLint constant = -1;
+			GLint linear = -1;
+			GLint quadratic = -1;
 		};
 
 		struct DirLight final
@@ -65,9 +71,14 @@ namespace rpi
 		void SetDirLightCount(int32_t count = 0);
 
 	private:
+		GLuint _viewPos = 0;
+
 		// Material.
 		GLuint _color = -1;
 		glm::vec3 _colorVal{ 1 };
+
+		GLuint _specularity = -1;
+		int32_t _specularityVal = 32;
 
 		GLint _diffuseTexture = -1;
 		GLint _normalTexture = -1;

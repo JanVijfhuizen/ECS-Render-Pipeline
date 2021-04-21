@@ -8,7 +8,9 @@ namespace rpi
 {
 	LitShader::LitShader(const GLuint memProgram) : Shader(memProgram)
 	{
+		_viewPos = GetUniformLoc("viewPos");
 		_color = GetUniformLoc("mat.color");
+		_specularity = GetUniformLoc("mat.specularity");
 		_ambient = GetUniformLoc("ambient");
 
 		_ptCount = GetUniformLoc("ptCount");
@@ -18,17 +20,21 @@ namespace rpi
 		SetupPointLights();
 	}
 
-	void LitShader::Use(const glm::mat4& view, const glm::mat4& projection)
+	void LitShader::Use(const glm::vec3 camPos, const glm::mat4& view, const glm::mat4& projection)
 	{
-		Shader::Use(view, projection);
+		Shader::Use(camPos, view, projection);
 
 		// Forward textures.
 		glBindTexture(GL_TEXTURE_2D, _diffuseTexture);
 		glBindTexture(GL_TEXTURE_2D, _normalTexture);
 		glBindTexture(GL_TEXTURE_2D, _specularTexture);
 
-		// Forward color.
+		// Forward camera position.
+		glUniform3f(_viewPos, camPos.x, camPos.y, camPos.z);
+
+		// Forward material.
 		glUniform3f(_color, _colorVal.x, _colorVal.y, _colorVal.z);
+		glUniform1i(_specularity, _specularityVal);
 
 		HandleLighting();
 
@@ -43,6 +49,11 @@ namespace rpi
 	void LitShader::SetColor(const glm::vec3 color)
 	{
 		_colorVal = color;
+	}
+
+	void LitShader::SetSpecularity(const float val)
+	{
+		_specularity = val;
 	}
 
 	void LitShader::SetDiffuseTex(const GLint handle)
@@ -78,12 +89,16 @@ namespace rpi
 		const auto& diffuse = light->diffuse;
 		glUniform3f(ptLight.diffuse, diffuse.x, diffuse.y, diffuse.z);
 
+		glUniform1f(ptLight.constant, point.constant);
+		glUniform1f(ptLight.linear, point.linear);
+		glUniform1f(ptLight.quadratic, point.quadratic);
+
 		// Set position.
 		const auto& position = transform.position;
 		glUniform3f(ptLight.pos, position.x, position.y, position.z);
 	}
 
-	void LitShader::DefaultVisitor::operator()(const Light::Direction& direction)
+	void LitShader::DefaultVisitor::operator()(const Light::Directional& direction)
 	{
 		if (_dirCount >= _shader._maxDirLights)
 			return;
@@ -178,6 +193,11 @@ namespace rpi
 			PointLight light;
 			light.diffuse = GetUniformLoc(str + "diffuse");
 			light.pos = GetUniformLoc(str + "pos");
+
+			light.constant = GetUniformLoc(str + "constant");
+			light.linear = GetUniformLoc(str + "linear");
+			light.quadratic = GetUniformLoc(str + "quadratic");
+
 			_ptLights.push_back(light);
 		}
 	}

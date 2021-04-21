@@ -23,7 +23,7 @@ int main()
 		auto& transform = transforms[quad.index];
 		//transform.position = { rand() % 4 - 2, rand() % 2 - 1, rand() % 4 - 2 };
 		//transform.rotation = { rand() % 360, rand() % 360, rand() % 360 };
-		transform.scale = glm::vec3{ 8 };
+		transform.scale = glm::vec3{ 2 };
 	}
 
 	// Construct a entity camera.
@@ -36,7 +36,8 @@ int main()
 	const auto light = cecsar.Spawn();
 	auto& lights = jecs::MapSet<rpi::Light>::Get();
 	auto& lightComponent = lights.Insert(light.index);
-	lightComponent.type = rpi::Light::Point();
+
+	lightComponent.type = rpi::Light::Directional();
 	auto& lightTrans = transforms.Insert(light.index);
 
 	float dt = 0;
@@ -49,13 +50,13 @@ int main()
 			break;
 
 		// Just some testing code.
-		dt += .002f;
-		camTransform.position.x = sin(1) * 4;
-		camTransform.position.z = cos(1) * 4;
-		camTransform.position.y = sin(1 / 2) + 2;
+		dt += .001f;
+		camTransform.position.x = sin(dt) * 4;
+		camTransform.position.z = cos(dt) * 4;
+		camTransform.position.y = sin(dt / 2) + 2;
 
-		lightTrans.position.x = sin(-dt) * 2;
-		lightTrans.position.z = cos(-dt) * 2;
+		lightTrans.position.x = cos(-dt) * .5f;
+		lightTrans.position.z = sin(-dt) * .5f;
 		lightTrans.position.y = .2f;
 
 		rpi::RenderSystem::Update();
