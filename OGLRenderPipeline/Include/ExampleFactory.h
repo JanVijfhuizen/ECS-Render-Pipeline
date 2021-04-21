@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "LitShader.h"
 #include <memory>
+#include "TextureLoader.h"
 
 namespace rpi::example
 {
@@ -29,5 +30,8 @@ namespace rpi::example
 
 		std::unique_ptr<Mesh> _mesh{};
 		std::unique_ptr<LitShader> _shader{};
+
+		std::unique_ptr<Texture> _diffuse{};
+		std::unique_ptr<Texture> _normal{};
 	};
 }

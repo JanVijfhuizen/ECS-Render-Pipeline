@@ -4,11 +4,11 @@
 
 namespace rpi
 {
-	GLuint TextureLoader::Load(const std::string& path)
+	std::unique_ptr<Texture> TextureLoader::Load(const std::string& path)
 	{
-		GLuint texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		GLuint handle;
+		glGenTextures(1, &handle);
+		glBindTexture(GL_TEXTURE_2D, handle);
 
 		glTexParameteri(GL_TEXTURE_2D,
 			GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -36,6 +36,24 @@ namespace rpi
 			printf("Failed to load texture.\n");
 		stbi_image_free(data);
 
-		return texture;
+		return std::make_unique<Texture>(handle);
+	}
+
+	Texture::Texture(const GLuint handle) : _handle(handle)
+	{
+
+	}
+
+	Texture::~Texture()
+	{
+		if (_handle == -1)
+			return;
+		const GLuint glHandle = _handle;
+		glDeleteTextures(1, &glHandle);
+	}
+
+	GLuint Texture::GetHandle() const
+	{
+		return _handle;
 	}
 }

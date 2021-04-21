@@ -54,6 +54,12 @@
     <ClCompile Include="Source\TextureLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PostProcessingEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PostProcessingModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\RenderSystem.h">
@@ -107,10 +113,18 @@
     <ClInclude Include="Include\TextureLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\PostProcessingEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\PostProcessingModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
     <None Include="Resources\vert.vert" />
+    <None Include="Resources\passthrough.frag" />
+    <None Include="Resources\passthrough.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\texture.png">

@@ -1,8 +1,12 @@
 #pragma once
 #include <glm/vec3.hpp>
+#include <vector>
+#include "PostProcessingEffect.h"
 
 namespace rpi
 {
+	class PostProcessingEffect;
+
 	struct Camera final
 	{
 		bool enabled = true;
@@ -14,5 +18,7 @@ namespace rpi
 
 		float clipNear = .1f;
 		float clipFar = 1000;
+
+		std::vector<PostProcessingEffect*> postProcStack{};
 	};
 }

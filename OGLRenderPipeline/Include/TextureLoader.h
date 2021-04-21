@@ -1,12 +1,29 @@
 ﻿#pragma once
-#include "Module.h"
 #include <glad/glad.h>
+#include <memory>
+#include <string>
 
 namespace rpi
 {
-	class TextureLoader final : public jecs::Module<TextureLoader>
+	class Texture;
+
+	class TextureLoader final
 	{
 	public:
-		static GLuint Load(const std::string& path);
+		[[nodiscard]] static std::unique_ptr<Texture> Load(const std::string& path);
+	};
+
+	class Texture final
+	{
+		friend TextureLoader;
+
+	public:
+		explicit Texture(GLuint handle);
+		~Texture();
+
+		[[nodiscard]] GLuint GetHandle() const;
+
+	private:
+		const GLint _handle = -1;
 	};
 }
