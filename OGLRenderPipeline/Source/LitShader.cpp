@@ -32,6 +32,10 @@ namespace rpi
 		glActiveTexture(GL_TEXTURE2);
 		glBindTexture(GL_TEXTURE_2D, _specularTexture);
 
+		glUniform1i(_diffuseTexture, 0);
+		glUniform1i(_normalTexture, 1);
+		glUniform1i(_specularTexture, 2);
+
 		// Forward camera position.
 		glUniform3f(_viewPos, camPos.x, camPos.y, camPos.z);
 

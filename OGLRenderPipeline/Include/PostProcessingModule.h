@@ -30,7 +30,7 @@ namespace rpi
 		GLuint _program = 0;
 		GLuint _vao = 0;
 
-#define MAX_CAMERAS 16
+#define MAX_CAMERAS 16	
 		GLuint _camCount = 0;
 		CameraBuffer* _camBuffers = nullptr;
 		int32_t _currentCamIndex = 0;

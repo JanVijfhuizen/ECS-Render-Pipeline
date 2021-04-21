@@ -44,7 +44,7 @@ namespace rpi
 	GLuint Shader::GetUniformLoc(const std::string& name) const
 	{
 		const GLint loc = glGetUniformLocation(_program, name.c_str());
-		//assert(loc != -1);
+		assert(loc != -1);
 		return loc;
 	}
 }
