@@ -13,7 +13,7 @@ namespace rpi
 
 		struct Direction final
 		{
-			
+			glm::vec3 forward{0, 0, 1};
 		};
 
 		struct Ambient final

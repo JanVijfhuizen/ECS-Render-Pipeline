@@ -5,22 +5,22 @@ namespace rpi
 	{
 		vertices.emplace_back(Vertex{
 			{ .5f, 0, .5f },
-			{ 0, 0, 1 },
+			{ 0, 1, 0 },
 			{ 1, 1 } });
 
 		vertices.emplace_back(Vertex{
 			{ .5f, 0, -.5f },
-			{ 0, 0, 1 },
+			{ 0, 1, 0 },
 			{ 1, 0 } });
 
 		vertices.emplace_back(Vertex{
 			{ -.5f, 0, -.5f },
-			{ 0, 0, 1 },
+			{ 0, 1, 0 },
 			{ 0, 0 } });
 
 		vertices.emplace_back(Vertex{
 			{ -.5f, 0, .5f },
-			{ 0, 0, 1 },
+			{ 0, 1, 0 },
 			{ 0, 1 } });
 
 		indices.emplace_back(0);
