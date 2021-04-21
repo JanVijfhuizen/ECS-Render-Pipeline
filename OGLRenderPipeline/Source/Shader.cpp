@@ -15,7 +15,7 @@ namespace rpi
 		glDeleteProgram(_program);
 	}
 
-	void Shader::Use(const glm::mat4& view, const glm::mat4& projection) const
+	void Shader::Use(const glm::mat4& view, const glm::mat4& projection)
 	{
 		glUseProgram(_program);
 

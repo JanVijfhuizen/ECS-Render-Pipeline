@@ -24,6 +24,12 @@ int main()
 	cameras.Insert(camera.index);
 	auto& camTransform = transforms.Insert(camera.index);
 
+	// Construct a light.
+	const auto ambientLight = cecsar.Spawn();
+	auto& lights = jecs::MapSet<rpi::Light>::Get();
+	auto& lightComponent = lights.Insert(ambientLight.index);
+	lightComponent.type = rpi::Light::Ambient();
+
 	float dt = 0;
 
 	while(true)

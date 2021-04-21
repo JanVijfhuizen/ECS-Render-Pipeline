@@ -26,8 +26,13 @@ namespace rpi::example
 		const GLuint linked = ShaderLoader::LinkShaders(frag, vert);
 		_shader = std::make_unique<LitShader>(linked);
 
-		_shader->SetDiffuseTex(TextureLoader::Load("Resources/texture.png"));
-		_shader->SetNormalTex(TextureLoader::Load("Resources/texture.png"));
+		// Just using the same texture for diffuse and specular.
+		const GLint diffHandle = TextureLoader::Load("Resources/texture.png");
+		const GLint normHandle = TextureLoader::Load("Resources/normal.png");
+
+		_shader->SetDiffuseTex(diffHandle);
+		_shader->SetNormalTex(normHandle);
+		_shader->SetSpecularTex(diffHandle);
 	}
 
 	void ExampleFactory::Construct(const int32_t index) const
