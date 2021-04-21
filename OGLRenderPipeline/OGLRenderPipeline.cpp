@@ -31,6 +31,12 @@ int main()
 	cameras.Insert(camera.index);
 	auto& camTransform = transforms.Insert(camera.index);
 
+	// Construct a entity camera.
+	const auto camera2 = cecsar.Spawn();
+	cameras.Insert(camera2.index);
+	auto& cam2Transform = transforms.Insert(camera2.index);
+	cam2Transform.position = { 0, 4, -4 };
+
 	// Construct a light.
 	const auto light = cecsar.Spawn();
 	auto& lights = jecs::MapSet<rpi::Light>::Get();

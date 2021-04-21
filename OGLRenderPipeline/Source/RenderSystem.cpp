@@ -17,7 +17,7 @@ namespace rpi
 		auto& transforms = jecs::SparseSet<Transform>::Get();
 
 		auto& postProcModule = PostProcessingModule::Get();
-		postProcModule.PreRender();
+		postProcModule.RenderNext();
 
 		for (const auto [camera, camIndex] : cameras)
 		{
@@ -39,6 +39,6 @@ namespace rpi
 			}
 		}
 
-		postProcModule.PostRender();
+		postProcModule.PostRender();		
 	}
 }
