@@ -96,8 +96,8 @@ namespace rpi
 	void PostProcessingModule::BufferQueue::Swap()
 	{
 		auto* const aCopy = active;
-		inactive = active;
-		active = aCopy;
+		active = inactive;
+		inactive = aCopy;
 	}
 
 	void PostProcessingModule::GenerateBuffers()
