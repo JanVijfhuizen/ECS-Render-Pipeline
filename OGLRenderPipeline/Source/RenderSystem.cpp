@@ -6,6 +6,7 @@
 #include "CameraSystem.h"
 #include "Transform.h"
 #include "TransformSystem.h"
+#include "PostProcessingModule.h"
 
 namespace rpi
 {
@@ -15,8 +16,12 @@ namespace rpi
 		auto& renderers = jecs::SparseSet<Renderer>::Get();
 		auto& transforms = jecs::SparseSet<Transform>::Get();
 
+		auto& postProcModule = PostProcessingModule::Get();
+
 		for (const auto [camera, camIndex] : cameras)
 		{
+			postProcModule.RenderNext();
+
 			const auto& camPos = transforms[camIndex].position;
 			const auto projection = CameraSystem::GetProjection(camIndex);
 			const auto view = CameraSystem::GetView(camIndex);
@@ -34,5 +39,7 @@ namespace rpi
 				renderer.mesh->Draw();
 			}
 		}
+
+		postProcModule.PostRender();
 	}
 }

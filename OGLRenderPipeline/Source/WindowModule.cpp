@@ -9,6 +9,22 @@ namespace rpi
 		return static_cast<float>(width) / height;
 	}
 
+	WindowModule::Observer::Observer()
+	{
+		_module = &Get();
+		_module->_observers.push_back(this);
+	}
+
+	WindowModule::Observer::~Observer()
+	{
+		if (!_module)
+			return;
+
+		auto& obsv = _module->_observers;
+		obsv.erase(std::remove(obsv.begin(), obsv.end(), 
+			this), obsv.end());
+	}
+
 	WindowModule::WindowModule(const Settings& settings)
 	{
 		// Initialize GLFW.
@@ -56,7 +72,7 @@ namespace rpi
 		glfwPollEvents();
 	}
 
-	void WindowModule::EndFrame()
+	void WindowModule::EndFrame() const
 	{
 		glFlush();
 		glfwSwapBuffers(_window);

@@ -27,8 +27,11 @@ namespace rpi::example
 		_shader = std::make_unique<LitShader>(linked);
 
 		// Just using the same texture for diffuse and specular.
-		const GLint diffHandle = TextureLoader::Load("Resources/texture.png");
-		const GLint normHandle = TextureLoader::Load("Resources/normal.png");
+		_diffuse = TextureLoader::Load("Resources/texture.png");
+		const GLint diffHandle = _diffuse->GetHandle();
+
+		_normal = TextureLoader::Load("Resources/normal.png");
+		const GLint normHandle = _normal->GetHandle();
 
 		_shader->SetDiffuseTex(diffHandle);
 		_shader->SetNormalTex(normHandle);

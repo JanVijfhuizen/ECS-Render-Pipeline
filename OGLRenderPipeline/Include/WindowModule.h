@@ -21,19 +21,34 @@ namespace rpi
 			[[nodiscard]] float GetAspectRatio() const;
 		};
 
+		class Observer
+		{
+		public:
+			Observer();
+			virtual ~Observer();
+
+		protected:
+			virtual void OnWindowResize(GLFWwindow* window, int32_t width, int32_t height) = 0;
+
+		private:
+			WindowModule* _module = nullptr;
+		};
+
 		glm::vec3 clearColor{.2f, .4f, .2f};
 
 		explicit WindowModule(const Settings& settings = {});
 		~WindowModule();
 
 		void BeginFrame(bool* quit) const;
-		void EndFrame();
+		void EndFrame() const;
 
 		[[nodiscard]] Settings GetSettings() const;
 
 	private:
 		Settings _settings{};
 		GLFWwindow* _window = nullptr;
+
+		std::vector<Observer*> _observers{};
 
 		static void ResizeCallback(GLFWwindow* window, int32_t width, int32_t height);
 	};

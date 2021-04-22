@@ -153,6 +153,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\PostProcessingModule.cpp" />
+    <ClCompile Include="Source\PostProcessingEffect.cpp" />
     <ClCompile Include="Source\LitShader.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\CameraSystem.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Include\ExampleFactory.h" />
     <ClInclude Include="Include\Light.h" />
     <ClInclude Include="Include\Mesh.h" />
+    <ClInclude Include="Include\PostProcessingModule.h" />
     <ClInclude Include="Include\Renderer.h" />
     <ClInclude Include="Include\RenderSystem.h" />
     <ClInclude Include="Include\ShaderLoader.h" />
@@ -190,9 +193,12 @@
     <ClInclude Include="Include\ModelQuad.h" />
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\LitShader.h" />
+    <ClInclude Include="Include\PostProcessingEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
+    <None Include="Resources\passthrough.frag" />
+    <None Include="Resources\passthrough.vert" />
     <None Include="Resources\vert.vert" />
   </ItemGroup>
   <ItemGroup>
