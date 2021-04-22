@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\InverseEffect.cpp" />
     <ClCompile Include="Source\PostProcessingModule.cpp" />
     <ClCompile Include="Source\PostProcessingEffect.cpp" />
     <ClCompile Include="Source\LitShader.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Include\CameraSystem.h" />
     <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\ExampleFactory.h" />
+    <ClInclude Include="Include\InverseEffect.h" />
     <ClInclude Include="Include\Light.h" />
     <ClInclude Include="Include\Mesh.h" />
     <ClInclude Include="Include\PostProcessingModule.h" />
@@ -193,7 +195,7 @@
     <ClInclude Include="Include\ModelQuad.h" />
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\LitShader.h" />
-    <ClInclude Include="Include\PostProcessingEffect.h" />
+    <ClInclude Include="Include\PostEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />

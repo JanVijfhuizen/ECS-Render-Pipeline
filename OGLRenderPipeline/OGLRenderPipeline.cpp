@@ -4,6 +4,7 @@
 #include "ExampleFactory.h"
 #include "MapSet.h"
 #include "Camera.h"
+#include "InverseEffect.h"
 #include "Transform.h"
 
 int main()
@@ -28,8 +29,11 @@ int main()
 	// Construct a entity camera.
 	const auto camera = cecsar.Spawn();
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
-	cameras.Insert(camera.index);
+	auto& camComponent = cameras.Insert(camera.index);
 	auto& camTransform = transforms.Insert(camera.index);
+
+	rpi::PostEffect* inverseEffect = new rpi::InverseEffect;
+	camComponent.postProcStack.push_back(inverseEffect);
 
 	// Construct a entity camera.
 	const auto camera2 = cecsar.Spawn();

@@ -3,6 +3,8 @@
 #include "ShaderLoader.h"
 #include <glm/vec2.hpp>
 
+#include "PostEffect.h"
+
 namespace rpi
 {
 	PostProcessingModule::PostProcessingModule()
@@ -19,14 +21,36 @@ namespace rpi
 		glDeleteVertexArrays(1, &_vao);
 	}
 
-	void PostProcessingModule::RenderNext()
+	void PostProcessingModule::RenderBegin(std::vector<PostEffect*>& effects)
 	{
 		assert(_currentCamIndex < MAX_CAMERAS);
-		const auto& buffer = _camBuffers[_currentCamIndex++];
 
-		glBindFramebuffer(GL_FRAMEBUFFER, buffer.fbo);
-		glClearColor(0, 0, 0, 0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		_effects = &effects;
+		auto& buffer = _camBuffers[_currentCamIndex++];
+
+		const bool even = effects.size() % 2 == 0;
+		_bufferQueue.active = even ? &buffer : &_swappableBuffer;
+		_bufferQueue.inactive = even ? &_swappableBuffer : &buffer;
+		_bufferQueue.Activate();
+	}
+
+	void PostProcessingModule::RenderEnd()
+	{
+		glBindVertexArray(_vao);
+		glActiveTexture(GL_TEXTURE0);
+		
+		for (const auto& effect : *_effects)
+		{
+			_bufferQueue.Swap();
+			_bufferQueue.Activate();
+			
+			// Draw the now inactive render texture on the active buffer.
+			glBindTexture(GL_TEXTURE_2D, _bufferQueue.inactive->texture);
+
+			// Render with effect.
+			effect->Use();
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		}
 	}
 
 	void PostProcessingModule::PostRender()
@@ -44,12 +68,12 @@ namespace rpi
 
 		glUniform1i(_camCount, _currentCamIndex);
 		_currentCamIndex = 0;
-
+		
 		glBindVertexArray(_vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
-	void PostProcessingModule::OnWindowResize(GLFWwindow* window,
+	void PostProcessingModule::OnWindowResize(GLFWwindow* window, 
 		const int32_t width, const int32_t height)
 	{
 		DeleteBuffers();
@@ -62,40 +86,57 @@ namespace rpi
 		glDeleteTextures(1, &texture);
 	}
 
+	void PostProcessingModule::BufferQueue::Activate() const
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, active->fbo);
+		glClearColor(0, 0, 0, 0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void PostProcessingModule::BufferQueue::Swap()
+	{
+		auto* const aCopy = active;
+		active = inactive;
+		inactive = aCopy;
+	}
+
 	void PostProcessingModule::GenerateBuffers()
 	{
-		const auto& windowSettings = WindowModule::Get().GetSettings();
 		_camBuffers = new CameraBuffer[MAX_CAMERAS];
-
 		for (int32_t i = 0; i < MAX_CAMERAS; ++i)
-		{
-			auto& buffer = _camBuffers[i];
-
-			glGenFramebuffers(1, &buffer.fbo);
-			glBindFramebuffer(GL_FRAMEBUFFER, buffer.fbo);
-
-			glGenTextures(1, &buffer.texture);
-			glBindTexture(GL_TEXTURE_2D, buffer.texture);
-
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, windowSettings.width, windowSettings.height,
-				0, GL_RGBA, GL_FLOAT, nullptr);
-
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-				GL_TEXTURE_2D, buffer.texture, 0);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-			// Check if the framebuffer is correctly created.
-			assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-		}
+			GenerateBuffer(_camBuffers[i]);
+		GenerateBuffer(_swappableBuffer);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
-	void PostProcessingModule::DeleteBuffers() const
+	void PostProcessingModule::DeleteBuffers()
 	{
 		delete _camBuffers;
+		_swappableBuffer = {};
+	}
+
+	void PostProcessingModule::GenerateBuffer(CameraBuffer& buffer)
+	{
+		const auto& windowSettings = WindowModule::Get().GetSettings();
+		
+		glGenFramebuffers(1, &buffer.fbo);
+		glBindFramebuffer(GL_FRAMEBUFFER, buffer.fbo);
+
+		glGenTextures(1, &buffer.texture);
+		glBindTexture(GL_TEXTURE_2D, buffer.texture);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, windowSettings.width, windowSettings.height,
+			0, GL_RGBA, GL_FLOAT, nullptr);
+
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+			GL_TEXTURE_2D, buffer.texture, 0);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		// Check if the framebuffer is correctly created.
+		assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 	}
 
 	void PostProcessingModule::SetupShader()
