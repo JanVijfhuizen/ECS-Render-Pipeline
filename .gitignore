@@ -11,9 +11,9 @@
 *.sln.docstates
 
 # Custom unignore dependencies.
-!glfw-3.3.4.bin.WIN64/*
-!glm/*
-!GLAD/*
+!/glfw-3.3.4.bin.WIN64/*
+!/glm/*
+!/GLAD/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
