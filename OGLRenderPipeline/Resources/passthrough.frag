@@ -1,7 +1,5 @@
 #version 450 core
 
-uniform sampler2D diffuse;
-
 uniform int camCount;
 #define MAX_CAMS 16
 uniform sampler2D cameras[MAX_CAMS];

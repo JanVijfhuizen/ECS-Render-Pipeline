@@ -5,6 +5,8 @@
 
 namespace rpi
 {
+	class PostEffect;
+
 	class PostProcessingModule final : public jecs::Module<PostProcessingModule>,
 		public WindowModule::Observer
 	{
@@ -14,6 +16,8 @@ namespace rpi
 
 		void RenderNext();
 		void PostRender();
+
+		void RenderPostEffects(std::vector<PostEffect*>& effects);
 
 	protected:
 		void OnWindowResize(GLFWwindow* window, int32_t width, int32_t height) override;

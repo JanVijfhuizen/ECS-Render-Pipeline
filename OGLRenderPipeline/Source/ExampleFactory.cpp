@@ -20,7 +20,7 @@ namespace rpi::example
 
 		// Define model.
 		const GLuint frag = ShaderLoader::CreateShader(
-			"Resources/frag.frag", GL_FRAGMENT_SHADER);
+			"Resources/fragLit.frag", GL_FRAGMENT_SHADER);
 		const GLuint vert = ShaderLoader::CreateShader(
 			"Resources/vert.vert", GL_VERTEX_SHADER);
 		const GLuint linked = ShaderLoader::LinkShaders(frag, vert);

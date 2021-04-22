@@ -38,6 +38,8 @@ namespace rpi
 				renderer.mesh->UpdateInstanceBuffer(&model, 1);
 				renderer.mesh->Draw();
 			}
+
+			postProcModule.RenderPostEffects(camera.postProcStack);
 		}
 
 		postProcModule.PostRender();

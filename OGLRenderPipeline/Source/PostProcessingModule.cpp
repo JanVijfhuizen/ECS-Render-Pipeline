@@ -3,6 +3,8 @@
 #include "ShaderLoader.h"
 #include <glm/vec2.hpp>
 
+#include "PostEffect.h"
+
 namespace rpi
 {
 	PostProcessingModule::PostProcessingModule()
@@ -44,12 +46,27 @@ namespace rpi
 
 		glUniform1i(_camCount, _currentCamIndex);
 		_currentCamIndex = 0;
-
+		
 		glBindVertexArray(_vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	}
 
-	void PostProcessingModule::OnWindowResize(GLFWwindow* window,
+	void PostProcessingModule::RenderPostEffects(std::vector<PostEffect*>& effects)
+	{
+		glBindVertexArray(_vao);
+
+		auto& buffer = _camBuffers[_currentCamIndex - 1];
+		glActiveTexture(GL_TEXTURE0 );
+		glBindTexture(GL_TEXTURE_2D, buffer.texture);
+
+		for (auto& effect : effects)
+		{
+			effect->Use();
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		}
+	}
+
+	void PostProcessingModule::OnWindowResize(GLFWwindow* window, 
 		const int32_t width, const int32_t height)
 	{
 		DeleteBuffers();

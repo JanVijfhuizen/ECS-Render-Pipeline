@@ -1,11 +1,11 @@
 #pragma once
 #include <glm/vec3.hpp>
 #include <vector>
-#include "PostProcessingEffect.h"
+#include "PostEffect.h"
 
 namespace rpi
 {
-	class PostProcessingEffect;
+	class PostEffect;
 
 	struct Camera final
 	{
@@ -19,6 +19,6 @@ namespace rpi
 		float clipNear = .1f;
 		float clipFar = 1000;
 
-		std::vector<PostProcessingEffect*> postProcStack{};
+		std::vector<PostEffect*> postProcStack{};
 	};
 }
