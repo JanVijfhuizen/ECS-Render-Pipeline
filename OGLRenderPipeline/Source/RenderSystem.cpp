@@ -20,6 +20,9 @@ namespace rpi
 
 		for (const auto [camera, camIndex] : cameras)
 		{
+			if (!camera.enabled)
+				continue;
+			
 			postProcModule.RenderBegin(camera.postProcStack);
 
 			const auto& camPos = transforms[camIndex].position;
@@ -28,6 +31,11 @@ namespace rpi
 
 			for (const auto [renderer, renIndex] : renderers)
 			{
+				// Culling can be done by an external system.
+				if (renderer.culled)
+					continue;
+
+				// If the camera doesn't render this layer.
 				if (CameraSystem::Ignore(camera, renderer))
 					continue;
 				
@@ -36,7 +44,8 @@ namespace rpi
 
 				assert(renderer.mesh);
 				assert(renderer.shader);
-				
+
+				// Use shader and render model.
 				renderer.shader->Use(camPos, view, projection);
 				renderer.mesh->UpdateInstanceBuffer(&model, 1);
 				renderer.mesh->Draw();
