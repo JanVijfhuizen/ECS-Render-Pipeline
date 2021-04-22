@@ -19,6 +19,8 @@ namespace rpi
 		float clipNear = .1f;
 		float clipFar = 1000;
 
+		char layer = 0b111111;
+
 		std::vector<PostEffect*> postProcStack{};
 	};
 }

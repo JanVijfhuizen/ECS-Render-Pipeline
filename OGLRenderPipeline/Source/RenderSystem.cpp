@@ -28,6 +28,9 @@ namespace rpi
 
 			for (const auto [renderer, renIndex] : renderers)
 			{
+				if (CameraSystem::Ignore(camera, renderer))
+					continue;
+				
 				const auto& transform = transforms[renIndex];
 				const auto model = TransformSystem::GetMatrix(transform);
 

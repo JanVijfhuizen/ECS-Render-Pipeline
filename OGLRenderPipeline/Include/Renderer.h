@@ -8,5 +8,6 @@ namespace rpi
 	{
 		Mesh* mesh = nullptr;
 		Shader* shader = nullptr;
+		char layer = 0b000001;
 	};
 }
