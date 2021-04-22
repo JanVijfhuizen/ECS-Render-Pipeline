@@ -20,7 +20,7 @@ namespace rpi
 
 		for (const auto [camera, camIndex] : cameras)
 		{
-			postProcModule.RenderNext();
+			postProcModule.RenderBegin(camera.postProcStack);
 
 			const auto& camPos = transforms[camIndex].position;
 			const auto projection = CameraSystem::GetProjection(camIndex);
@@ -39,7 +39,7 @@ namespace rpi
 				renderer.mesh->Draw();
 			}
 
-			postProcModule.RenderPostEffects(camera.postProcStack);
+			postProcModule.RenderEnd();
 		}
 
 		postProcModule.PostRender();

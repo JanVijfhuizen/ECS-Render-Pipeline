@@ -14,15 +14,17 @@ namespace rpi
 		PostProcessingModule();
 		~PostProcessingModule();
 
-		void RenderNext();
+		void RenderBegin(std::vector<PostEffect*>& effects);
+		void RenderEnd();
+		
 		void PostRender();
-
-		void RenderPostEffects(std::vector<PostEffect*>& effects);
 
 	protected:
 		void OnWindowResize(GLFWwindow* window, int32_t width, int32_t height) override;
 	
 	private:
+#define MAX_CAMERAS 16
+		
 		struct CameraBuffer final
 		{
 			GLuint fbo = 0;
@@ -31,16 +33,31 @@ namespace rpi
 			~CameraBuffer();
 		};
 
+		struct BufferQueue final
+		{
+			CameraBuffer* active = nullptr;
+			CameraBuffer* inactive = nullptr;
+			
+			void Activate() const;
+			void Swap();
+		};
+
 		GLuint _program = 0;
 		GLuint _vao = 0;
-
-#define MAX_CAMERAS 16	
+		
 		GLuint _camCount = 0;
-		CameraBuffer* _camBuffers = nullptr;
 		int32_t _currentCamIndex = 0;
 
+		CameraBuffer* _camBuffers = nullptr;
+		CameraBuffer _swappableBuffer;
+		
+		std::vector<PostEffect*>* _effects = nullptr;
+		BufferQueue _bufferQueue{};
+
 		void GenerateBuffers();
-		void DeleteBuffers() const;
+		void DeleteBuffers();
+
+		static void GenerateBuffer(CameraBuffer& buffer);
 
 		void SetupShader();
 		void SetupModel();
