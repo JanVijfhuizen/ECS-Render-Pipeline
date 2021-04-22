@@ -2,8 +2,9 @@
 
 namespace rpi
 {
-	class PostProcessingEffect
+	class PostEffect
 	{
 	public:
+		virtual void Use() = 0;
 	};
 }
