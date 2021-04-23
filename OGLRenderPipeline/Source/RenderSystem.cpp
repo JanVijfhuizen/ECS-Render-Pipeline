@@ -41,15 +41,17 @@ namespace rpi
 			for (int32_t i = 0; i < batchEnd;)
 			{
 				auto& renderer = renderValues[i];
+				const auto& batch = batches[currentBatch++];
 				
 				// If the batch isn't culled or ignored.
 				if (!renderer.isCulled && !CameraSystem::Ignore(camera, renderer))
 				{
 					renderer.shader->Use(camPos, view, projection);
+					renderer.mesh->SwapIbo(batch.ibo);
 					renderer.mesh->Draw();
 				}
 
-				i += batches[currentBatch++].size;
+				i += batch.size;
 			}
 
 			// Render non batched instances.
@@ -71,7 +73,8 @@ namespace rpi
 
 				// Use shader and render model.
 				renderer.shader->Use(camPos, view, projection);
-				renderer.mesh->UpdateInstanceBuffer(&model, 1);
+				renderer.mesh->SwapIbo();
+				renderer.mesh->UpdateIbo(&model, 1);
 				renderer.mesh->Draw();
 			}
 			

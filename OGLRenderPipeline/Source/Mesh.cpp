@@ -35,27 +35,37 @@ namespace rpi
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 
 			sizeof(Vertex), (void*)(2 * sizeof(glm::vec3)));
 		glEnableVertexAttribArray(2);
-
-		// Generate IBO.
+		
+		// Generate IBO and bind it.
 		_ibo = GenerateBuffer();
-		glBindBuffer(GL_ARRAY_BUFFER, _ibo);
+		_currentIbo = _ibo;
 
 		const std::size_t vec4Size = sizeof(glm::vec4);
 		const std::size_t mat4Size = vec4Size * 4;
+		const int32_t begin = 3;
+
+		glBindVertexArray(_vao);
+		glBindBuffer(GL_ARRAY_BUFFER, _ibo);
+
+		glVertexAttribPointer(begin, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, nullptr);
+
+		glVertexAttribPointer(begin + 1, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, (void*)(1 * vec4Size));
+
+		glVertexAttribPointer(begin + 2, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, (void*)(2 * vec4Size));
+
+		glVertexAttribPointer(begin + 3, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, (void*)(3 * vec4Size));
+
 		const int32_t iboBegin = 3;
 
+		// Enable IBO attributes.
 		glEnableVertexAttribArray(iboBegin);
-		glVertexAttribPointer(iboBegin, 4, GL_FLOAT,
-			GL_FALSE, mat4Size, nullptr);
 		glEnableVertexAttribArray(iboBegin + 1);
-		glVertexAttribPointer(iboBegin + 1, 4, GL_FLOAT,
-			GL_FALSE, mat4Size, (void*)(1 * vec4Size));
 		glEnableVertexAttribArray(iboBegin + 2);
-		glVertexAttribPointer(iboBegin + 2, 4, GL_FLOAT,
-			GL_FALSE, mat4Size, (void*)(2 * vec4Size));
 		glEnableVertexAttribArray(iboBegin + 3);
-		glVertexAttribPointer(iboBegin + 3, 4, GL_FLOAT,
-			GL_FALSE, mat4Size, (void*)(3 * vec4Size));
 
 		glVertexAttribDivisor(iboBegin, 1);
 		glVertexAttribDivisor(iboBegin + 1, 1);
@@ -70,7 +80,7 @@ namespace rpi
 			glDeleteBuffers(1, &bufferObject);
 	}
 
-	void Mesh::UpdateInstanceBuffer(const glm::mat4* models, const int32_t count)
+	void Mesh::UpdateIbo(const glm::mat4* models, const int32_t count)
 	{
 		_count = count;
 		glBindBuffer(GL_ARRAY_BUFFER, _ibo);
@@ -83,6 +93,34 @@ namespace rpi
 		glBindVertexArray(_vao);
 		glDrawElementsInstanced(_mode, _size,
 			GL_UNSIGNED_INT, 0, _count);
+	}
+
+	bool Mesh::SwapIbo(const GLint ibo)
+	{
+		const GLuint targetIbo = ibo == -1 ? _ibo : ibo;
+		if (_currentIbo == targetIbo)
+			return false;
+		_currentIbo = targetIbo;
+
+		const std::size_t vec4Size = sizeof(glm::vec4);
+		const std::size_t mat4Size = vec4Size * 4;
+		const int32_t begin = 3;
+		
+		glBindVertexArray(_vao);
+		glBindBuffer(GL_ARRAY_BUFFER, targetIbo);
+
+		glVertexAttribPointer(begin, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, nullptr);
+
+		glVertexAttribPointer(begin + 1, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, (void*)(1 * vec4Size));
+
+		glVertexAttribPointer(begin + 2, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, (void*)(2 * vec4Size));
+
+		glVertexAttribPointer(begin + 3, 4, GL_FLOAT,
+			GL_FALSE, mat4Size, (void*)(3 * vec4Size));
+		return true;
 	}
 
 	GLuint Mesh::GenerateBuffer()

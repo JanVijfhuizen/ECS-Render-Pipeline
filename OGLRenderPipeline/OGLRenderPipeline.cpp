@@ -20,7 +20,7 @@ int main()
 
 	const int32_t rSpawn = 10;
 	glm::mat4 batchArr[rSpawn];
-	for (int32_t i = 0; i < rSpawn; ++i)
+	for (auto& i : batchArr)
 	{
 		const auto quad = cecsar.Spawn();
 		factory.Construct(quad.index);
@@ -28,10 +28,11 @@ int main()
 		transform.position = { rand() % 4 - 2, rand() % 2 - 1, rand() % 4 - 2 };
 		transform.rotation = { rand() % 360, rand() % 360, rand() % 360 };
 
-		batchArr[i] = rpi::TransformSystem::GetMatrix(transform);
+		i = rpi::TransformSystem::GetMatrix(transform);
 	}
 
-	factory.GetMesh().UpdateInstanceBuffer(batchArr, rSpawn);
+	factory.GetMesh().UpdateIbo(batchArr, rSpawn);
+	factory.GetMesh().SwapIbo(-1);
 	rpi::RenderSystem::Batch batch;
 	batch.size = rSpawn;
 	
