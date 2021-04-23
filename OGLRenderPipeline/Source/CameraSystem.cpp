@@ -1,6 +1,7 @@
 ﻿#include "CameraSystem.h"
 #include "Camera.h"
 #include "MapSet.h"
+#include "Renderer.h"
 #include "glm/ext.hpp"
 #include "WindowModule.h"
 #include "SparseSet.h"
@@ -33,5 +34,10 @@ namespace rpi
 
 		return glm::perspective(glm::radians(camera.fov),
 			windowSettings.GetAspectRatio(), camera.clipNear, camera.clipFar);
+	}
+
+	bool CameraSystem::Ignore(Camera& camera, Renderer& renderer)
+	{
+		return (camera.layer & renderer.layer) == 0;
 	}
 }
