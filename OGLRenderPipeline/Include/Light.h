@@ -6,11 +6,16 @@ namespace rpi
 {
 	struct Light final
 	{
-		struct Point final
+		struct Fallof final
 		{
 			float constant = 1;
 			float linear = 0.09f;
 			float quadratic = 0.032f;
+		};
+		
+		struct Point final
+		{
+			Fallof fallof;
 		};
 
 		struct Directional final
@@ -20,8 +25,8 @@ namespace rpi
 
 		struct Spot final
 		{
-			glm::vec3 forward{0, 0, 1};
-			float cutoff = 45;
+			Fallof fallof;		
+			float cutOff = 45;
 		};
 
 		struct Ambient final
@@ -29,7 +34,7 @@ namespace rpi
 			
 		};
 
-		using Type = std::variant<Point, Directional, Ambient>;
+		using Type = std::variant<Point, Directional, Spot, Ambient>;
 
 		glm::vec3 diffuse{ 1 };
 

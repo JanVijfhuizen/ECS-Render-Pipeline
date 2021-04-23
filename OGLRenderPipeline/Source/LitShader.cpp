@@ -20,9 +20,11 @@ namespace rpi
 		_ambient = GetUniformLoc("ambient");
 
 		_ptCount = GetUniformLoc("ptCount");
+		_spotCount = GetUniformLoc("spotCount");
 		_dirCount = GetUniformLoc("dirCount");
 
 		SetupDirLights();
+		SetupSpotLights();
 		SetupPointLights();
 	}
 
@@ -56,6 +58,7 @@ namespace rpi
 
 		// Forward the amount of lights.
 		glUniform1i(_ptCount, _ptCountVal);
+		glUniform1i(_spotCount, _spotCountVal);
 		glUniform1i(_dirCount, _dirCountVal);
 	}
 
@@ -64,7 +67,7 @@ namespace rpi
 		_colorVal = color;
 	}
 
-	void LitShader::SetSpecularity(const float val)
+	void LitShader::SetSpecularity(const int32_t val)
 	{
 		_specularity = val;
 	}
@@ -96,40 +99,38 @@ namespace rpi
 			return;
 
 		const auto& ptLight = _shader._ptLights[_ptCount++];
-		const auto& transform = _transforms[index];
-
-		// Set diffuse.
-		const auto& diffuse = light->diffuse;
-		glUniform3f(ptLight.diffuse, diffuse.x, diffuse.y, diffuse.z);
-
-		glUniform1f(ptLight.constant, point.constant);
-		glUniform1f(ptLight.linear, point.linear);
-		glUniform1f(ptLight.quadratic, point.quadratic);
-
-		// Set position.
-		const auto& position = transform.position;
-		glUniform3f(ptLight.pos, position.x, position.y, position.z);
+		
+		SetDiffuse(ptLight.diffuse);
+		SetFallof(ptLight.fallof, point.fallof);
+		SetPosition(ptLight.pos);
 	}
 
-	void LitShader::DefaultVisitor::operator()(const Light::Directional& direction)
+	void LitShader::DefaultVisitor::operator()(const Light::Directional&)
 	{
 		if (_dirCount >= _shader._maxDirLights)
 			return;
 
 		const auto& dirLight = _shader._dirLights[_dirCount++];
-
-		// Set diffuse.
-		const auto& diffuse = light->diffuse;
-		glUniform3f(dirLight.diffuse, diffuse.x, diffuse.y, diffuse.z);
-
-		// Set direction.
-		const auto& transform = _transforms[index];
-		const auto forward = TransformSystem::GetForward(transform);
 		
-		glUniform3f(dirLight.dir, forward.x, forward.y, forward.z);
+		SetDiffuse(dirLight.diffuse);
+		SetDirection(dirLight.dir);
 	}
 
-	void LitShader::DefaultVisitor::operator()(const Light::Ambient& ambient) const
+	void LitShader::DefaultVisitor::operator()(const Light::Spot& spot)
+	{
+		if (_spotCount >= _shader._maxSpotLights)
+			return;
+
+		const auto& spotLight = _shader._spotLights[_spotCount++];
+		glUniform1f(spotLight.cutOff, glm::cos(glm::radians(spot.cutOff)));
+		
+		SetDiffuse(spotLight.diffuse * 10000);
+		SetPosition(spotLight.pos);
+		SetDirection(spotLight.dir);
+		SetFallof(spotLight.fallof, spot.fallof);
+	}
+
+	void LitShader::DefaultVisitor::operator()(const Light::Ambient&) const
 	{
 		_shader.SetAmbient(light->diffuse);
 	}
@@ -137,7 +138,35 @@ namespace rpi
 	void LitShader::DefaultVisitor::PostVisit() const
 	{
 		_shader.SetPointLightCount(_ptCount);
+		_shader.SetSpotLightCount(_spotCount);
 		_shader.SetDirLightCount(_dirCount);
+	}
+
+	void LitShader::DefaultVisitor::SetDiffuse(const GLuint handle) const
+	{
+		const auto& diffuse = light->diffuse;
+		glUniform3f(handle, diffuse.x, diffuse.y, diffuse.z);
+	}
+
+	void LitShader::DefaultVisitor::SetPosition(const GLuint handle) const
+	{
+		const auto& transform = _transforms[index];
+		const auto& position = transform.position;
+		glUniform3f(handle, position.x, position.y, position.z);
+	}
+
+	void LitShader::DefaultVisitor::SetDirection(const GLuint handle) const
+	{
+		const auto& transform = _transforms[index];
+		const auto forward = TransformSystem::GetForward(transform);
+		glUniform3f(handle, forward.x, forward.y, forward.z);
+	}
+
+	void LitShader::DefaultVisitor::SetFallof(const Fallof& handles, const Light::Fallof& values)
+	{
+		glUniform1f(handles.constant, values.constant);
+		glUniform1f(handles.linear, values.linear);
+		glUniform1f(handles.quadratic, values.quadratic);
 	}
 
 	void LitShader::HandleLighting()
@@ -174,6 +203,12 @@ namespace rpi
 		SetupPointLights();
 	}
 
+	void LitShader::SetMaxSpotLights(const int32_t num)
+	{
+		_maxSpotLights = num;
+		SetupSpotLights();
+	}
+
 	void LitShader::SetMaxDirLights(const int32_t num)
 	{
 		_maxPointLights = num;
@@ -188,6 +223,11 @@ namespace rpi
 	void LitShader::SetPointLightCount(const int32_t count)
 	{
 		_ptCountVal = count;
+	}
+
+	void LitShader::SetSpotLightCount(const int32_t count)
+	{
+		_spotCountVal = count;
 	}
 
 	void LitShader::SetDirLightCount(const int32_t count)
@@ -209,11 +249,37 @@ namespace rpi
 			light.diffuse = GetUniformLoc(str + "diffuse");
 			light.pos = GetUniformLoc(str + "pos");
 
-			light.constant = GetUniformLoc(str + "constant");
-			light.linear = GetUniformLoc(str + "linear");
-			light.quadratic = GetUniformLoc(str + "quadratic");
+			auto& fallof = light.fallof;
+			fallof.constant = GetUniformLoc(str + "constant");
+			fallof.linear = GetUniformLoc(str + "linear");
+			fallof.quadratic = GetUniformLoc(str + "quadratic");
 
 			_ptLights.push_back(light);
+		}
+	}
+
+	void LitShader::SetupSpotLights()
+	{
+		_spotLights.clear();
+
+		for (int32_t i = 0; i < _maxSpotLights; ++i)
+		{
+			std::string str = "spotLights[";
+			str.append(std::to_string(i));
+			str.append("].");
+
+			SpotLight light;
+			light.cutOff = GetUniformLoc(str + "cutOff");
+			light.diffuse = GetUniformLoc(str + "diffuse");
+			light.pos = GetUniformLoc(str + "pos");
+			light.dir = GetUniformLoc(str + "dir");
+
+			auto& fallof = light.fallof;
+			fallof.constant = GetUniformLoc(str + "constant");
+			fallof.linear = GetUniformLoc(str + "linear");
+			fallof.quadratic = GetUniformLoc(str + "quadratic");
+
+			_spotLights.push_back(light);
 		}
 	}
 
