@@ -9,7 +9,7 @@ namespace rpi
 	{
 	public:
 		explicit Shader(GLuint memProgram);
-		~Shader();
+		virtual ~Shader();
 
 		virtual void Use(glm::vec3 camPos, const glm::mat4& view, const glm::mat4& projection);
 
@@ -18,7 +18,7 @@ namespace rpi
 		[[nodiscard]] GLuint GetView() const;
 		[[nodiscard]] GLuint GetProjection() const;
 
-		GLuint GetUniformLoc(const std::string& name) const;
+		[[nodiscard]] GLuint GetUniformLoc(const std::string& name) const;
 
 	private:
 		GLuint _program = 0;

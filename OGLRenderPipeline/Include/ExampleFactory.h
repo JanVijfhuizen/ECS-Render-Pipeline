@@ -23,6 +23,8 @@ namespace rpi::example
 		void Construct(int32_t index) const;
 		void Load() const;
 
+		Mesh& GetMesh() const;
+
 	private:
 		jecs::SparseSet<ExampleFactoryLoader>& _loaders;
 		jecs::SparseSet<Renderer>& _renderers;
