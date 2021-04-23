@@ -10,7 +10,7 @@ namespace rpi
 	public:
 		Mesh(std::vector<Vertex>& vertices, std::vector<int32_t>& indices, 
 			GLuint mode = GL_TRIANGLES);
-		~Mesh();
+		virtual ~Mesh();
 
 		virtual void UpdateInstanceBuffer(const glm::mat4* models, int32_t count);
 		virtual void Draw() const;

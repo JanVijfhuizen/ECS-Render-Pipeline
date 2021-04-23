@@ -10,14 +10,21 @@
 
 namespace rpi
 {
-	void RenderSystem::Update()
+	void RenderSystem::Update(Batch* batches, const int32_t batchNum)
 	{
 		auto& cameras = jecs::MapSet<Camera>::Get();
 		auto& renderers = jecs::SparseSet<Renderer>::Get();
 		auto& transforms = jecs::SparseSet<Transform>::Get();
+		
+		const auto& renderValues = renderers.GetValuesRaw();
+		const auto& renderDense = renderers.GetDenseRaw();
 
+		const int32_t batchEnd = batchNum == 0 ? 0 : batches[batchNum - 1].size;
+		const int32_t renderCount = renderers.GetCount();
+		
 		auto& postProcModule = PostProcessingModule::Get();
 
+		// Draw every camera's viewpoint.
 		for (const auto [camera, camIndex] : cameras)
 		{
 			if (!camera.enabled)
@@ -29,28 +36,45 @@ namespace rpi
 			const auto projection = CameraSystem::GetProjection(camIndex);
 			const auto view = CameraSystem::GetView(camIndex);
 
-			for (const auto [renderer, renIndex] : renderers)
+			// Render batches.
+			int32_t currentBatch = 0;
+			for (int32_t i = 0; i < batchEnd;)
 			{
+				auto& renderer = renderValues[i];
+				
+				// If the batch isn't culled or ignored.
+				if (!renderer.isCulled && !CameraSystem::Ignore(camera, renderer))
+				{
+					renderer.shader->Use(camPos, view, projection);
+					renderer.mesh->Draw();
+				}
+
+				i += batches[currentBatch++].size;
+			}
+
+			// Render non batched instances.
+			for (int32_t i = batchEnd; i < renderCount; ++i)
+			{
+				auto& renderer = renderers[i];
+				const int32_t index = renderDense[i];
+
 				// Culling can be done by an external system.
-				if (renderer.culled)
+				if (renderer.isCulled)
 					continue;
 
 				// If the camera doesn't render this layer.
 				if (CameraSystem::Ignore(camera, renderer))
 					continue;
-				
-				const auto& transform = transforms[renIndex];
-				const auto model = TransformSystem::GetMatrix(transform);
 
-				assert(renderer.mesh);
-				assert(renderer.shader);
+				const auto& transform = transforms[index];
+				const auto model = TransformSystem::GetMatrix(transform);
 
 				// Use shader and render model.
 				renderer.shader->Use(camPos, view, projection);
 				renderer.mesh->UpdateInstanceBuffer(&model, 1);
 				renderer.mesh->Draw();
 			}
-
+			
 			postProcModule.RenderEnd();
 		}
 

@@ -53,4 +53,9 @@ namespace rpi::example
 		for (const auto [_, index] : _loaders)
 			Construct(index);
 	}
+
+	Mesh& ExampleFactory::GetMesh() const
+	{
+		return *_mesh;
+	}
 }

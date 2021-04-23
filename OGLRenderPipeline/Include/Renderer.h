@@ -10,6 +10,7 @@ namespace rpi
 		Shader* shader = nullptr;
 		
 		char layer = 0b000001;
-		bool culled = false;
+		bool isCulled = false;
+		bool isStatic = false;
 	};
 }
