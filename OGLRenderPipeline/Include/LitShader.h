@@ -14,21 +14,37 @@ namespace rpi
 		void Use(glm::vec3 camPos, const glm::mat4& view, const glm::mat4& projection) override;
 
 		void SetColor(glm::vec3 color = glm::vec3{1});
-		void SetSpecularity(float val);
+		void SetSpecularity(int32_t val);
 
 		void SetDiffuseTex(GLint handle = -1);
 		void SetNormalTex(GLint handle = -1);
 		void SetSpecularTex(GLint handle = -1);
 
 	protected:
+		struct Fallof final
+		{
+			GLint constant = -1;
+			GLint linear = -1;
+			GLint quadratic = -1;
+		};
+		
 		struct PointLight final
 		{
 			GLint diffuse = -1;
 			GLint pos = -1;
 
-			GLint constant = -1;
-			GLint linear = -1;
-			GLint quadratic = -1;
+			Fallof fallof;
+		};
+
+		struct SpotLight final
+		{
+			GLuint cutOff;
+			
+			GLint diffuse = -1;
+			GLint pos = -1;
+			GLint dir = -1;
+			
+			Fallof fallof;
 		};
 
 		struct DirLight final
@@ -46,6 +62,7 @@ namespace rpi
 
 			void operator()(const Light::Point& point);
 			void operator()(const Light::Directional& direction);
+			void operator()(const Light::Spot& spot);
 			void operator()(const Light::Ambient& ambient) const;
 
 			void PostVisit() const;
@@ -55,7 +72,13 @@ namespace rpi
 			jecs::SparseSet<Transform>& _transforms;
 
 			int32_t _ptCount = 0;
+			int32_t _spotCount = 0;
 			int32_t _dirCount = 0;
+
+			void SetDiffuse(GLuint handle) const;
+			void SetPosition(GLuint handle) const;
+			void SetDirection(GLuint handle) const;
+			static void SetFallof(const Fallof& handles, const Light::Fallof& values);
 		};
 
 		virtual void HandleLighting();
@@ -64,10 +87,13 @@ namespace rpi
 		[[nodiscard]] int32_t GetMaxDirLights() const;
 
 		void SetMaxPointLights(int32_t num);
+		void SetMaxSpotLights(int32_t num);
 		void SetMaxDirLights(int32_t num);
 
 		void SetAmbient(glm::vec3 value = {});
+		
 		void SetPointLightCount(int32_t count = 0);
+		void SetSpotLightCount(int32_t count = 0);
 		void SetDirLightCount(int32_t count = 0);
 
 	private:
@@ -86,9 +112,11 @@ namespace rpi
 
 		// Lighting.
 		std::vector<PointLight> _ptLights{};
+		std::vector<SpotLight> _spotLights{};
 		std::vector<DirLight> _dirLights{};
 
 		int32_t _maxDirLights = 4;
+		int32_t _maxSpotLights = 4;
 		int32_t _maxPointLights = 4;
 
 		GLuint _ambient = -1;
@@ -97,10 +125,14 @@ namespace rpi
 		GLuint _ptCount = -1;
 		int32_t _ptCountVal = 0;
 
+		GLuint _spotCount = -1;
+		int32_t _spotCountVal = 0;
+		
 		GLuint _dirCount = -1;
 		int32_t _dirCountVal = 0;
 
 		void SetupPointLights();
+		void SetupSpotLights();
 		void SetupDirLights();
 	};
 }

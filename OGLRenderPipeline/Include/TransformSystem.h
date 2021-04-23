@@ -9,5 +9,6 @@ namespace rpi
 	{
 	public:
 		static glm::mat4 GetMatrix(const Transform& transform);
+		static glm::vec3 GetForward(const Transform& transform);
 	};
 }
