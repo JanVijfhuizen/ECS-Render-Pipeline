@@ -38,28 +38,24 @@ namespace rpi
 		
 		// Generate IBO and bind it.
 		_ibo = GenerateBuffer();
+		glBindBuffer(GL_ARRAY_BUFFER, _ibo);
 		_currentIbo = _ibo;
 
 		const std::size_t vec4Size = sizeof(glm::vec4);
 		const std::size_t mat4Size = vec4Size * 4;
-		const int32_t begin = 3;
+		const int32_t iboBegin = 3;
 
-		glBindVertexArray(_vao);
-		glBindBuffer(GL_ARRAY_BUFFER, _ibo);
-
-		glVertexAttribPointer(begin, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, nullptr);
 
-		glVertexAttribPointer(begin + 1, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin + 1, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, (void*)(1 * vec4Size));
 
-		glVertexAttribPointer(begin + 2, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin + 2, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, (void*)(2 * vec4Size));
 
-		glVertexAttribPointer(begin + 3, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin + 3, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, (void*)(3 * vec4Size));
-
-		const int32_t iboBegin = 3;
 
 		// Enable IBO attributes.
 		glEnableVertexAttribArray(iboBegin);
@@ -104,21 +100,21 @@ namespace rpi
 
 		const std::size_t vec4Size = sizeof(glm::vec4);
 		const std::size_t mat4Size = vec4Size * 4;
-		const int32_t begin = 3;
+		const int32_t iboBegin = 3;
 		
 		glBindVertexArray(_vao);
 		glBindBuffer(GL_ARRAY_BUFFER, targetIbo);
 
-		glVertexAttribPointer(begin, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, nullptr);
 
-		glVertexAttribPointer(begin + 1, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin + 1, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, (void*)(1 * vec4Size));
 
-		glVertexAttribPointer(begin + 2, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin + 2, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, (void*)(2 * vec4Size));
 
-		glVertexAttribPointer(begin + 3, 4, GL_FLOAT,
+		glVertexAttribPointer(iboBegin + 3, 4, GL_FLOAT,
 			GL_FALSE, mat4Size, (void*)(3 * vec4Size));
 		return true;
 	}

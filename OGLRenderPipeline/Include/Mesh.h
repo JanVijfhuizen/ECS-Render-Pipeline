@@ -16,6 +16,7 @@ namespace rpi
 		virtual void Draw() const;
 
 		virtual bool SwapIbo(GLint ibo = -1);
+		
 		[[nodiscard]] GLuint GenerateBuffer();
 
 	private:
