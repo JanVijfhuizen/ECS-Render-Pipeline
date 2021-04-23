@@ -32,7 +32,7 @@ int main()
 	}
 
 	factory.GetMesh().UpdateIbo(batchArr, rSpawn);
-	factory.GetMesh().SwapIbo(-1);
+	factory.GetMesh().SwapIbo();
 	rpi::RenderSystem::Batch batch;
 	batch.size = rSpawn;
 	
@@ -43,6 +43,7 @@ int main()
 	auto& camTransform = transforms.Insert(camera.index);
 
 	rpi::PostEffect* inverseEffect = new rpi::InverseEffect;
+	camComponent.postProcStack.push_back(inverseEffect);
 	camComponent.postProcStack.push_back(inverseEffect);
 	camComponent.postProcStack.push_back(inverseEffect);
 	camComponent.postProcStack.push_back(inverseEffect);
@@ -60,6 +61,14 @@ int main()
 
 	lightComponent.type = rpi::Light::Point();
 	auto& lightTrans = transforms.Insert(light.index);
+
+	// Construct a light.
+	const auto l2 = cecsar.Spawn();
+	auto& l2c = lights.Insert(l2.index);
+
+	l2c.type = rpi::Light::Directional();
+	auto& l2t = transforms.Insert(l2.index);
+	l2t.position.x = -40;
 	
 	float dt = 0;
 
@@ -79,6 +88,10 @@ int main()
 		lightTrans.position.x = cos(-dt) * .5f;
 		lightTrans.position.z = sin(-dt) * .5f;
 		lightTrans.position.y = .2f;
+
+		l2t.rotation.y += dt / 1000;
+		while (l2t.rotation.y > 360)
+			l2t.rotation -= 360;
 
 		rpi::RenderSystem::Update(&batch, 1);
 

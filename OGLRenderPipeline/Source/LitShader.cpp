@@ -1,8 +1,14 @@
 ﻿#include "LitShader.h"
+
+
+#include <iostream>
+#include <glm/trigonometric.hpp>
+
 #include "MapSet.h"
 #include "Light.h"
 #include "SparseSet.h"
 #include "Transform.h"
+#include "TransformSystem.h"
 
 namespace rpi
 {
@@ -117,7 +123,9 @@ namespace rpi
 		glUniform3f(dirLight.diffuse, diffuse.x, diffuse.y, diffuse.z);
 
 		// Set direction.
-		const auto& forward = direction.forward;
+		const auto& transform = _transforms[index];
+		const auto forward = TransformSystem::GetForward(transform);
+		
 		glUniform3f(dirLight.dir, forward.x, forward.y, forward.z);
 	}
 

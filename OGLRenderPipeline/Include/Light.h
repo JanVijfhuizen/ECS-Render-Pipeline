@@ -15,7 +15,13 @@ namespace rpi
 
 		struct Directional final
 		{
+			
+		};
+
+		struct Spot final
+		{
 			glm::vec3 forward{0, 0, 1};
+			float cutoff = 45;
 		};
 
 		struct Ambient final
