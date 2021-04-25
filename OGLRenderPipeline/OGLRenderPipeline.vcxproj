@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Mesh_im4.cpp" />
     <ClCompile Include="Source\InverseEffect.cpp" />
     <ClCompile Include="Source\PostProcessingModule.cpp" />
     <ClCompile Include="Source\PostProcessingEffect.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\LitShader.h" />
     <ClInclude Include="Include\PostEffect.h" />
+    <ClInclude Include="Include\Mesh_im4.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
