@@ -1,7 +1,4 @@
 ﻿#include "LitShader.h"
-
-
-#include <iostream>
 #include <glm/trigonometric.hpp>
 
 #include "MapSet.h"

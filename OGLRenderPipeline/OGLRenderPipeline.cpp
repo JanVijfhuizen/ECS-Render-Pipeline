@@ -31,9 +31,9 @@ int main()
 		i = rpi::TransformSystem::GetMatrix(transform);
 	}
 
-	factory.GetMesh().UpdateIbo(batchArr, rSpawn);
-	factory.GetMesh().SwapIbo();
-	rpi::RenderSystem::Batch batch;
+	auto& renderers = jecs::SparseSet<rpi::Renderer>::Get();
+	factory.GetMesh().FillBatch(renderers.GetDenseRaw(), rSpawn);
+	rpi::Mesh::Batch batch;
 	batch.size = rSpawn;
 	
 	// Construct a entity camera.

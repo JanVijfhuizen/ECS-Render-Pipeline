@@ -8,16 +8,26 @@ namespace rpi
 	class Mesh
 	{
 	public:
+		struct Batch final
+		{
+			int32_t size = 1;
+			GLint ibo = -1;
+		};
+		
 		Mesh(std::vector<Vertex>& vertices, std::vector<int32_t>& indices, 
 			GLuint mode = GL_TRIANGLES);
 		virtual ~Mesh();
 
-		virtual void UpdateIbo(const glm::mat4* models, int32_t count);
-		virtual void Draw() const;
-
-		virtual bool SwapIbo(GLint ibo = -1);
+		void SwapBatch(Batch batch = {});
+		void FillBatch(const int32_t* indexes, int32_t size);
+		
+		void Draw() const;
 		
 		[[nodiscard]] GLuint GenerateBuffer();
+
+	protected:
+		virtual void OnFillBatch(const int32_t* indexes, int32_t size);
+		virtual void DefineIbo();
 
 	private:
 		GLuint _vao = -1;
