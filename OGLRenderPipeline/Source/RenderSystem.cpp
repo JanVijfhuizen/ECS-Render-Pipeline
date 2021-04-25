@@ -5,12 +5,11 @@
 #include "Camera.h"
 #include "CameraSystem.h"
 #include "Transform.h"
-#include "TransformSystem.h"
 #include "PostProcessingModule.h"
 
 namespace rpi
 {
-	void RenderSystem::Update(Batch* batches, const int32_t batchNum)
+	void RenderSystem::Update(Mesh::Batch* batches, const int32_t batchNum)
 	{
 		auto& cameras = jecs::MapSet<Camera>::Get();
 		auto& renderers = jecs::SparseSet<Renderer>::Get();
@@ -19,8 +18,10 @@ namespace rpi
 		const auto& renderValues = renderers.GetValuesRaw();
 		const auto& renderDense = renderers.GetDenseRaw();
 
-		const int32_t batchEnd = batchNum == 0 ? 0 : batches[batchNum - 1].size;
 		const int32_t renderCount = renderers.GetCount();
+		int32_t batchEnd = 0;
+		for (int32_t i = batchNum - 1; i >= 0; --i)
+			batchEnd += batches[i].size;
 		
 		auto& postProcModule = PostProcessingModule::Get();
 
@@ -47,7 +48,8 @@ namespace rpi
 				if (!renderer.isCulled && !CameraSystem::Ignore(camera, renderer))
 				{
 					renderer.shader->Use(camPos, view, projection);
-					renderer.mesh->SwapIbo(batch.ibo);
+					
+					renderer.mesh->SwapBatch(batch);
 					renderer.mesh->Draw();
 				}
 
@@ -58,7 +60,6 @@ namespace rpi
 			for (int32_t i = batchEnd; i < renderCount; ++i)
 			{
 				auto& renderer = renderers[i];
-				const int32_t index = renderDense[i];
 
 				// Culling can be done by an external system.
 				if (renderer.isCulled)
@@ -67,14 +68,13 @@ namespace rpi
 				// If the camera doesn't render this layer.
 				if (CameraSystem::Ignore(camera, renderer))
 					continue;
-
-				const auto& transform = transforms[index];
-				const auto model = TransformSystem::GetMatrix(transform);
-
+				
 				// Use shader and render model.
 				renderer.shader->Use(camPos, view, projection);
-				renderer.mesh->SwapIbo();
-				renderer.mesh->UpdateIbo(&model, 1);
+
+				// Swap to default batch.
+				renderer.mesh->SwapBatch();
+				renderer.mesh->FillBatch(&renderDense[i], 1);
 				renderer.mesh->Draw();
 			}
 			
