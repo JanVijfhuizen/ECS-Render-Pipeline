@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include <glad/glad.h>
+#include "Mesh.h"
 
 namespace rpi
 {
@@ -9,12 +9,6 @@ namespace rpi
 	class RenderSystem final
 	{
 	public:
-		struct Batch final
-		{
-			int32_t size = 0;
-			GLint ibo = -1;
-		};
-
-		static void Update(Batch* batches, int32_t batchNum);
+		static void Update(Mesh::Batch* batches, int32_t batchNum);
 	};
 }
