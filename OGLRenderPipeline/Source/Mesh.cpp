@@ -90,9 +90,19 @@ namespace rpi
 		return buffer;
 	}
 
-	void Mesh::OnFillBatch(const int32_t* indexes, int32_t size)
+	void Mesh::OnFillBatch(const int32_t* indexes, const int32_t size)
 	{
 		const auto& transforms = jecs::SparseSet<Transform>::Get();
+
+		// Avoid (de)allocating on the heap with single objects.
+		if(size == 1)
+		{
+			const auto& transform = transforms[indexes[0]];
+			const auto mat = TransformSystem::GetMatrix(transform);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::mat4),
+				&mat, GL_DYNAMIC_DRAW);
+			return;
+		}
 
 		auto* const mats = new glm::mat4[size];
 		for (int32_t i = 0; i < size; ++i)
