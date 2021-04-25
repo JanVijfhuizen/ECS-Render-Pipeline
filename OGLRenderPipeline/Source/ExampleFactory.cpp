@@ -1,4 +1,6 @@
 ﻿#include "ExampleFactory.h"
+
+#include "Mesh_im4.h"
 #include "SparseSet.h"
 #include "Renderer.h"
 #include "ModelQuad.h"
@@ -16,7 +18,7 @@ namespace rpi::example
 		std::vector<Vertex> vertices{};
 		std::vector<int32_t> indices{};
 		ModelQuad::Generate(vertices, indices);
-		_mesh = std::make_unique<Mesh>(vertices, indices);
+		_mesh = std::make_unique<Mesh_im4>(vertices, indices);
 
 		// Define model.
 		const GLuint frag = ShaderLoader::CreateShader(

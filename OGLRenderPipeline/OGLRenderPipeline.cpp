@@ -46,7 +46,6 @@ int main()
 	camComponent.postProcStack.push_back(inverseEffect);
 	camComponent.postProcStack.push_back(inverseEffect);
 	camComponent.postProcStack.push_back(inverseEffect);
-	camComponent.postProcStack.push_back(inverseEffect);
 
 	// Construct a entity camera.
 	const auto camera2 = cecsar.Spawn();

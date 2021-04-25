@@ -26,8 +26,8 @@ namespace rpi
 		[[nodiscard]] GLuint GenerateBuffer();
 
 	protected:
-		virtual void OnFillBatch(const int32_t* indexes, int32_t size);
-		virtual void DefineIbo();
+		virtual void OnFillBatch(const int32_t* indexes, int32_t size) = 0;
+		virtual void DefineIbo() = 0;
 
 	private:
 		GLuint _vao = -1;
