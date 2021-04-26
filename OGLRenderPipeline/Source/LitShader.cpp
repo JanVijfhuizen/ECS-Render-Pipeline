@@ -1,11 +1,11 @@
-﻿#include "LitShader.h"
-#include <glm/trigonometric.hpp>
+﻿#include "Shaders/LitShader.h"
 
+#include <glm/trigonometric.hpp>
 #include "MapSet.h"
-#include "Light.h"
 #include "SparseSet.h"
-#include "Transform.h"
-#include "TransformSystem.h"
+#include "Components/Light.h"
+#include "Components/Transform.h"
+#include "Systems/TransformSystem.h"
 
 namespace rpi
 {

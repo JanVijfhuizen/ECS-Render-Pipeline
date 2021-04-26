@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/vec3.hpp>
 #include <vector>
-#include "PostEffect.h"
+#include "PostEffects/PostEffect.h"
 
 namespace rpi
 {

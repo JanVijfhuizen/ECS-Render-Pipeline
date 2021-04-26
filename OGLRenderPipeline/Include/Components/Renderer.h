@@ -1,6 +1,6 @@
 #pragma once
-#include "Mesh.h"
-#include "Shader.h"
+#include "Meshes/Mesh.h"
+#include "Shaders/Shader.h"
 
 namespace rpi
 {

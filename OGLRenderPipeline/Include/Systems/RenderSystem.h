@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include "Mesh.h"
+#include "Meshes/Mesh.h"
 
 namespace rpi
 {

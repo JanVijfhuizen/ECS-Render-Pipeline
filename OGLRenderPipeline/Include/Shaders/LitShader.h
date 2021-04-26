@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "Shader.h"
 #include "SparseSet.h"
-#include "Transform.h"
-#include "Light.h"
+#include "Components/Light.h"
+#include "Components/Transform.h"
 
 namespace rpi
 {

@@ -1,7 +1,8 @@
-﻿#include "Mesh_im4.h"
+﻿#include "Meshes/Mesh_im4.h"
+
 #include "SparseSet.h"
-#include "TransformSystem.h"
-#include "Transform.h"
+#include "Components/Transform.h"
+#include "Systems/TransformSystem.h"
 
 namespace rpi
 {

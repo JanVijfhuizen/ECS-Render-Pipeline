@@ -1,11 +1,13 @@
-#include "RenderSystem.h"
-#include "Renderer.h"
+#include "Systems/RenderSystem.h"
+
 #include "SparseSet.h"
 #include "MapSet.h"
-#include "Camera.h"
-#include "CameraSystem.h"
-#include "Transform.h"
-#include "PostProcessingModule.h"
+#include "Components/Camera.h"
+#include "Components/Renderer.h"
+#include "Components/Transform.h"
+#include "Meshes/Mesh.h"
+#include "Modules/PostProcessingModule.h"
+#include "Systems/CameraSystem.h"
 
 namespace rpi
 {

@@ -1,6 +1,7 @@
-﻿#include "InverseEffect.h"
+﻿#include "PostEffects/InverseEffect.h"
+
 #include <glad/glad.h>
-#include "ShaderLoader.h"
+#include "Modules/ShaderLoader.h"
 
 namespace rpi
 {

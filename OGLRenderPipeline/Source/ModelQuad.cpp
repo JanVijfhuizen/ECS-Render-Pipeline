@@ -1,4 +1,5 @@
-﻿#include "ModelQuad.h"
+﻿#include "Models/ModelQuad.h"
+
 namespace rpi 
 {
 	void ModelQuad::Generate(std::vector<Vertex>& vertices, std::vector<int32_t>& indices,

@@ -1,12 +1,12 @@
 ﻿#pragma once
 #include "Module.h"
-#include "Mesh.h"
-#include "Renderer.h"
+#include "Meshes/Mesh.h"
+#include "Components/Renderer.h"
 #include "SparseSet.h"
-#include "Transform.h"
-#include "LitShader.h"
+#include "Components/Transform.h"
+#include "Shaders/LitShader.h"
 #include <memory>
-#include "TextureLoader.h"
+#include "Modules/TextureLoader.h"
 
 namespace rpi::example
 {

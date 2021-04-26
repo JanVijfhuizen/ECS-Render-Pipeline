@@ -1,9 +1,11 @@
-﻿#include "PostProcessingModule.h"
+﻿#include "Modules/PostProcessingModule.h"
+
 #include <glad/glad.h>
-#include "ShaderLoader.h"
 #include <glm/vec2.hpp>
 
-#include "PostEffect.h"
+
+#include "Modules/ShaderLoader.h"
+#include "PostEffects/PostEffect.h"
 
 namespace rpi
 {

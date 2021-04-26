@@ -1,11 +1,14 @@
-﻿#include "ExampleFactory.h"
+﻿#include "Factories/ExampleFactory.h"
 
-#include "Mesh_im4.h"
 #include "SparseSet.h"
-#include "Renderer.h"
-#include "ModelQuad.h"
-#include "ShaderLoader.h"
-#include "TextureLoader.h"
+#include "Vertex.h"
+#include "Components/Renderer.h"
+#include "Components/Transform.h"
+#include "Meshes/Mesh_im4.h"
+#include "Models/ModelQuad.h"
+#include "Modules/ShaderLoader.h"
+#include "Modules/TextureLoader.h"
+#include "Shaders/LitShader.h"
 
 namespace rpi::example
 {

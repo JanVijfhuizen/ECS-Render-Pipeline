@@ -1,5 +1,7 @@
-﻿#include "TextureLoader.h"
-#define STB_IMAGE_IMPLEMENTATION    
+﻿#define STB_IMAGE_IMPLEMENTATION    
+#include "Modules/TextureLoader.h"
+
+#include <memory>
 #include "stb_image.h"
 
 namespace rpi

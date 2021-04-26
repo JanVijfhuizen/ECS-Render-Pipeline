@@ -1,12 +1,12 @@
 #include "Cecsar.h"
-#include "RenderSystem.h"
-#include "WindowModule.h"
-#include "ExampleFactory.h"
+#include "Systems/RenderSystem.h"
+#include "Modules/WindowModule.h"
+#include "Factories/ExampleFactory.h"
 #include "MapSet.h"
-#include "Camera.h"
-#include "InverseEffect.h"
-#include "Transform.h"
-#include "TransformSystem.h"
+#include "Components/Camera.h"
+#include "PostEffects/InverseEffect.h"
+#include "Components/Transform.h"
+#include "Systems/TransformSystem.h"
 
 int main()
 {
