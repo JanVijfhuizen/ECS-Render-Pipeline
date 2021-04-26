@@ -156,6 +156,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\ShaderLoader.cpp" />
     <ClCompile Include="Source\TextureLoader.cpp" />
     <ClCompile Include="Source\WindowModule.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Meshes\Mesh.h" />
     <ClInclude Include="Include\Modules\ShaderLoader.h" />
+    <ClInclude Include="Include\Shaders\Shader.h" />
     <ClInclude Include="Include\stb_image.h" />
     <ClInclude Include="Include\Modules\WindowModule.h" />
     <ClInclude Include="Include\Modules\TextureLoader.h" />
