@@ -1,7 +1,19 @@
 ﻿#pragma once
+#include <cstdint>
 
-class PostEffectModule
+namespace rut
 {
-public:
-	
-};
+	class PostEffect;
+
+	class PostEffectModule
+	{
+	public:
+		PostEffectModule();
+		~PostEffectModule();
+		
+		void RenderBegin(PostEffect* effects, int32_t count);
+		void RenderEnd();
+
+		void PostRender();
+	};
+}

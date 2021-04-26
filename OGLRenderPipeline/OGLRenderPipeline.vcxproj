@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CePostEffectModule.cpp" />
     <ClCompile Include="Source\CeWindowModule.cpp" />
     <ClCompile Include="Source\CeMesh.cpp" />
     <ClCompile Include="Source\CeShader.cpp" />
@@ -165,6 +166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Modules\CePostEffectModule.h" />
     <ClInclude Include="Include\Modules\CeWindowModule.h" />
     <ClInclude Include="Include\Components\PostEffectStack.h" />
     <ClInclude Include="Include\Meshes\CeMesh.h" />

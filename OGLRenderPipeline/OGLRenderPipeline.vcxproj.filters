@@ -30,6 +30,9 @@
     <ClCompile Include="Source\CeWindowModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CePostEffectModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\stb_image.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\Modules\CeWindowModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Modules\CePostEffectModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

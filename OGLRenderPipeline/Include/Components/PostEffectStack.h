@@ -1,12 +1,15 @@
 #pragma once
 #include <vector>
 
-namespace rpi
+namespace rut
 {
 	class PostEffect;
+}
 
+namespace rpi
+{
 	struct PostEffectStack final
 	{
-		std::vector<PostEffect> effects{};
+		std::vector<rut::PostEffect> effects{};
 	};
 }
