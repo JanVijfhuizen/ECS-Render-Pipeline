@@ -156,6 +156,11 @@
     <ClInclude Include="Include\BasicRenderSystem.h" />
     <ClInclude Include="Include\TestFactory.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\frag.frag" />
+    <None Include="Resources\vert.vert" />
+    <None Include="Resources\vertInstanced.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -36,6 +36,7 @@ int main()
 	auto& cam1Trans = transforms.Insert(cam1.index);
 	auto& cam2Trans = transforms.Insert(cam2.index);
 
+	cam1Trans.position.y = 1;
 	cam1Trans.position.z = -4;
 
 	// It's okay to be frame dependent. This is for testing purposes only.
@@ -50,9 +51,9 @@ int main()
 			break;
 
 		time += dt;
-		cam2Trans.position.x = sin(time) * 4;
+		cam2Trans.position.x = sin(time) * 8;
 		cam2Trans.position.y = sin(time * 2) * 2;
-		cam2Trans.position.z = cos(time) * 4;
+		cam2Trans.position.z = cos(time) * 8;
 
 		BasicRenderSystem::Update();
 		

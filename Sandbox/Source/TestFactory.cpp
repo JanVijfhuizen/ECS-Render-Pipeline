@@ -11,7 +11,7 @@ TestFactory::TestFactory()
 {
 	// Define shader.
 	const GLuint frag = rut::ShaderLoader::CreateShader(
-		"Resources/fragLit.frag", GL_FRAGMENT_SHADER);
+		"Resources/frag.frag", GL_FRAGMENT_SHADER);
 	const GLuint vert = rut::ShaderLoader::CreateShader(
 		"Resources/vert.vert", GL_VERTEX_SHADER);
 	const GLuint linked = rut::ShaderLoader::LinkShaders(frag, vert);

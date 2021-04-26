@@ -6,7 +6,7 @@ namespace rpi
 	struct Camera final
 	{
 		glm::vec3 target{};
-		glm::vec3 up{};
+		glm::vec3 up{0, 1, 0};
 
 		float clipNear = .1f;
 		float clipFar = 1000;
