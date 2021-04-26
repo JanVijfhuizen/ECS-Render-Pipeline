@@ -2,8 +2,13 @@
 
 namespace rpi
 {
-	void CeShader::Use(const int32_t, glm::vec3 eye,
-		const glm::mat4& view, const glm::mat4& projection)
+	CeShader::CeShader(const GLuint program) : Shader(program)
+	{
+		
+	}
+
+	void CeShader::Use(const int32_t, const glm::vec3 eye,
+	                   const glm::mat4& view, const glm::mat4& projection)
 	{
 		Shader::Use(eye, view, projection);
 	}

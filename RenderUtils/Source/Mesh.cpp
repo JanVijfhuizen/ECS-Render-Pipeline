@@ -43,7 +43,7 @@ namespace rut
 	{
 		glBindVertexArray(_vao);
 		glDrawElementsInstanced(mode, _size,
-			GL_UNSIGNED_INT, 0, count);
+			GL_UNSIGNED_INT, nullptr, count);
 	}
 
 	Mesh::~Mesh()
@@ -56,7 +56,7 @@ namespace rut
 	void Mesh::Draw()
 	{
 		glBindVertexArray(_vao);
-		glDrawElements(mode, _size, GL_UNSIGNED_INT, 0);
+		glDrawElements(mode, _size, GL_UNSIGNED_INT, nullptr);
 	}
 
 	GLuint Mesh::GenerateBuffer()
