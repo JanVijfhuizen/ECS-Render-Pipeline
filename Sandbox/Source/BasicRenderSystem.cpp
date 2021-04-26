@@ -5,8 +5,8 @@
 #include "Components/Camera.h"
 #include "Components/Model.h"
 #include "Components/Transform.h"
-#include "Mesh.h"
-#include "Shader.h"
+#include "Meshes/CeMesh.h"
+#include "Shaders/CeShader.h"
 #include "Systems/CameraSystem.h"
 
 void BasicRenderSystem::Update()
@@ -26,8 +26,8 @@ void BasicRenderSystem::Update()
 			if (rpi::CameraSystem::Ignore(camera, model.layer))
 				continue;
 
-			model.shader->Use(eye, view, projection);
-			model.mesh->Draw();
+			model.shader->Use(modIndex, eye, view, projection);
+			model.mesh->Draw(modIndex);
 		}
 	}
 }

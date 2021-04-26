@@ -22,7 +22,7 @@ namespace rut
 		virtual ~Mesh();
 
 		virtual void Draw();
-		virtual void DrawInstanced(int32_t count) const;
+		virtual void DrawInstanced(int32_t count);
 
 		[[nodiscard]] GLuint GetVao() const;
 	

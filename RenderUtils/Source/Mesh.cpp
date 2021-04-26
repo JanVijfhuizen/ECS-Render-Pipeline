@@ -37,7 +37,7 @@ namespace rut
 		glEnableVertexAttribArray(2);
 	}
 
-	void Mesh::DrawInstanced(const int32_t count) const
+	void Mesh::DrawInstanced(const int32_t count)
 	{
 		glBindVertexArray(_vao);
 		glDrawElementsInstanced(mode, _size,
