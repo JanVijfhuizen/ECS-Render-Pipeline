@@ -1,11 +1,11 @@
+#include "BasicRenderSystem.h"
 #include "Cecsar.h"
 #include "Modules/WindowModule.h"
 
 int main()
 {
 	jecs::Cecsar cecsar{50};
-
-	auto& windowModule = rpi::WindowModule::Get();
+	const auto& windowModule = rpi::WindowModule::Get();
 
 	while(true)
 	{
@@ -13,6 +13,8 @@ int main()
 		windowModule.BeginFrame(&quit);
 		if (quit)
 			break;
+
+		BasicRenderSystem::Update();
 		
 		windowModule.EndFrame();
 	}
