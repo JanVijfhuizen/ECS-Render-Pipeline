@@ -1,31 +1,15 @@
-﻿#include "Modules/WindowModule.h"
+﻿#include "WindowModule.h"
 
 #include <glad/glad.h>
 #include <cassert>
 
-namespace rpi
+namespace rut
 {
 	float WindowModule::Settings::GetAspectRatio() const
 	{
 		return static_cast<float>(width) / height;
 	}
-
-	WindowModule::Observer::Observer()
-	{
-		_module = &Get();
-		_module->_observers.push_back(this);
-	}
-
-	WindowModule::Observer::~Observer()
-	{
-		if (!_module)
-			return;
-
-		auto& observers = _module->_observers;
-		observers.erase(std::remove(observers.begin(), observers.end(), 
-			this), observers.end());
-	}
-
+	
 	WindowModule::WindowModule(const Settings& settings)
 	{
 		// Initialize GLFW.
@@ -49,7 +33,6 @@ namespace rpi
 
 		// Setup viewport and viewport related callbacks.
 		glViewport(0, 0, settings.width, settings.height);
-		glfwSetFramebufferSizeCallback(_window, ResizeCallback);
 
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
@@ -82,15 +65,5 @@ namespace rpi
 	WindowModule::Settings WindowModule::GetSettings() const
 	{
 		return _settings;
-	}
-
-	void WindowModule::ResizeCallback(GLFWwindow* window, 
-		const int32_t width, const int32_t height)
-	{
-		auto& settings = Get()._settings;
-		settings.width = width;
-		settings.height = height;
-
-		glViewport(0, 0, width, height);
 	}
 }

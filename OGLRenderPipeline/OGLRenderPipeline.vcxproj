@@ -153,11 +153,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\CeWindowModule.cpp" />
     <ClCompile Include="Source\CeMesh.cpp" />
     <ClCompile Include="Source\CeShader.cpp" />
     <ClCompile Include="Source\CameraSystem.cpp" />
     <ClCompile Include="Source\TransformSystem.cpp" />
-    <ClCompile Include="Source\WindowModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cECSar\Cecsar.vcxproj">
@@ -165,11 +165,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Modules\CeWindowModule.h" />
+    <ClInclude Include="Include\Components\PostEffectStack.h" />
     <ClInclude Include="Include\Meshes\CeMesh.h" />
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Model.h" />
     <ClInclude Include="Include\Components\Transform.h" />
-    <ClInclude Include="Include\Modules\WindowModule.h" />
     <ClInclude Include="Include\stb_image.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\TransformSystem.h" />

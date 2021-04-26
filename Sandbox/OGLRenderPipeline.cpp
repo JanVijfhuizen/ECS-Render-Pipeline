@@ -5,13 +5,13 @@
 #include "TestFactory.h"
 #include "Components/Camera.h"
 #include "Components/Transform.h"
-#include "Modules/WindowModule.h"
+#include "Modules/CeWindowModule.h"
 
 int main()
 {
 	jecs::Cecsar cecsar{50};
 	
-	const auto& windowModule = rpi::WindowModule::Get();
+	const auto& windowModule = rpi::CeWindowModule::Get();
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();
 

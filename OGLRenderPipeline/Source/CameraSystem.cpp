@@ -5,7 +5,7 @@
 #include "SparseSet.h"
 #include "Components/Camera.h"
 #include "Components/Transform.h"
-#include "Modules/WindowModule.h"
+#include "Modules/CeWindowModule.h"
 
 namespace rpi
 {
@@ -29,7 +29,7 @@ namespace rpi
 	glm::mat4 CameraSystem::GetProjection(const int32_t camIndex)
 	{
 		const auto& camera = jecs::MapSet<Camera>::Get()[camIndex];
-		const auto& windowModule = WindowModule::Get();
+		const auto& windowModule = CeWindowModule::Get();
 		const auto& windowSettings = windowModule.GetSettings();
 
 		return glm::perspective(glm::radians(camera.fov),
