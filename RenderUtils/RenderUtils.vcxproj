@@ -145,16 +145,19 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\QuadGenerator.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
     <ClCompile Include="Source\ShaderLoader.cpp" />
     <ClCompile Include="Source\TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Mesh.h" />
+    <ClInclude Include="Include\QuadGenerator.h" />
     <ClInclude Include="Include\Shader.h" />
     <ClInclude Include="Include\ShaderLoader.h" />
     <ClInclude Include="Include\TextureLoader.h" />
     <ClInclude Include="Include\stb_image.h" />
+    <ClInclude Include="Include\Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

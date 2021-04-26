@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include "Vertex.h"
+
 namespace rut
 {
 	Mesh::Mesh(const Vertex* vertices, const int32_t vertCount, 

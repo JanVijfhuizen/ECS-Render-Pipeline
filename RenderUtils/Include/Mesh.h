@@ -5,15 +5,10 @@
 
 namespace rut
 {
+	struct Vertex;
+
 	class Mesh
 	{
-		struct Vertex final
-		{
-			glm::vec3 position{};
-			glm::vec3 normal{};
-			glm::vec2 texCoords{};
-		};
-		
 	public:
 		GLuint mode = GL_TRIANGLES;
 		
