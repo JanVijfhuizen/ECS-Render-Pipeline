@@ -5,6 +5,11 @@
 
 namespace rut
 {
+	glm::vec2 WindowModule::Settings::GetResolution() const
+	{
+		return { width, height };
+	}
+
 	float WindowModule::Settings::GetAspectRatio() const
 	{
 		return static_cast<float>(width) / height;

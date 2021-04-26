@@ -8,6 +8,6 @@ namespace rpi
 		public jecs::Module<CePostEffectModule>
 	{
 	public:
-
+		CePostEffectModule();
 	};
 }

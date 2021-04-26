@@ -72,5 +72,6 @@
   <ItemGroup>
     <None Include="Resources\frag.frag" />
     <None Include="Resources\vertInstanced.vert" />
+    <None Include="Resources\vert.vert" />
   </ItemGroup>
 </Project>

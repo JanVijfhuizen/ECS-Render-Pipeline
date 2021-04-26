@@ -4,7 +4,7 @@
 
 namespace rpi
 {
-	class InverseEffect final : public PostEffect
+	class InverseEffect final : public rut::PostEffect
 	{
 	public:
 		InverseEffect();

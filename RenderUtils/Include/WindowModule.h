@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <glfw3.h>
 #include <string>
+#include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
 namespace rut
@@ -18,6 +19,7 @@ namespace rut
 			int32_t profile = GLFW_OPENGL_CORE_PROFILE;
 			int32_t version = 4;
 
+			[[nodiscard]] glm::vec2 GetResolution() const;
 			[[nodiscard]] float GetAspectRatio() const;
 		};
 
