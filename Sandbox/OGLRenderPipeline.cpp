@@ -32,7 +32,7 @@ int main()
 	const auto cam1 = cecsar.Spawn();
 	const auto cam2 = cecsar.Spawn();
 
-	//cameras.Insert(cam1.index);
+	cameras.Insert(cam1.index);
 	cameras.Insert(cam2.index);
 
 	auto& postEffectStacks = jecs::MapSet<rpi::PostEffectStack>::Get();

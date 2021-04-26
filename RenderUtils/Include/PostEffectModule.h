@@ -22,7 +22,7 @@ namespace rut
 	
 	private:
 		GLuint _fbo = 0;
-		GLuint _textureBuffers[2]{};
+		GLuint _textureBuffers[3]{};
 		
 		GLuint _vao = 0;
 		GLuint _program = 0;

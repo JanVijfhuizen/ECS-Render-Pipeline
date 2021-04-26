@@ -11,7 +11,7 @@ namespace rut
 		glGenFramebuffers(1, &_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 
-		for (int32_t i = 0; i < 2; ++i)
+		for (int32_t i = 0; i < 3; ++i)
 		{
 			auto& buffer = _textureBuffers[i];
 
@@ -37,7 +37,7 @@ namespace rut
 
 	PostEffectModule::~PostEffectModule()
 	{
-		glDeleteTextures(2, _textureBuffers);
+		glDeleteTextures(3, _textureBuffers);
 		glDeleteFramebuffers(1, &_fbo);
 
 		glDeleteVertexArrays(1, &_vao);
@@ -49,18 +49,21 @@ namespace rut
 		_effects = effects;
 		_effectCount = count;
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+
 		BindTextureBuffer(0);
 	}
 
 	void PostEffectModule::RenderEnd()
 	{
 		glBindVertexArray(_vao);
+		glActiveTexture(GL_TEXTURE0);
 
 		// Iterate over all the post effects.
 		bool odd = false;
-		for (int32_t i = 0; i < _effectCount; ++i)
+		const int32_t finalIndex = _effectCount - 1;
+		
+		for (int32_t i = 0; i < finalIndex; ++i)
 		{
-			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);
 			odd = !odd;
 
@@ -69,22 +72,35 @@ namespace rut
 			_effects[i]->Use();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		}
+
+		// Draw on top of final image.
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);	
+		glDrawBuffer(GL_COLOR_ATTACHMENT2);
+		
+		if (finalIndex != -1)
+			_effects[finalIndex]->Use();
+		else
+			glUseProgram(_program);
+
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+	}
+
+	void PostEffectModule::PostRender()
+	{
+		glBindVertexArray(_vao);
 		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 		glUseProgram(_program);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-	}
 
-	void PostEffectModule::PostRender()
-	{
-		//glBindBuffer(GL_FRAMEBUFFER, 0);
-		//glUseProgram(_program);
-
-		// Draw.		
+		// Clear final image.
+		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+		BindTextureBuffer(2);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	GLuint PostEffectModule::GetFbo() const
