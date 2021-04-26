@@ -1,11 +1,9 @@
 #include "Meshes/Mesh.h"
 
-#include "SparseSet.h"
-
 namespace rpi
 {
-	Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<int32_t>& indices, const GLuint mode) :
-		_mode(mode)
+	Mesh::Mesh(const Vertex* vertices, const int32_t vertCount, 
+		const int32_t* indices, const int32_t indicesCount)
 	{
 		glGenVertexArrays(1, &_vao);
 		glBindVertexArray(_vao);
@@ -13,65 +11,50 @@ namespace rpi
 		// Generate VBO.
 		const GLuint vbo = GenerateBuffer();
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex),
-			vertices.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertCount * sizeof(Vertex),
+			vertices, GL_STATIC_DRAW);
 
 		// Generate EBO.
 		const GLuint ebo = GenerateBuffer();
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
-			indices.data(), GL_STATIC_DRAW);
-		_size = indices.size();
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(GLuint),
+			indices, GL_STATIC_DRAW);
+		_size = indicesCount;
 
 		// Position attribute.
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 			sizeof(Vertex), nullptr);
 		glEnableVertexAttribArray(0);
 
 		// Normal attribute.
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
 			sizeof(Vertex), (void*)sizeof(glm::vec3));
 		glEnableVertexAttribArray(1);
 
 		// Texture attribute.
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
 			sizeof(Vertex), (void*)(2 * sizeof(glm::vec3)));
 		glEnableVertexAttribArray(2);
-		
-		// Generate IBO and bind it.
-		_ibo = GenerateBuffer();
-		glBindBuffer(GL_ARRAY_BUFFER, _ibo);
-		_currentIbo = _ibo;
+	}
+
+	void Mesh::DrawInstanced(const int32_t count) const
+	{
+		glBindVertexArray(_vao);
+		glDrawElementsInstanced(mode, _size,
+			GL_UNSIGNED_INT, 0, count);
 	}
 
 	Mesh::~Mesh()
 	{
 		glDeleteVertexArrays(1, &_vao);
-		for (auto& bufferObject : _bufferObjects)
+		for (auto& bufferObject : _buffers)
 			glDeleteBuffers(1, &bufferObject);
 	}
 
-	void Mesh::SwapBatch(const Batch batch)
+	void Mesh::Draw()
 	{
 		glBindVertexArray(_vao);
-		const GLuint targetIbo = batch.ibo == -1 ? _ibo : batch.ibo;
-
-		_count = batch.size;
-		_currentIbo = targetIbo;
-	}
-
-	void Mesh::FillBatch(const int32_t* indexes, const int32_t size)
-	{
-		glBindVertexArray(_vao);
-		glBindBuffer(GL_ARRAY_BUFFER, _ibo);		
-		OnFillBatch(indexes, size);
-	}
-
-	void Mesh::Draw() const
-	{
-		glBindVertexArray(_vao);
-		glDrawElementsInstanced(_mode, _size,
-			GL_UNSIGNED_INT, 0, _count);
+		glDrawElements(mode, _size, GL_UNSIGNED_INT, 0);
 	}
 
 	GLuint Mesh::GenerateBuffer()
@@ -80,7 +63,17 @@ namespace rpi
 
 		GLuint buffer;
 		glGenBuffers(1, &buffer);
-		_bufferObjects.emplace_back(buffer);
+		_buffers.emplace_back(buffer);
 		return buffer;
+	}
+
+	GLuint Mesh::GetVao() const
+	{
+		return _vao;
+	}
+
+	int32_t Mesh::GetSize() const
+	{
+		return _size;
 	}
 }

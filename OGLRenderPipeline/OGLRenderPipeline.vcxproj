@@ -153,23 +153,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Mesh_im4.cpp" />
-    <ClCompile Include="Source\InverseEffect.cpp" />
-    <ClCompile Include="Source\PostProcessingModule.cpp" />
-    <ClCompile Include="Source\PostProcessingEffect.cpp" />
-    <ClCompile Include="Source\LitShader.cpp" />
-    <ClCompile Include="Source\Shader.cpp" />
-    <ClCompile Include="Source\CameraSystem.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="Source\ModelQuad.cpp" />
-    <ClCompile Include="Source\ExampleFactory.cpp" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\ShaderLoader.cpp" />
-    <ClCompile Include="Source\RenderSystem.cpp" />
-    <ClCompile Include="Source\WindowModule.cpp" />
     <ClCompile Include="Source\TextureLoader.cpp" />
-    <ClCompile Include="Source\TransformSystem.cpp" />
+    <ClCompile Include="Source\WindowModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cECSar\Cecsar.vcxproj">
@@ -177,39 +166,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Systems\CameraSystem.h" />
-    <ClInclude Include="Include\Components\Camera.h" />
-    <ClInclude Include="Include\Factories\ExampleFactory.h" />
-    <ClInclude Include="Include\PostEffects\InverseEffect.h" />
-    <ClInclude Include="Include\Components\Light.h" />
     <ClInclude Include="Include\Meshes\Mesh.h" />
-    <ClInclude Include="Include\Modules\PostProcessingModule.h" />
-    <ClInclude Include="Include\Components\Renderer.h" />
-    <ClInclude Include="Include\Systems\RenderSystem.h" />
     <ClInclude Include="Include\Modules\ShaderLoader.h" />
     <ClInclude Include="Include\stb_image.h" />
-    <ClInclude Include="Include\Components\Transform.h" />
-    <ClInclude Include="Include\Systems\TransformSystem.h" />
-    <ClInclude Include="Include\Vertex.h" />
     <ClInclude Include="Include\Modules\WindowModule.h" />
     <ClInclude Include="Include\Modules\TextureLoader.h" />
-    <ClInclude Include="Include\Models\ModelQuad.h" />
-    <ClInclude Include="Include\Shaders\Shader.h" />
-    <ClInclude Include="Include\Shaders\LitShader.h" />
-    <ClInclude Include="Include\PostEffects\PostEffect.h" />
-    <ClInclude Include="Include\Meshes\Mesh_im4.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
-    <None Include="Resources\passthrough.frag" />
-    <None Include="Resources\passthrough.vert" />
     <None Include="Resources\vert.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\texture.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,9 +21,9 @@ namespace rpi
 		if (!_module)
 			return;
 
-		auto& obsv = _module->_observers;
-		obsv.erase(std::remove(obsv.begin(), obsv.end(), 
-			this), obsv.end());
+		auto& observers = _module->_observers;
+		observers.erase(std::remove(observers.begin(), observers.end(), 
+			this), observers.end());
 	}
 
 	WindowModule::WindowModule(const Settings& settings)
