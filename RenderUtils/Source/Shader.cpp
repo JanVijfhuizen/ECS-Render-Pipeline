@@ -1,8 +1,8 @@
-﻿#include "Shaders/Shader.h"
+﻿#include "Shader.h"
 
 #include "glm/ext.hpp"
 
-namespace rpi
+namespace rut
 {
 	Shader::Shader(const GLuint program) : _program(program)
 	{

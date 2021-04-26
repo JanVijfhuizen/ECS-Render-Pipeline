@@ -122,7 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/RenderUtils/Include/;$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/RenderUtils/Include/;$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -153,12 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
     <ClCompile Include="Source\CameraSystem.cpp" />
-    <ClCompile Include="Source\Mesh.cpp" />
-    <ClCompile Include="Source\Shader.cpp" />
-    <ClCompile Include="Source\ShaderLoader.cpp" />
-    <ClCompile Include="Source\TextureLoader.cpp" />
     <ClCompile Include="Source\TransformSystem.cpp" />
     <ClCompile Include="Source\WindowModule.cpp" />
   </ItemGroup>
@@ -171,12 +166,8 @@
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Model.h" />
     <ClInclude Include="Include\Components\Transform.h" />
-    <ClInclude Include="Include\Meshes\Mesh.h" />
-    <ClInclude Include="Include\Modules\ShaderLoader.h" />
-    <ClInclude Include="Include\Shaders\Shader.h" />
-    <ClInclude Include="Include\stb_image.h" />
     <ClInclude Include="Include\Modules\WindowModule.h" />
-    <ClInclude Include="Include\Modules\TextureLoader.h" />
+    <ClInclude Include="Include\stb_image.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\TransformSystem.h" />
   </ItemGroup>

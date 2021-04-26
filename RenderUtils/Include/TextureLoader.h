@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-namespace rpi
+namespace rut
 {
 	class Texture;
 

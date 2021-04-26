@@ -3,7 +3,7 @@
 #include <glm/mat4x4.hpp>
 #include <string>
 
-namespace rpi
+namespace rut
 {
 	class Shader
 	{

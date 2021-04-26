@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <string>
 
-namespace rpi
+namespace rut
 {
 	class ShaderLoader final
 	{

@@ -5,8 +5,8 @@
 #include "Components/Camera.h"
 #include "Components/Model.h"
 #include "Components/Transform.h"
-#include "Meshes/Mesh.h"
-#include "Shaders/Shader.h"
+#include "Mesh.h"
+#include "Shader.h"
 #include "Systems/CameraSystem.h"
 
 void BasicRenderSystem::Update()

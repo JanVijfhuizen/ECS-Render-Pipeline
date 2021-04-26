@@ -1,10 +1,10 @@
 ﻿#define STB_IMAGE_IMPLEMENTATION    
-#include "Modules/TextureLoader.h"
+#include "TextureLoader.h"
 
 #include <memory>
 #include "stb_image.h"
 
-namespace rpi
+namespace rut
 {
 	std::unique_ptr<Texture> TextureLoader::Load(const std::string& path)
 	{

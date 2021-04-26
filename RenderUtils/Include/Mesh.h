@@ -3,7 +3,7 @@
 #include <vector>
 #include "glm/ext.hpp"
 
-namespace rpi
+namespace rut
 {
 	class Mesh
 	{

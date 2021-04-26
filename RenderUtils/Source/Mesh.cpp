@@ -1,6 +1,6 @@
-#include "Meshes/Mesh.h"
+#include "Mesh.h"
 
-namespace rpi
+namespace rut
 {
 	Mesh::Mesh(const Vertex* vertices, const int32_t vertCount, 
 		const int32_t* indices, const int32_t indicesCount)

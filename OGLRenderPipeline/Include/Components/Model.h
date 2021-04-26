@@ -1,14 +1,17 @@
 #pragma once
 
-namespace rpi
+namespace rut
 {
 	class Mesh;
 	class Shader;
+}
 
+namespace rpi
+{
 	struct Model final
 	{
-		Shader* shader = nullptr;
-		Mesh* mesh = nullptr;
+		rut::Shader* shader = nullptr;
+		rut::Mesh* mesh = nullptr;
 		char layer = 0b000001;
 	};	
 }

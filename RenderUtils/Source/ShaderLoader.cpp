@@ -1,9 +1,9 @@
-﻿#include "Modules/ShaderLoader.h"
+﻿#include "ShaderLoader.h"
 
 #include <fstream>
 #include <vector>
 
-namespace rpi
+namespace rut
 {
 	GLuint ShaderLoader::CreateShader(const std::string& filename, const GLenum type)
 	{
