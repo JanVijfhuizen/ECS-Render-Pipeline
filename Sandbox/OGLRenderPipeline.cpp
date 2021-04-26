@@ -1,9 +1,11 @@
 #include "BasicRenderSystem.h"
 #include "Cecsar.h"
+#include "InverseEffect.h"
 #include "MapSet.h"
 #include "SparseSet.h"
 #include "TestFactory.h"
 #include "Components/Camera.h"
+#include "Components/PostEffectStack.h"
 #include "Components/Transform.h"
 #include "Modules/CeWindowModule.h"
 
@@ -32,6 +34,14 @@ int main()
 
 	//cameras.Insert(cam1.index);
 	cameras.Insert(cam2.index);
+
+	auto& postEffectStacks = jecs::MapSet<rpi::PostEffectStack>::Get();
+	auto& stack = postEffectStacks.Insert(cam2.index);
+
+	rpi::InverseEffect effect;
+	stack.effects.push_back(&effect);
+	stack.effects.push_back(&effect);
+	stack.effects.push_back(&effect);
 
 	auto& cam1Trans = transforms.Insert(cam1.index);
 	auto& cam2Trans = transforms.Insert(cam2.index);

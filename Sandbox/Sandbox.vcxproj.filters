@@ -49,5 +49,8 @@
     <None Include="Resources\frag.frag" />
     <None Include="Resources\vert.vert" />
     <None Include="Resources\vertInstanced.vert" />
+    <None Include="Resources\passthrough.vert" />
+    <None Include="Resources\passthrough.frag" />
+    <None Include="Resources\inverse.frag" />
   </ItemGroup>
 </Project>

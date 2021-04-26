@@ -1,8 +1,6 @@
 ﻿#include "PostEffectModule.h"
 
 #include <glm/vec3.hpp>
-
-
 #include "PostEffect.h"
 #include "ShaderLoader.h"
 
@@ -46,19 +44,20 @@ namespace rut
 		glDeleteProgram(_program);
 	}
 
-	void PostEffectModule::RenderBegin(PostEffect* effects, const int32_t count)
+	void PostEffectModule::RenderBegin(PostEffect** effects, const int32_t count)
 	{
 		_effects = effects;
 		_effectCount = count;
-
-		glBindBuffer(GL_FRAMEBUFFER, _fbo);
-		BindTextureBuffer(_bufferOdd);
+		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
+		BindTextureBuffer(0);
 	}
 
 	void PostEffectModule::RenderEnd()
 	{
+		glBindVertexArray(_vao);
+
 		// Iterate over all the post effects.
-		bool odd = _bufferOdd;
+		bool odd = false;
 		for (int32_t i = 0; i < _effectCount; ++i)
 		{
 			glActiveTexture(GL_TEXTURE0);
@@ -67,12 +66,14 @@ namespace rut
 
 			BindTextureBuffer(odd);
 			
-			_effects[i].Use();
+			_effects[i]->Use();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		}
+		
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
-		glBindBuffer(GL_FRAMEBUFFER, 0);
-
+		glUseProgram(_program);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);

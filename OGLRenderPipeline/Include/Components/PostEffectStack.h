@@ -10,6 +10,6 @@ namespace rpi
 {
 	struct PostEffectStack final
 	{
-		std::vector<rut::PostEffect> effects{};
+		std::vector<rut::PostEffect*> effects{};
 	};
 }

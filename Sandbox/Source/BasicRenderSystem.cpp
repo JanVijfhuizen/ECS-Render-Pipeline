@@ -24,7 +24,7 @@ void BasicRenderSystem::Update()
 
 	for (const auto [camera, camIndex] : cameras)
 	{
-		rut::PostEffect* postEffects = nullptr;
+		rut::PostEffect** postEffects = nullptr;
 		int32_t postEffectsSize = 0;
 		
 		if (postEffectStacks.Contains(camIndex))

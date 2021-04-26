@@ -13,7 +13,7 @@ namespace rut
 		explicit PostEffectModule(glm::vec2 resolution);
 		~PostEffectModule();
 		
-		void RenderBegin(PostEffect* effects, int32_t count);
+		void RenderBegin(PostEffect** effects, int32_t count);
 		void RenderEnd();
 
 		void PostRender();
@@ -27,9 +27,8 @@ namespace rut
 		GLuint _vao = 0;
 		GLuint _program = 0;
 
-		PostEffect* _effects = nullptr;
+		PostEffect** _effects = nullptr;
 		int32_t _effectCount = 0;
-		bool _bufferOdd = false;
 
 		static void BindTextureBuffer(int32_t index);
 		
