@@ -77,7 +77,7 @@ namespace rut
 		
 		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);	
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2 + _odd]); // todo likely just need 3 fbos
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2 + _odd]);
 		
 		BindTextureBuffer(3 - _odd);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
