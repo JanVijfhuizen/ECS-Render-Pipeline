@@ -7,17 +7,22 @@ namespace rut
 {
 	class PostEffect;
 
+	// Used to process and modify the final image of a camera with post processing effects.
 	class PostEffectModule
 	{
 	public:
 		explicit PostEffectModule(glm::vec2 resolution);
-		~PostEffectModule();
-		
-		void RenderBegin(PostEffect** effects, int32_t count);
-		void RenderEnd();
+		virtual ~PostEffectModule();
 
-		void PostRender();
+		// Call this once a new camera has been assigned.
+		virtual void RenderBegin(PostEffect** effects, int32_t count);
+		// Call this after a camera has finished rendering.
+		virtual void RenderEnd();
 
+		// Call this at the end of a frame. This writes the buffer's data to the screen.
+		virtual void PostRender();
+
+		// Get the Frame Buffer Object which this model uses.
 		[[nodiscard]] GLuint GetFbo() const;
 	
 	private:

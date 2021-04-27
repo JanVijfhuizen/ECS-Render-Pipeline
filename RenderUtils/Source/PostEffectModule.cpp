@@ -11,6 +11,10 @@ namespace rut
 		glGenFramebuffers(1, &_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 
+		// Define multiple textures to be written to.
+		// The first two will be used to stack post effects for individual cameras,
+		// and the second two are used to stack the final images of the cameras themselves.
+		
 		for (int32_t i = 0; i < 4; ++i)
 		{
 			auto& buffer = _textureBuffers[i];
@@ -49,17 +53,19 @@ namespace rut
 	{
 		_effects = effects;
 		_effectCount = count;
+
+		// Bind the Frame Buffer Object so that every new drawn object will be written to this texture.
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
-		
 		BindTextureBuffer(0);
 	}
 
 	void PostEffectModule::RenderEnd()
 	{
+		// Render to a quad that fills the whole screen.
 		glBindVertexArray(_vao);
 		glActiveTexture(GL_TEXTURE0);
 
-		// Iterate over all the post effects.
+		// Iterate over all the post effects, switching between the first two buffers to stack the post effects.
 		bool odd = false;
 		for (int32_t i = 0; i < _effectCount; ++i)
 		{
@@ -67,17 +73,19 @@ namespace rut
 			odd = !odd;
 
 			BindTextureBuffer(odd);
-			
+
+			// Draw the full screen sized quad to the next buffer with the target post effect.
 			_effects[i]->Use();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		}
 
-		// Draw on top of final image.
+		// Combine the camera's output with the output of the previous cameras.
+		// This also uses the same buffer swapping technique as the post effect stacking does.
 		glUseProgram(_programCom);
-		
-		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);	
-		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2 + _odd]);
+		
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);
 		
 		BindTextureBuffer(3 - _odd);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
@@ -87,6 +95,7 @@ namespace rut
 
 	void PostEffectModule::PostRender()
 	{
+		// Finally unbind the Frame Buffer Object and draw to the actual screen.
 		glBindVertexArray(_vao);
 		
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -97,6 +106,7 @@ namespace rut
 		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2 + _odd]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
+		// Clean the previously used texture buffer containing the final image.
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 		BindTextureBuffer(2 + _odd);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -140,7 +150,7 @@ namespace rut
 
 	void PostEffectModule::SetupModel()
 	{
-		// Define mesh.
+		// Define quad mesh.
 		struct QuadVertex final
 		{
 			glm::vec3 pos;

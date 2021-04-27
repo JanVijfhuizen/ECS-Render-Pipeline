@@ -4,11 +4,14 @@
 
 namespace rut
 {
+	// Used to load in shaders from text files.
 	class ShaderLoader final
 	{
 	public:
+		// Create a vertex/fragment/etc shader from a file.
 		static GLuint CreateShader(const std::string& filename, GLenum type);
 
+		// Link multiple shaders into one shader program, which can be used to define how models are rendered.
 		template <typename... Args>
 		static GLuint LinkShaders(Args ... shaders);
 

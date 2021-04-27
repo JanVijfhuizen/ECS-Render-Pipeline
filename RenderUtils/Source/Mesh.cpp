@@ -65,6 +65,7 @@ namespace rut
 
 		GLuint buffer;
 		glGenBuffers(1, &buffer);
+		// These buffers will be deleted if this mesh goes out of scope / gets deleted.
 		_buffers.emplace_back(buffer);
 		return buffer;
 	}

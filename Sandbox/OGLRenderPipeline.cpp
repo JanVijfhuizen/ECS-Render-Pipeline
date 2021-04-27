@@ -11,6 +11,7 @@
 
 int main()
 {
+	// This is just some testing code, but it does show how you can use the render utils/pipeline to render your own stuff.
 	jecs::Cecsar cecsar{50};
 	
 	const auto& windowModule = rpi::CeWindowModule::Get();
@@ -38,6 +39,7 @@ int main()
 	auto& postEffectStacks = jecs::MapSet<rpi::PostEffectStack>::Get();
 	auto& stack = postEffectStacks.Insert(cam2.index);
 
+	// Add some post effects.
 	rpi::InverseEffect effect;
 	stack.effects.push_back(&effect);
 	stack.effects.push_back(&effect);
@@ -46,6 +48,7 @@ int main()
 	auto& cam1Trans = transforms.Insert(cam1.index);
 	auto& cam2Trans = transforms.Insert(cam2.index);
 
+	// Change the position of the first camera.
 	cam1Trans.position.y = 1;
 	cam1Trans.position.z = -4;
 
@@ -60,6 +63,7 @@ int main()
 		if (quit)
 			break;
 
+		// Move the second camera around in circles, and a bit up and down.
 		time += dt;
 		cam2Trans.position.x = sin(time) * 8;
 		cam2Trans.position.y = sin(time * 2) * 2;

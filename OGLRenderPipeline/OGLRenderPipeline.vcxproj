@@ -173,7 +173,6 @@
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Model.h" />
     <ClInclude Include="Include\Components\Transform.h" />
-    <ClInclude Include="Include\stb_image.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\TransformSystem.h" />
     <ClInclude Include="Include\Shaders\CeShader.h" />

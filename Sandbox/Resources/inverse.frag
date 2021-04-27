@@ -1,5 +1,6 @@
 #version 450 core
 
+// Inverse the colors of this texture.
 uniform sampler2D diffuse;
 
 in vec2 TexCoords;

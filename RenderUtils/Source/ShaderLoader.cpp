@@ -15,6 +15,7 @@ namespace rut
 			return 0;
 		}
 
+		// Read contents from file and paste it as a shader.
 		const size_t size = static_cast<size_t>(file.tellg());
 		std::vector<char> shaderSource(size);
 		file.seekg(0);
@@ -27,6 +28,7 @@ namespace rut
 		glShaderSource(shader, 1, &data, nullptr);
 		glCompileShader(shader);
 
+		// Assert if the shader has been loaded successfully.
 		GLint success;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 		if (!success)

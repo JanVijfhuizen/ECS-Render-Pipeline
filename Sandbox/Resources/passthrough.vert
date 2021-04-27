@@ -1,5 +1,6 @@
 #version 450 core
 
+// Basic shader used to draw a texture on a mesh. 
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec2 aTexCoords;
 
