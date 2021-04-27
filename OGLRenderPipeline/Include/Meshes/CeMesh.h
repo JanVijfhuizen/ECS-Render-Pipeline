@@ -3,7 +3,7 @@
 
 namespace rpi
 {
-	// Cecsar implementation that builds on the mesh class.
+	// Cecsar class that extends on the mesh class.
 	class CeMesh : public rut::Mesh
 	{
 	public:

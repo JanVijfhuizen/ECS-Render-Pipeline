@@ -28,7 +28,7 @@ namespace rut
 	protected:
 		// Generate a buffer. These buffers will be deallocated once the mesh gets destroyed.
 		[[nodiscard]] GLuint GenerateBuffer();
-		// Get the size of the indices array. Used for the drawcall.
+		// Get the size of the indices array. Used for the draw call.
 		[[nodiscard]] int32_t GetSize() const;
 	
 	private:
