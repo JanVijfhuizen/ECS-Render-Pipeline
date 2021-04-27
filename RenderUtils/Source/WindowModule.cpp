@@ -42,7 +42,9 @@ namespace rut
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 
-		glfwSwapInterval(0);
+		// Disable VSync.
+		if(!settings.vSync)
+			glfwSwapInterval(0);
 	}
 
 	WindowModule::~WindowModule()
@@ -56,6 +58,7 @@ namespace rut
 		if (*quit)
 			return;
 
+		// Swap frame buffers.
 		glClearColor(clearColor.x, clearColor.y, clearColor.z, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwPollEvents();

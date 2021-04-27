@@ -18,6 +18,7 @@ namespace rut
 
 	void Shader::Use(glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection)
 	{
+		// Use shader program.
 		glUseProgram(_program);
 
 		// Forward view.
