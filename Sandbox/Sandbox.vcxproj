@@ -159,6 +159,7 @@
     <ClInclude Include="Include\TestFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\combine.frag" />
     <None Include="Resources\frag.frag" />
     <None Include="Resources\inverse.frag" />
     <None Include="Resources\passthrough.frag" />

@@ -166,6 +166,7 @@
     <ClInclude Include="Include\WindowModule.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\combine.frag" />
     <None Include="Resources\passthrough.frag" />
     <None Include="Resources\passthrough.vert" />
   </ItemGroup>

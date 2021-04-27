@@ -11,7 +11,7 @@ namespace rut
 		glGenFramebuffers(1, &_fbo);
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 
-		for (int32_t i = 0; i < 3; ++i)
+		for (int32_t i = 0; i < 4; ++i)
 		{
 			auto& buffer = _textureBuffers[i];
 
@@ -37,11 +37,12 @@ namespace rut
 
 	PostEffectModule::~PostEffectModule()
 	{
-		glDeleteTextures(3, _textureBuffers);
+		glDeleteTextures(4, _textureBuffers);
 		glDeleteFramebuffers(1, &_fbo);
 
 		glDeleteVertexArrays(1, &_vao);
-		glDeleteProgram(_program);
+		glDeleteProgram(_programPass);
+		glDeleteProgram(_programCom);
 	}
 
 	void PostEffectModule::RenderBegin(PostEffect** effects, const int32_t count)
@@ -49,7 +50,7 @@ namespace rut
 		_effects = effects;
 		_effectCount = count;
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
-
+		
 		BindTextureBuffer(0);
 	}
 
@@ -60,9 +61,7 @@ namespace rut
 
 		// Iterate over all the post effects.
 		bool odd = false;
-		const int32_t finalIndex = _effectCount - 1;
-		
-		for (int32_t i = 0; i < finalIndex; ++i)
+		for (int32_t i = 0; i < _effectCount; ++i)
 		{
 			glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);
 			odd = !odd;
@@ -74,15 +73,16 @@ namespace rut
 		}
 
 		// Draw on top of final image.
-		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);	
-		glDrawBuffer(GL_COLOR_ATTACHMENT2);
+		glUseProgram(_programCom);
 		
-		if (finalIndex != -1)
-			_effects[finalIndex]->Use();
-		else
-			glUseProgram(_program);
-
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[odd]);	
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2 + _odd]); // todo likely just need 3 fbos
+		
+		BindTextureBuffer(3 - _odd);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		
+		_odd = !_odd;
 	}
 
 	void PostEffectModule::PostRender()
@@ -92,14 +92,13 @@ namespace rut
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
-		glUseProgram(_program);
+		glUseProgram(_programPass);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2]);
+		glBindTexture(GL_TEXTURE_2D, _textureBuffers[2 + _odd]);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
-		// Clear final image.
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
-		BindTextureBuffer(2);
+		BindTextureBuffer(2 + _odd);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
@@ -111,18 +110,32 @@ namespace rut
 	void PostEffectModule::BindTextureBuffer(const int32_t index)
 	{
 		glDrawBuffer(GL_COLOR_ATTACHMENT0 + index);
-		glClearColor(0, 0, 0, 0);
+		glClearColor(0, 1, 0, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void PostEffectModule::SetupShader()
 	{
-		// Define shader.
-		const GLuint vert = ShaderLoader::CreateShader(
+		// Define passthrough shader.
+		const GLuint vertPass = ShaderLoader::CreateShader(
 			"Resources/passthrough.vert", GL_VERTEX_SHADER);
-		const GLuint frag = ShaderLoader::CreateShader(
+		const GLuint fragPass = ShaderLoader::CreateShader(
 			"Resources/passthrough.frag", GL_FRAGMENT_SHADER);
-		_program = ShaderLoader::LinkShaders(vert, frag);
+		_programPass = ShaderLoader::LinkShaders(vertPass, fragPass);
+
+		// Define combine shader.
+		const GLuint vertCom = ShaderLoader::CreateShader(
+			"Resources/passthrough.vert", GL_VERTEX_SHADER);
+		const GLuint fragCom = ShaderLoader::CreateShader(
+			"Resources/combine.frag", GL_FRAGMENT_SHADER);
+		_programCom = ShaderLoader::LinkShaders(vertCom, fragCom);
+
+		glUseProgram(_programCom);
+		
+		const auto a = glGetUniformLocation(_programCom, "a");
+		const auto b = glGetUniformLocation(_programCom, "b");
+		glUniform1i(a, 0);
+		glUniform1i(b, 1);
 	}
 
 	void PostEffectModule::SetupModel()

@@ -22,13 +22,15 @@ namespace rut
 	
 	private:
 		GLuint _fbo = 0;
-		GLuint _textureBuffers[3]{};
+		GLuint _textureBuffers[4]{};
 		
 		GLuint _vao = 0;
-		GLuint _program = 0;
-
+		GLuint _programPass = 0;
+		GLuint _programCom = 0;
+		
 		PostEffect** _effects = nullptr;
 		int32_t _effectCount = 0;
+		bool _odd = false;
 
 		static void BindTextureBuffer(int32_t index);
 		

@@ -52,5 +52,6 @@
     <None Include="Resources\passthrough.vert" />
     <None Include="Resources\passthrough.frag" />
     <None Include="Resources\inverse.frag" />
+    <None Include="Resources\combine.frag" />
   </ItemGroup>
 </Project>
