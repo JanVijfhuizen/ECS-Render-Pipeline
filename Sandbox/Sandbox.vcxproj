@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{afdd778a-701a-4ee5-bb13-e9705c23f2b4}</ProjectGuid>
-    <RootNamespace>OGLRenderPipeline</RootNamespace>
+    <ProjectGuid>{5d880c55-0022-4659-aed4-22a761797dce}</ProjectGuid>
+    <RootNamespace>Sandbox</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -78,11 +78,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Cecsar/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)/Cecsar/Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,12 +88,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/Ext/Cecsar</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Cecsar;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,30 +102,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)/Ext/Cecsar</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Cecsar;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/RenderUtils/Include/;$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/Include/;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/glm;$(SolutionDir)/GLAD/include;$(SolutionDir)/Cecsar/Include;$(SolutionDir)/RenderUtils/Include;$(SolutionDir)/OGLRenderPipeline/Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glfw3_mt.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)/glfw-3.3.4.bin.WIN64/lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>RenderUtils.lib;Cecsar.lib;OGLRenderPipeline.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/x64/Debug/;$(SolutionDir)/glfw-3.3.4.bin.WIN64/lib-vc2019</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,48 +132,38 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;GLFW_INCLUDE_NONE;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/RenderUtils/Include/;$(SolutionDir)/glm/;$(SolutionDir)/GLAD/Include;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/Cecsar/Include;$(ProjectDir)/Include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)/Include/;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/glm;$(SolutionDir)/GLAD/include;$(SolutionDir)/Cecsar/Include;$(SolutionDir)/RenderUtils/Include;$(SolutionDir)/OGLRenderPipeline/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glfw3_mt.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)/glfw-3.3.4.bin.WIN64/lib-vc2019;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)/x64/Release/;$(SolutionDir)/glfw-3.3.4.bin.WIN64/lib-vc2019;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>RenderUtils.lib;Cecsar.lib;OGLRenderPipeline.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\CePostEffectModule.cpp" />
-    <ClCompile Include="Source\CeWindowModule.cpp" />
-    <ClCompile Include="Source\CeMesh.cpp" />
-    <ClCompile Include="Source\CeShader.cpp" />
-    <ClCompile Include="Source\CameraSystem.cpp" />
-    <ClCompile Include="Source\TransformSystem.cpp" />
+    <ClCompile Include="Source\BasicShader.cpp" />
+    <ClCompile Include="Source\BasicRenderSystem.cpp" />
+    <ClCompile Include="OGLRenderPipeline.cpp" />
+    <ClCompile Include="Source\InverseEffect.cpp" />
+    <ClCompile Include="Source\TestFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cECSar\Cecsar.vcxproj">
-      <Project>{4810cfd5-d1bd-49e3-a083-3fb1863df9d4}</Project>
-    </ProjectReference>
+    <ClInclude Include="Include\BasicShader.h" />
+    <ClInclude Include="Include\BasicRenderSystem.h" />
+    <ClInclude Include="Include\InverseEffect.h" />
+    <ClInclude Include="Include\TestFactory.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Modules\CePostEffectModule.h" />
-    <ClInclude Include="Include\Modules\CeWindowModule.h" />
-    <ClInclude Include="Include\Components\PostEffectStack.h" />
-    <ClInclude Include="Include\Meshes\CeMesh.h" />
-    <ClInclude Include="Include\Components\Camera.h" />
-    <ClInclude Include="Include\Components\Model.h" />
-    <ClInclude Include="Include\Components\Transform.h" />
-    <ClInclude Include="Include\stb_image.h" />
-    <ClInclude Include="Include\Systems\CameraSystem.h" />
-    <ClInclude Include="Include\Systems\TransformSystem.h" />
-    <ClInclude Include="Include\Shaders\CeShader.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Resources\combine.frag" />
     <None Include="Resources\frag.frag" />
+    <None Include="Resources\inverse.frag" />
+    <None Include="Resources\passthrough.frag" />
+    <None Include="Resources\passthrough.vert" />
     <None Include="Resources\vert.vert" />
     <None Include="Resources\vertInstanced.vert" />
   </ItemGroup>

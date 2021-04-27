@@ -1,11 +1,11 @@
-﻿#include "CameraSystem.h"
-#include "Camera.h"
+﻿#include "Systems/CameraSystem.h"
+
 #include "MapSet.h"
-#include "Renderer.h"
 #include "glm/ext.hpp"
-#include "WindowModule.h"
 #include "SparseSet.h"
-#include "Transform.h"
+#include "Components/Camera.h"
+#include "Components/Transform.h"
+#include "Modules/CeWindowModule.h"
 
 namespace rpi
 {
@@ -29,15 +29,15 @@ namespace rpi
 	glm::mat4 CameraSystem::GetProjection(const int32_t camIndex)
 	{
 		const auto& camera = jecs::MapSet<Camera>::Get()[camIndex];
-		const auto& windowModule = WindowModule::Get();
-		const auto& windowSettings = windowModule.GetSettings();;
+		const auto& windowModule = CeWindowModule::Get();
+		const auto& windowSettings = windowModule.GetSettings();
 
 		return glm::perspective(glm::radians(camera.fov),
 			windowSettings.GetAspectRatio(), camera.clipNear, camera.clipFar);
 	}
 
-	bool CameraSystem::Ignore(Camera& camera, Renderer& renderer)
+	bool CameraSystem::Ignore(Camera& camera, const char layer)
 	{
-		return (camera.layer & renderer.layer) == 0;
+		return (camera.layer & layer) == 0;
 	}
 }
