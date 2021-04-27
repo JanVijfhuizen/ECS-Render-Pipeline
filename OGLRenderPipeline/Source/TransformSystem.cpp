@@ -1,6 +1,7 @@
-﻿#include "TransformSystem.h"
+﻿#include "Systems/TransformSystem.h"
+
 #include <glm/ext.hpp>
-#include "Transform.h"
+#include "Components/Transform.h"
 
 namespace rpi
 {

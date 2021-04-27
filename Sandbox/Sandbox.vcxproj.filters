@@ -15,63 +15,43 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\CameraSystem.cpp">
+    <ClCompile Include="Source\BasicRenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\TransformSystem.cpp">
+    <ClCompile Include="Source\TestFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CeShader.cpp">
+    <ClCompile Include="OGLRenderPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CeMesh.cpp">
+    <ClCompile Include="Source\BasicShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\CeWindowModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\CePostEffectModule.cpp">
+    <ClCompile Include="Source\InverseEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\stb_image.h">
+    <ClInclude Include="Include\BasicRenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Components\Model.h">
+    <ClInclude Include="Include\TestFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Components\Camera.h">
+    <ClInclude Include="Include\BasicShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Systems\CameraSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Components\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Systems\TransformSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Shaders\CeShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Meshes\CeMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Components\PostEffectStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Modules\CeWindowModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Modules\CePostEffectModule.h">
+    <ClInclude Include="Include\InverseEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
-    <None Include="Resources\vertInstanced.vert" />
     <None Include="Resources\vert.vert" />
+    <None Include="Resources\vertInstanced.vert" />
+    <None Include="Resources\passthrough.vert" />
+    <None Include="Resources\passthrough.frag" />
+    <None Include="Resources\inverse.frag" />
+    <None Include="Resources\combine.frag" />
   </ItemGroup>
 </Project>
