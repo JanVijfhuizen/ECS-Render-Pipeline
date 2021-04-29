@@ -27,28 +27,28 @@ namespace rut
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(GLuint),
 			indices, GL_STATIC_DRAW);
-		size = indicesCount;
+		_size = indicesCount;
 
 		// Position attribute.
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), nullptr);
+			sizeof(Vertex), (const void*)offsetof(Vertex, position));
 		glEnableVertexAttribArray(0);
 
 		// Normal attribute.
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), (void*)sizeof(glm::vec3));
+			sizeof(Vertex), (const void*)offsetof(Vertex, normal));
 		glEnableVertexAttribArray(1);
 
 		// Texture attribute.
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), (void*)(2 * sizeof(glm::vec3)));
+			sizeof(Vertex), (const void*)offsetof(Vertex, texCoords));
 		glEnableVertexAttribArray(2);
 	}
 
 	void Mesh::DrawInstanced(const int32_t count)
 	{
 		glBindVertexArray(_vao);
-		glDrawElementsInstanced(mode, size,
+		glDrawElementsInstanced(mode, _size,
 			GL_UNSIGNED_INT, nullptr, count);
 	}
 
@@ -62,7 +62,7 @@ namespace rut
 	void Mesh::Draw()
 	{
 		glBindVertexArray(_vao);
-		glDrawElements(mode, size, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(mode, _size, GL_UNSIGNED_INT, nullptr);
 	}
 
 	GLuint Mesh::GenerateBuffer()
