@@ -2,6 +2,7 @@
 #include "Cecsar.h"
 #include "InverseEffect.h"
 #include "MapSet.h"
+#include "SoASet.h"
 #include "SparseSet.h"
 #include "TestFactory.h"
 #include "Components/Camera.h"
@@ -13,7 +14,7 @@ int main()
 {
 	// This is just some testing code, but it does show how you can use the render utils/pipeline to render your own stuff.
 	jecs::Cecsar cecsar{50};
-	
+
 	const auto& windowModule = rpi::CeWindowModule::Get();
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();

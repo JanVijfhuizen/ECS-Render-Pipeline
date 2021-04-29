@@ -47,24 +47,18 @@ void BasicRenderSystem::Update()
 	// Iterate over all the cameras.
 	for (const auto [camera, camIndex] : cameras)
 	{
-		rut::PostEffect** postEffects = nullptr;
-		int32_t postEffectsSize = 0;
-
-		// Check for any post processing effects.
-		if (postEffectStacks.Contains(camIndex))
-		{
-			auto& effects = postEffectStacks[camIndex].effects;
-			postEffects = effects.data();
-			postEffectsSize = effects.size();
-		}
-
+		// If it already has the component it just grabs that one.
+		auto& postEffectStack = postEffectStacks.Insert(camIndex);
+		auto& effects = postEffectStack.effects;
+		
 		// Write to the post effect buffers instead of the screen.
-		postEffectModule.RenderBegin(postEffects, postEffectsSize);
+		postEffectModule.RenderBegin(effects.data(), effects.size());
 		
 		const auto eye = transforms[camIndex].position;
 		const auto view = rpi::CameraSystem::GetView(camIndex);
 		const auto projection = rpi::CameraSystem::GetProjection(camIndex);
 
+		// Draw all the models from this cameras point of view.
 		for (const auto [model, modIndex] : models)
 		{
 			if (rpi::CameraSystem::Ignore(camera, model.layer))
