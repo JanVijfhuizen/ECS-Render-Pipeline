@@ -12,7 +12,10 @@ namespace rut
 	public:
 		// Draws triangles by default, but can also be changed to draw lines, or points.
 		GLuint mode = GL_TRIANGLES;
-		
+
+		// Only sets up the vao. Useful for when you want to use user defined vertices.
+		Mesh();
+		// Constructor that takes in a standard vertex.
 		Mesh(const Vertex* vertices, int32_t vertCount, 
 			const int32_t* indices, int32_t indicesCount);
 		virtual ~Mesh();
@@ -26,14 +29,13 @@ namespace rut
 		[[nodiscard]] GLuint GetVao() const;
 	
 	protected:
+		int32_t _size = 0;
+		
 		// Generate a buffer. These buffers will be deallocated once the mesh gets destroyed.
 		[[nodiscard]] GLuint GenerateBuffer();
-		// Get the size of the indices array. Used for the draw call.
-		[[nodiscard]] int32_t GetSize() const;
 	
 	private:
 		GLuint _vao = -1;
-		int32_t _size = 0;	
 		std::vector<GLuint> _buffers{};
 	};
 }

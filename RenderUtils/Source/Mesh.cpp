@@ -4,8 +4,14 @@
 
 namespace rut
 {
+	Mesh::Mesh()
+	{
+		glGenVertexArrays(1, &_vao);
+		glBindVertexArray(_vao);
+	}
+
 	Mesh::Mesh(const Vertex* vertices, const int32_t vertCount, 
-		const int32_t* indices, const int32_t indicesCount)
+	           const int32_t* indices, const int32_t indicesCount)
 	{
 		glGenVertexArrays(1, &_vao);
 		glBindVertexArray(_vao);
@@ -21,7 +27,7 @@ namespace rut
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesCount * sizeof(GLuint),
 			indices, GL_STATIC_DRAW);
-		_size = indicesCount;
+		size = indicesCount;
 
 		// Position attribute.
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
@@ -42,7 +48,7 @@ namespace rut
 	void Mesh::DrawInstanced(const int32_t count)
 	{
 		glBindVertexArray(_vao);
-		glDrawElementsInstanced(mode, _size,
+		glDrawElementsInstanced(mode, size,
 			GL_UNSIGNED_INT, nullptr, count);
 	}
 
@@ -56,7 +62,7 @@ namespace rut
 	void Mesh::Draw()
 	{
 		glBindVertexArray(_vao);
-		glDrawElements(mode, _size, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(mode, size, GL_UNSIGNED_INT, nullptr);
 	}
 
 	GLuint Mesh::GenerateBuffer()
@@ -65,7 +71,6 @@ namespace rut
 
 		GLuint buffer;
 		glGenBuffers(1, &buffer);
-		// These buffers will be deleted if this mesh goes out of scope / gets deleted.
 		_buffers.emplace_back(buffer);
 		return buffer;
 	}
@@ -73,10 +78,5 @@ namespace rut
 	GLuint Mesh::GetVao() const
 	{
 		return _vao;
-	}
-
-	int32_t Mesh::GetSize() const
-	{
-		return _size;
 	}
 }
