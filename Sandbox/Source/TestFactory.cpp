@@ -34,10 +34,10 @@ TestFactory::TestFactory()
 	_modelProto.mesh = _mesh.get();
 	
 	// Define material.
-	_diffuseTex = rut::TextureLoader::Load("Resources/Texture.png");
-	_normalTex = rut::TextureLoader::Load("Resources/Normal.png");
+	_diffuseTex = rut::TextureLoader::Load("Resources/ground.png");
+	_normalTex = rut::TextureLoader::Load("Resources/normal.png");
 	// Just using a normal texture as a specular map.
-	_specularityTex = rut::TextureLoader::Load("Resources/Texture.png");
+	_specularityTex = rut::TextureLoader::Load("Resources/ground.png");
 
 	// Set up prototype component.
 	_matProto.diffuseTex = _diffuseTex->GetHandle();

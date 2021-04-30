@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "BasicRenderSystem.h"
 #include "Cecsar.h"
 #include "InverseEffect.h"
@@ -16,28 +14,28 @@
 int main()
 {
 	// This is just some testing code, but it does show how you can use the render utils/pipeline to render your own stuff.
-	jecs::Cecsar cecsar{ 50 };
+	jecs::Cecsar cecsar{ 1000 };
 
 	const auto& windowModule = rpi::CeWindowModule::Get();
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();
 
 	// Add a test object.
-	for (int32_t i = 0; i < 20; ++i)
-	{
-		const auto testObj = cecsar.Spawn();
-		TestFactory::Get().Construct(testObj);
+	for (int i = 0; i < 20; ++i)
+		for (int32_t j = 0; j < 20; ++j)
+		{
+			const auto testObj = cecsar.Spawn();
+			TestFactory::Get().Construct(testObj);
 
-		auto& trans = transforms[testObj.index];
-		trans.position = { .1f * (rand() % 100) - 5, .1f * (rand() % 100) - 5 , .1f * (rand() % 100) - 5 };
-		trans.rotation = { rand() % 360, rand() % 360, rand() % 360 };
-	}
+			auto& trans = transforms[testObj.index];
+			trans.position = glm::vec3{ i, j, 0 } - glm::vec3(10, 10, 0);
+		}
 
 	// Add some cameras.
 	const auto cam1 = cecsar.Spawn();
 	const auto cam2 = cecsar.Spawn();
 
-	cameras.Insert(cam1.index);
+	auto& camera1 = cameras.Insert(cam1.index);
 	cameras.Insert(cam2.index);
 
 	auto& postEffectStacks = jecs::MapSet<rpi::PostEffectStack>::Get();
@@ -54,12 +52,13 @@ int main()
 
 	// Now add some lighting.
 	auto& lights = jecs::MapSet<Light>::Get();
-	auto& light = lights.Insert(cam2.index);
-	light.diffuse *= 5;
+	auto& light = lights.Insert(cam1.index);
+	light.diffuse *= 10;
 
 	// Change the position of the first camera.
-	cam1Trans.position.y = 1;
+	cam1Trans.position.y = 6;
 	cam1Trans.position.z = -8;
+	camera1.target = { 0, 6, 0 };
 
 	// It's okay to be frame dependent. This is for testing purposes only.
 	float time = 0;
@@ -74,9 +73,9 @@ int main()
 
 		// Move the second camera around in circles, and a bit up and down.
 		time += dt;
-		cam2Trans.position.x = sin(time) * 16;
+		cam2Trans.position.x = sin(time) * 64;
 		cam2Trans.position.y = sin(time * 2) * 2;
-		cam2Trans.position.z = cos(time) * 16;
+		cam2Trans.position.z = cos(time) * 64;
 
 		BasicRenderSystem::Update();
 
