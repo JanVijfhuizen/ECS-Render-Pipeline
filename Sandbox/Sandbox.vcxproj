@@ -153,6 +153,7 @@
     <ClCompile Include="Source\TestFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\BakedTransform.h" />
     <ClInclude Include="Include\BasicShader.h" />
     <ClInclude Include="Include\BasicRenderSystem.h" />
     <ClInclude Include="Include\InverseEffect.h" />

@@ -44,6 +44,9 @@
     <ClInclude Include="Include\InverseEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\BakedTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
