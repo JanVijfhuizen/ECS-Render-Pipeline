@@ -1,6 +1,8 @@
 ﻿#include "TestFactory.h"
 
 #include "BasicShader.h"
+#include "ModShaderExts.h"
+#include "ModularShader.h"
 #include "QuadGenerator.h"
 #include "ShaderLoader.h"
 #include "SparseSet.h"
@@ -15,7 +17,7 @@ TestFactory::TestFactory()
 	const GLuint vert = rut::ShaderLoader::CreateShader(
 		"Resources/vert.vert", GL_VERTEX_SHADER);
 	const GLuint linked = rut::ShaderLoader::LinkShaders(frag, vert);
-	_shader = std::make_unique<BasicShader>(linked);
+	_shader = std::make_unique<ModularShader<ShaderExtModelFwd>>(linked);
 	
 	// Define mesh.
 	std::vector<rut::Vertex> vertices;

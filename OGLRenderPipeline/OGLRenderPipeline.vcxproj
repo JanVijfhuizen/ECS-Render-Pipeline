@@ -166,6 +166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Components\Light.h" />
     <ClInclude Include="Include\Modules\CePostEffectModule.h" />
     <ClInclude Include="Include\Modules\CeWindowModule.h" />
     <ClInclude Include="Include\Components\PostEffectStack.h" />

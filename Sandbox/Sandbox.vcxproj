@@ -150,6 +150,7 @@
     <ClCompile Include="Source\BasicRenderSystem.cpp" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
     <ClCompile Include="Source\InverseEffect.cpp" />
+    <ClCompile Include="Source\ModShaderExts.cpp" />
     <ClCompile Include="Source\TestFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +158,9 @@
     <ClInclude Include="Include\BasicShader.h" />
     <ClInclude Include="Include\BasicRenderSystem.h" />
     <ClInclude Include="Include\InverseEffect.h" />
+    <ClInclude Include="Include\ModShaderExts.h" />
     <ClInclude Include="Include\TestFactory.h" />
+    <ClInclude Include="Include\ModularShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\combine.frag" />

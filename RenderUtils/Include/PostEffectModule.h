@@ -11,6 +11,9 @@ namespace rut
 	class PostEffectModule
 	{
 	public:
+		// The final image will be send to this buffer. If none, it will be send to the screen.
+		GLuint outputBuffer = 0;
+		
 		explicit PostEffectModule(glm::vec2 resolution);
 		virtual ~PostEffectModule();
 
