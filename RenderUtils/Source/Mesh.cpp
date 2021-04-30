@@ -4,8 +4,14 @@
 
 namespace rut
 {
+	Mesh::Mesh()
+	{
+		glGenVertexArrays(1, &_vao);
+		glBindVertexArray(_vao);
+	}
+
 	Mesh::Mesh(const Vertex* vertices, const int32_t vertCount, 
-		const int32_t* indices, const int32_t indicesCount)
+	           const int32_t* indices, const int32_t indicesCount)
 	{
 		glGenVertexArrays(1, &_vao);
 		glBindVertexArray(_vao);
@@ -25,17 +31,17 @@ namespace rut
 
 		// Position attribute.
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), nullptr);
+			sizeof(Vertex), (const void*)offsetof(Vertex, position));
 		glEnableVertexAttribArray(0);
 
 		// Normal attribute.
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), (void*)sizeof(glm::vec3));
+			sizeof(Vertex), (const void*)offsetof(Vertex, normal));
 		glEnableVertexAttribArray(1);
 
 		// Texture attribute.
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
-			sizeof(Vertex), (void*)(2 * sizeof(glm::vec3)));
+			sizeof(Vertex), (const void*)offsetof(Vertex, texCoords));
 		glEnableVertexAttribArray(2);
 	}
 
@@ -65,7 +71,6 @@ namespace rut
 
 		GLuint buffer;
 		glGenBuffers(1, &buffer);
-		// These buffers will be deleted if this mesh goes out of scope / gets deleted.
 		_buffers.emplace_back(buffer);
 		return buffer;
 	}
@@ -73,10 +78,5 @@ namespace rut
 	GLuint Mesh::GetVao() const
 	{
 		return _vao;
-	}
-
-	int32_t Mesh::GetSize() const
-	{
-		return _size;
 	}
 }
