@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Shaders/CeShader.h"
 
-class ModularShaderExt
+class ShaderExt
 {
 public:
 	virtual void Init(GLuint program);
@@ -14,17 +14,17 @@ private:
 	GLuint _program = 0;
 };
 
-inline void ModularShaderExt::Init(const GLuint program)
+inline void ShaderExt::Init(const GLuint program)
 {
 	_program = program;
 }
 
-inline GLuint ModularShaderExt::GetUniformLoc(const std::string& name) const
+inline GLuint ShaderExt::GetUniformLoc(const std::string& name) const
 {
 	return glGetUniformLocation(_program, name.c_str());
 }
 
-inline GLuint ModularShaderExt::GetProgram() const
+inline GLuint ShaderExt::GetProgram() const
 {
 	return _program;
 }
@@ -38,7 +38,7 @@ public:
 
 private:
 #define TMPL_INDEX sizeof...(Args) - sizeof...(Tail) - 1
-	
+
 	std::tuple<Args...> _tuple{};
 
 	template <typename Head, typename ...Tail>
@@ -49,7 +49,7 @@ private:
 };
 
 template <typename ... Args>
-ModularShader<Args...>::ModularShader(const GLuint program): CeShader(program)
+ModularShader<Args...>::ModularShader(const GLuint program) : CeShader(program)
 {
 	InitExtensions<Args...>();
 }

@@ -24,13 +24,10 @@
     <ClCompile Include="OGLRenderPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BasicShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\InverseEffect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ModShaderExts.cpp">
+    <ClCompile Include="Source\ShaderExtensions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -39,9 +36,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\TestFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\BasicShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\InverseEffect.h">
@@ -53,7 +47,7 @@
     <ClInclude Include="Include\ModularShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ModShaderExts.h">
+    <ClInclude Include="Include\ShaderExtensions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

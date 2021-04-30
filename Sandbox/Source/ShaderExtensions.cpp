@@ -1,15 +1,15 @@
-#include "ModShaderExts.h"
+#include "ShaderExtensions.h"
 
 #include "BakedTransform.h"
 #include "SparseSet.h"
 
-void ShaderExtModelFwd::Init(const GLuint program)
+void ModelFwd::Init(const GLuint program)
 {
-	ModularShaderExt::Init(program);
+	ShaderExt::Init(program);
 	_model = GetUniformLoc("model");
 }
 
-void ShaderExtModelFwd::Use(const int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection)
+void ModelFwd::Use(const int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection)
 {
 	const auto& transforms = jecs::SparseSet<BakedTransform>::Get();
 	const auto& transform = transforms[index];

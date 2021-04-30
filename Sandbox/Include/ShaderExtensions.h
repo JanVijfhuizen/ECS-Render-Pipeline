@@ -1,7 +1,7 @@
 #pragma once
 #include "ModularShader.h"
 
-class ShaderExtModelFwd final : public ModularShaderExt
+class ModelFwd final : public ShaderExt
 {
 public:
 	void Init(GLuint program) override;
