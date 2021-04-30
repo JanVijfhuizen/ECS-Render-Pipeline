@@ -7,6 +7,7 @@ namespace rut
 	Shader::Shader(const GLuint program) : _program(program)
 	{
 		glUseProgram(_program);
+		_eye = GetUniformLoc("eye");
 		_view = GetUniformLoc("view");
 		_projection = GetUniformLoc("projection");
 	}
@@ -16,10 +17,13 @@ namespace rut
 		glDeleteProgram(_program);
 	}
 
-	void Shader::Use(glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection)
+	void Shader::Use(const glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection)
 	{
 		// Use shader program.
 		glUseProgram(_program);
+
+		// Forward camera position.
+		glUniform3f(_eye, eye.x, eye.y, eye.z);
 
 		// Forward view.
 		glUniformMatrix4fv(_view, 1, GL_FALSE, value_ptr(view));

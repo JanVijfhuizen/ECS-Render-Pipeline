@@ -30,6 +30,9 @@
     <ClCompile Include="Source\ShaderExtensions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LightFwd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\BasicRenderSystem.h">
@@ -47,6 +50,15 @@
     <ClInclude Include="Include\ShaderExtensions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\LightFwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
@@ -56,5 +68,15 @@
     <None Include="Resources\passthrough.frag" />
     <None Include="Resources\inverse.frag" />
     <None Include="Resources\combine.frag" />
+    <None Include="Resources\lit.frag" />
+    <None Include="Resources\lit.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\texture.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

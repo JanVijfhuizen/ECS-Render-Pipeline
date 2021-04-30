@@ -7,6 +7,7 @@ namespace rpi
 	class ShaderExt
 	{
 	public:
+		virtual ~ShaderExt() = default;
 		// Called by the ModularShader on construction.
 		virtual void Init(GLuint program);
 		// Called by the ModularShader on Use.
@@ -40,13 +41,16 @@ namespace rpi
 	// So in one extension you might forward the transform matrix, or the lights in the scene, or some random
 	// implementation that adds rainbow colors over time.
 	template <typename ...Args>
-	class ModularShader : public rpi::CeShader
+	class ModularShader : public CeShader
 	{
 	public:
 		explicit ModularShader(GLuint program);
 		// Once activated, the following meshes will be drawn using this shader.
 		void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
 
+		template <size_t S>
+		auto& At();
+	
 	private:
 #define TMPL_INDEX sizeof...(Args) - sizeof...(Tail) - 1
 
@@ -70,6 +74,13 @@ namespace rpi
 	{
 		CeShader::Use(index, eye, view, projection);
 		UseExtensions<Args...>(index, eye, view, projection);
+	}
+
+	template <typename ... Args>
+	template <size_t S>
+	auto& ModularShader<Args...>::At()
+	{
+		return std::get<S>(_tuple);
 	}
 
 	template <typename ... Args>
