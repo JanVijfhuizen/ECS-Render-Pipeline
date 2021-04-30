@@ -98,7 +98,7 @@ namespace rut
 		// Finally unbind the Frame Buffer Object and draw to the actual screen.
 		glBindVertexArray(_vao);
 		
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, outputBuffer);
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 		glUseProgram(_programPass);
@@ -109,7 +109,7 @@ namespace rut
 		// Clean the previously used texture buffer containing the final image.
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 		BindTextureBuffer(2 + _odd);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, outputBuffer);
 	}
 
 	GLuint PostEffectModule::GetFbo() const
