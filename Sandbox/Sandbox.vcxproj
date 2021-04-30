@@ -156,6 +156,7 @@
     <ClInclude Include="Include\BakedTransform.h" />
     <ClInclude Include="Include\BasicRenderSystem.h" />
     <ClInclude Include="Include\InverseEffect.h" />
+    <ClInclude Include="Include\Material.h" />
     <ClInclude Include="Include\ShaderExtensions.h" />
     <ClInclude Include="Include\TestFactory.h" />
   </ItemGroup>
@@ -163,10 +164,22 @@
     <None Include="Resources\combine.frag" />
     <None Include="Resources\frag.frag" />
     <None Include="Resources\inverse.frag" />
+    <None Include="Resources\lit.frag" />
+    <None Include="Resources\lit.vert" />
     <None Include="Resources\passthrough.frag" />
     <None Include="Resources\passthrough.vert" />
     <None Include="Resources\vert.vert" />
     <None Include="Resources\vertInstanced.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\normal.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Image>
+    <Image Include="Resources\texture.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

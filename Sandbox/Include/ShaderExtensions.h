@@ -12,3 +12,33 @@ public:
 private:
 	GLuint _model = 0;
 };
+
+// Extension that forwards a basic material.
+class MatFwd final : public rpi::ShaderExt
+{
+public:
+	void Init(GLuint program) override;
+	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
+
+private:
+	GLuint _color = 0;
+	GLuint _specularity = 0;
+};
+
+class LightmapFwd final : public rpi::ShaderExt
+{
+public:
+	void Init(GLuint program) override;
+	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
+};
+
+// Extension that forwards point light data.
+class PtLightFwd final : public rpi::ShaderExt
+{
+public:
+	void Init(GLuint program) override;
+	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
+
+private:
+	GLuint _count = 0;
+};

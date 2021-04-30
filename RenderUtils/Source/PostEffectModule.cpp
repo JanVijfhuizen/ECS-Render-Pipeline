@@ -117,10 +117,10 @@ namespace rut
 		return _fbo;
 	}
 
-	void PostEffectModule::BindTextureBuffer(const int32_t index)
+	void PostEffectModule::BindTextureBuffer(const int32_t index) const
 	{
 		glDrawBuffer(GL_COLOR_ATTACHMENT0 + index);
-		glClearColor(0, 1, 0, 0);
+		glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.a);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
