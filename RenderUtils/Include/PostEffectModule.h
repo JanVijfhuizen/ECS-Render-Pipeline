@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <cstdint>
 #include <glm/vec2.hpp>
+#include <glm/vec4.hpp>
+
 #include "glad/glad.h"
 
 namespace rut
@@ -13,6 +15,7 @@ namespace rut
 	public:
 		// The final image will be send to this buffer. If none, it will be send to the screen.
 		GLuint outputBuffer = 0;
+		glm::vec4 clearColor{.1f, .1f, .1f, 0};
 		
 		explicit PostEffectModule(glm::vec2 resolution);
 		virtual ~PostEffectModule();
@@ -40,7 +43,7 @@ namespace rut
 		int32_t _effectCount = 0;
 		bool _odd = false;
 
-		static void BindTextureBuffer(int32_t index);
+		void BindTextureBuffer(int32_t index) const;
 		
 		void SetupShader();
 		void SetupModel();

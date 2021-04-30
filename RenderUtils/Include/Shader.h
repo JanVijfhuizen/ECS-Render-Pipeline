@@ -28,6 +28,8 @@ namespace rut
 
 	private:
 		GLuint _program = 0;
+		
+		GLuint _eye = 0;
 		GLuint _view = 0;
 		GLuint _projection = 0;
 	};
