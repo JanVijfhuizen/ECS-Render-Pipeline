@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\LightFwd.cpp" />
     <ClCompile Include="Source\BasicRenderSystem.cpp" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
     <ClCompile Include="Source\InverseEffect.cpp" />
@@ -156,9 +157,11 @@
     <ClInclude Include="Include\BakedTransform.h" />
     <ClInclude Include="Include\BasicRenderSystem.h" />
     <ClInclude Include="Include\InverseEffect.h" />
+    <ClInclude Include="Include\Light.h" />
     <ClInclude Include="Include\Material.h" />
     <ClInclude Include="Include\ShaderExtensions.h" />
     <ClInclude Include="Include\TestFactory.h" />
+    <ClInclude Include="Include\LightFwd.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\combine.frag" />

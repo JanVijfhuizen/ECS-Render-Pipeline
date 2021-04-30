@@ -1,6 +1,7 @@
 #include "BasicRenderSystem.h"
 #include "Cecsar.h"
 #include "InverseEffect.h"
+#include "Light.h"
 #include "MapSet.h"
 #include "SoASet.h"
 #include "SparseSet.h"
@@ -48,6 +49,18 @@ int main()
 
 	auto& cam1Trans = transforms.Insert(cam1.index);
 	auto& cam2Trans = transforms.Insert(cam2.index);
+
+	// Now add some lighting.
+	auto& lights = jecs::MapSet<Light>::Get();
+	for (int32_t i = 0; i < 8; ++i)
+	{
+		const auto lightEntity = cecsar.Spawn();
+
+		auto& light = lights.Insert(lightEntity.index);
+		auto& transform = transforms.Insert(lightEntity.index);
+
+		transform.position = { .1f * (rand() % 20), .1f * (rand() % 20) , .1f * (rand() % 20) };
+	}
 
 	// Change the position of the first camera.
 	cam1Trans.position.y = 1;

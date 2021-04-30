@@ -64,13 +64,3 @@ void LightmapFwd::Use(const int32_t index, glm::vec3 eye, const glm::mat4& view,
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, material.specularityTex);
 }
-
-void PtLightFwd::Init(const GLuint program)
-{
-	ShaderExt::Init(program);
-	_count = GetUniformLoc("ptCount");
-}
-
-void PtLightFwd::Use(const int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection)
-{
-}

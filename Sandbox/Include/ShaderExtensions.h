@@ -25,20 +25,10 @@ private:
 	GLuint _specularity = 0;
 };
 
+// Extension that forwards the diffuse, normal and specular lightmaps.
 class LightmapFwd final : public rpi::ShaderExt
 {
 public:
 	void Init(GLuint program) override;
 	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
-};
-
-// Extension that forwards point light data.
-class PtLightFwd final : public rpi::ShaderExt
-{
-public:
-	void Init(GLuint program) override;
-	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
-
-private:
-	GLuint _count = 0;
 };

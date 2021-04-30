@@ -1,5 +1,6 @@
 ﻿#include "TestFactory.h"
 
+#include "LightFwd.h"
 #include "QuadGenerator.h"
 #include "ShaderExtensions.h"
 #include "ShaderLoader.h"
@@ -16,7 +17,7 @@ TestFactory::TestFactory()
 	const GLuint vert = rut::ShaderLoader::CreateShader(
 		"Resources/lit.vert", GL_VERTEX_SHADER);
 	const GLuint linked = rut::ShaderLoader::LinkShaders(frag, vert);
-	_shader = std::make_unique<rpi::ModularShader<ModelFwd, MatFwd>>(linked);
+	_shader = std::make_unique<rpi::ModularShader<ModelFwd, MatFwd, LightmapFwd, LightFwd>>(linked);
 	
 	// Define mesh.
 	std::vector<rut::Vertex> vertices;
