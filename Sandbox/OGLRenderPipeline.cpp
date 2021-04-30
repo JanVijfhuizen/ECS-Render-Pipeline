@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "BasicRenderSystem.h"
 #include "Cecsar.h"
 #include "InverseEffect.h"
@@ -14,7 +16,7 @@
 int main()
 {
 	// This is just some testing code, but it does show how you can use the render utils/pipeline to render your own stuff.
-	jecs::Cecsar cecsar{50};
+	jecs::Cecsar cecsar{ 50 };
 
 	const auto& windowModule = rpi::CeWindowModule::Get();
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
@@ -62,8 +64,8 @@ int main()
 	// It's okay to be frame dependent. This is for testing purposes only.
 	float time = 0;
 	const float dt = 1.f / 1000;
-	
-	while(true)
+
+	while (true)
 	{
 		bool quit = false;
 		windowModule.BeginFrame(&quit);
@@ -77,7 +79,7 @@ int main()
 		cam2Trans.position.z = cos(time) * 16;
 
 		BasicRenderSystem::Update();
-		
+
 		windowModule.EndFrame();
 	}
 

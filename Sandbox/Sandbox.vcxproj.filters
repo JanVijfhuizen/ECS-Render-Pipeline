@@ -72,9 +72,6 @@
     <None Include="Resources\lit.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\normal.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\texture.png">
       <Filter>Resource Files</Filter>
     </Image>
