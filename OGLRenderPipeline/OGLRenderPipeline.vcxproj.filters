@@ -65,6 +65,12 @@
     <ClInclude Include="Include\Modules\CePostEffectModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\Components\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Shaders\ModularShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />

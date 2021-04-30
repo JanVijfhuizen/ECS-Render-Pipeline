@@ -166,6 +166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Components\Light.h" />
     <ClInclude Include="Include\Modules\CePostEffectModule.h" />
     <ClInclude Include="Include\Modules\CeWindowModule.h" />
     <ClInclude Include="Include\Components\PostEffectStack.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Include\Components\Camera.h" />
     <ClInclude Include="Include\Components\Model.h" />
     <ClInclude Include="Include\Components\Transform.h" />
+    <ClInclude Include="Include\Shaders\ModularShader.h" />
     <ClInclude Include="Include\Systems\CameraSystem.h" />
     <ClInclude Include="Include\Systems\TransformSystem.h" />
     <ClInclude Include="Include\Shaders\CeShader.h" />
