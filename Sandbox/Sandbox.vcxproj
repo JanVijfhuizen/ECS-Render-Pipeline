@@ -158,7 +158,6 @@
     <ClInclude Include="Include\InverseEffect.h" />
     <ClInclude Include="Include\ShaderExtensions.h" />
     <ClInclude Include="Include\TestFactory.h" />
-    <ClInclude Include="Include\ModularShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\combine.frag" />

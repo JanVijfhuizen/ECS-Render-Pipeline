@@ -44,9 +44,6 @@
     <ClInclude Include="Include\BakedTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\ModularShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\ShaderExtensions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
