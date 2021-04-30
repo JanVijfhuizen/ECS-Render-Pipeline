@@ -85,7 +85,7 @@ vec3 CalcPointLight(PtLight light, vec3 normal, vec3 viewDir)
 		light.fallof.quadratic * (distance * distance));  
 
     // Combine results.
-    vec3 diffuse = light.diffuse * diff * vec3(texture(mat.diffuseTex, TexCoords)) * mat.color;
+    vec3 diffuse = light.diffuse * diff * vec3(texture(mat.diffuseTex, TexCoords));
     vec3 specular = spec * vec3(texture(mat.specularityTex, TexCoords));
 
     diffuse *= attenuation;
@@ -104,7 +104,7 @@ vec3 CalcSpotLight(SpotLight light)
     // Diffuse shading.
     vec3 norm = normalize(Normal);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * diff * texture(mat.diffuseTex, TexCoords).rgb * mat.color;  
+    vec3 diffuse = light.diffuse * diff * texture(mat.diffuseTex, TexCoords).rgb;  
         
     // Specular shading.
     vec3 viewDir = normalize(viewPos - FragPos);
@@ -135,7 +135,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), mat.specularity);
 
     // Combine results.
-    vec3 diffuse = light.diffuse * diff * vec3(texture(mat.diffuseTex, TexCoords)) * mat.color;
+    vec3 diffuse = light.diffuse * diff * vec3(texture(mat.diffuseTex, TexCoords));
     vec3 specular = spec * vec3(texture(mat.specularityTex, TexCoords));
 
     return diffuse + specular;
@@ -143,5 +143,21 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 
 void main()
 {
-	FragColor = vec4(mat.color, 1);
+	// Shared calculations.
+	vec3 norm = normalize(Normal);
+	vec3 viewDir = normalize(viewPos - FragPos);
+
+	// Add point lights.
+	vec3 lightMod = vec3(0, 0, 0);
+	for(int i = 0; i < ptCount; i++)
+        lightMod += CalcPointLight(ptLights[i], norm, viewDir);
+    // Add spot lights.
+    for(int i = 0; i < spotCount; i++)
+        lightMod += CalcSpotLight(spotLights[i]);
+    // Add directional lights.
+    for(int i = 0; i < dirCount; i++)
+        lightMod += CalcDirLight(dirLights[i], norm, viewDir);
+
+	vec4 shadingRes = vec4((ambient + lightMod) * mat.color, 1.0);
+	FragColor = texture(mat.diffuseTex, TexCoords) * shadingRes;
 }

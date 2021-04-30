@@ -22,7 +22,7 @@ void ModelFwd::Use(const int32_t index, glm::vec3 eye, const glm::mat4& view, co
 void MatFwd::Init(const GLuint program)
 {
 	ShaderExt::Init(program);
-	_color = GetUniformLoc("mat.diffuse");
+	_color = GetUniformLoc("mat.color");
 	_specularity = GetUniformLoc("mat.specularity");
 }
 

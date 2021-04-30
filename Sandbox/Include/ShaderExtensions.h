@@ -10,7 +10,7 @@ public:
 	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
 	
 private:
-	GLuint _model = 0;
+	GLint _model = -1;
 };
 
 // Extension that forwards a basic material.
@@ -21,8 +21,8 @@ public:
 	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
 
 private:
-	GLuint _color = 0;
-	GLuint _specularity = 0;
+	GLint _color = -1;
+	GLint _specularity = -1;
 };
 
 // Extension that forwards the diffuse, normal and specular lightmaps.

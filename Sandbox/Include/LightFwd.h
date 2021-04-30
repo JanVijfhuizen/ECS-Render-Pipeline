@@ -15,7 +15,7 @@ class LightFwd final : public rpi::ShaderExt
 {
 public:
 	~LightFwd();
-
+	
 	void Init(GLuint program) override;
 	void Use(int32_t index, glm::vec3 eye, const glm::mat4& view, const glm::mat4& projection) override;
 
@@ -33,18 +33,18 @@ private:
 		GLint diffuse = -1;
 		GLint pos = -1;
 
-		Fallof fallof;
+		Fallof fallof{};
 	};
 
 	struct SpotLight final
 	{
-		GLuint cutOff;
+		GLint cutOff;
 
 		GLint diffuse = -1;
 		GLint pos = -1;
 		GLint dir = -1;
 
-		Fallof fallof;
+		Fallof fallof{};
 	};
 
 	struct DirLight final
@@ -94,11 +94,11 @@ private:
 	Ambient _ambient{};
 
 	GLint _ptLightCount = -1;
-	PointLight* _ptLights = new PointLight[_MAX_LIGHT_COUNT];
+	PointLight* _ptLights = nullptr;
 	GLint _dirLightCount = -1;
-	DirLight* _dirLights = new DirLight[_MAX_LIGHT_COUNT];
+	DirLight* _dirLights = nullptr;
 	GLint _spotLightCount = -1;
-	SpotLight* _spotLights = new SpotLight[_MAX_LIGHT_COUNT];
+	SpotLight* _spotLights = nullptr;
 
 	void SetupAmbientLight();
 	void SetupPointLights();

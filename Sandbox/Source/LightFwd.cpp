@@ -1,6 +1,5 @@
 ﻿#include "LightFwd.h"
 
-
 #include "MapSet.h"
 #include "Components/Transform.h"
 #include "glm/ext.hpp"
@@ -16,6 +15,10 @@ LightFwd::~LightFwd()
 void LightFwd::Init(const GLuint program)
 {
 	ShaderExt::Init(program);
+
+	_ptLights = new PointLight[_MAX_LIGHT_COUNT];
+	_dirLights = new DirLight[_MAX_LIGHT_COUNT];
+	_spotLights = new SpotLight[_MAX_LIGHT_COUNT];
 
 	SetupAmbientLight();
 	SetupPointLights();
@@ -42,7 +45,7 @@ void LightFwd::Use(const int32_t index, glm::vec3 eye, const glm::mat4& view, co
 LightFwd::Visitor::Visitor(LightFwd& shader) : _shader(shader),
 	_transforms(jecs::SparseSet<rpi::Transform>::Get())
 {
-	
+		
 }
 
 void LightFwd::Visitor::operator()(const Light::Point& point)
@@ -124,7 +127,7 @@ void LightFwd::Visitor::SetFallof(const Fallof& handles, const Light::Fallof& va
 
 void LightFwd::SetupAmbientLight()
 {
-	_ambient.diffuse = GetUniformLoc("Ambient");
+	_ambient.diffuse = GetUniformLoc("ambient");
 }
 
 void LightFwd::SetupPointLights()
@@ -142,6 +145,7 @@ void LightFwd::SetupPointLights()
 		light.pos = GetUniformLoc(str + "pos");
 
 		auto& fallof = light.fallof;
+		str += "fallof.";
 		fallof.constant = GetUniformLoc(str + "constant");
 		fallof.linear = GetUniformLoc(str + "linear");
 		fallof.quadratic = GetUniformLoc(str + "quadratic");
@@ -181,6 +185,7 @@ void LightFwd::SetupSpotLights()
 		light.dir = GetUniformLoc(str + "dir");
 
 		auto& fallof = light.fallof;
+		str += "fallof.";
 		fallof.constant = GetUniformLoc(str + "constant");
 		fallof.linear = GetUniformLoc(str + "linear");
 		fallof.quadratic = GetUniformLoc(str + "quadratic");
