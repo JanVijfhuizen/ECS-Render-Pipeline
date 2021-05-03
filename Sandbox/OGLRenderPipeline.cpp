@@ -17,6 +17,8 @@ int main()
 	jecs::Cecsar cecsar{ 1000 };
 
 	const auto& windowModule = rpi::CeWindowModule::Get();
+	auto& renderSystem = BasicRenderSystem::Get();
+
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();
 
@@ -62,7 +64,7 @@ int main()
 
 	// It's okay to be frame dependent. This is for testing purposes only.
 	float time = 0;
-	const float dt = 1.f / 1000;
+	const float dt = 1.f / 500;
 
 	while (true)
 	{
@@ -77,7 +79,7 @@ int main()
 		cam2Trans.position.y = sin(time * 2) * 2;
 		cam2Trans.position.z = cos(time) * 64;
 
-		BasicRenderSystem::Update();
+		renderSystem.Update();
 
 		windowModule.EndFrame();
 	}
