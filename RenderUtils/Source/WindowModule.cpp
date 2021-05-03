@@ -45,6 +45,13 @@ namespace rut
 		// Disable VSync.
 		if(!settings.vSync)
 			glfwSwapInterval(0);
+
+		const int32_t samples = settings.antiAliasingSamples;
+		if(samples > 0)
+		{
+			glfwWindowHint(GLFW_SAMPLES, samples);
+			glEnable(GL_MULTISAMPLE);
+		}
 	}
 
 	WindowModule::~WindowModule()

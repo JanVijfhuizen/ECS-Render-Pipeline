@@ -22,6 +22,7 @@ namespace rut
 			int32_t version = 4;
 
 			bool vSync = false;
+			int32_t antiAliasingSamples = 4;
 
 			[[nodiscard]] glm::vec2 GetResolution() const;
 			[[nodiscard]] float GetAspectRatio() const;
