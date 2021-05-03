@@ -10,8 +10,6 @@
 #include "Components/PostEffectStack.h"
 #include "Components/Transform.h"
 #include "Modules/CeWindowModule.h"
-#include "ObjLoader.h"
-#include "Vertex.h"
 
 int main()
 {
@@ -20,6 +18,7 @@ int main()
 
 	const auto& windowModule = rpi::CeWindowModule::Get();
 	auto& renderSystem = BasicRenderSystem::Get();
+	auto& factory = TestFactory::Get();
 
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();
@@ -29,7 +28,7 @@ int main()
 		for (int32_t j = 0; j < 20; ++j)
 		{
 			const auto testObj = cecsar.Spawn();
-			TestFactory::Get().Construct(testObj);
+			factory.Construct(testObj);
 
 			auto& trans = transforms[testObj.index];
 			trans.position = glm::vec3{ i, j, 0 } - glm::vec3(10, 10, 0);
@@ -64,14 +63,16 @@ int main()
 	cam1Trans.position.z = -8;
 	camera1.target = { 0, 6, 0 };
 
+	// Spawn one big object.
+	const auto testObj = cecsar.Spawn();
+	factory.Construct(testObj);
+	auto& trans = transforms[testObj.index];
+	trans.position = glm::vec3(0, 14, -2);
+	trans.scale = glm::vec3{ 3, 3, 3 };
+
 	// It's okay to be frame dependent. This is for testing purposes only.
 	float time = 0;
 	const float dt = 1.f / 500;
-
-	// Load model.
-	std::vector<rut::Vertex> vertices{};
-	std::vector<int32_t> indices{};
-	ObjLoader::CreateModel("Resources/Cube.obj", vertices, indices);
 
 	while (true)
 	{

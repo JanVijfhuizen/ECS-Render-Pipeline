@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include "Vertex.h"
+#include <algorithm>
+#include <unordered_set>
 
 bool ObjLoader::CreateModel(const std::string& filename, 
 	std::vector<rut::Vertex>& vertices, 
@@ -22,9 +24,11 @@ bool ObjLoader::CreateModel(const std::string& filename,
 		if (line[0] == 'o')
 			break;
 
-	std::vector<glm::vec3> positions{};
-	std::vector<glm::vec2> texCoords{};
-	std::vector<glm::vec3> normals{};
+	std::vector<glm::vec3> positions;
+	std::vector<glm::vec2> texCoords;
+	std::vector<glm::vec3> normals;
+
+	std::unordered_set<std::string> set;
 
 	while (std::getline(file, line))
 	{
@@ -35,12 +39,14 @@ bool ObjLoader::CreateModel(const std::string& filename,
 		// Used for parsing.
 		std::istringstream iss(line);
 		std::string prefix;
-		glm::vec3 vec3;
-		char c;
-		int i;
-		rut::Vertex vert;
 
-		int32_t index = 0;
+		glm::vec3 vec3;
+		std::string s;
+		std::istringstream iss2;
+
+		std::unordered_set<std::string>::iterator it;
+		int32_t x, y, z;
+		rut::Vertex vert;
 
 		switch (pre1)
 		{
@@ -61,7 +67,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 				// Normal.
 			case 'n':
 				iss >> prefix >> vec3.x >> vec3.y >> vec3.z;
-				texCoords.emplace_back(vec3);
+				normals.push_back(vec3);
 				break;
 			default:
 				fprintf(stdin, "Obj file is corrupted: %s\n", filename.c_str());
@@ -70,33 +76,30 @@ bool ObjLoader::CreateModel(const std::string& filename,
 			break;
 			// Indices.
 		case 'f':
-			while (iss >> c)
+			// Get the indices as a string.
+			iss >> prefix;
+			while(iss >> s)
 			{
-				if (c == '/')
-					continue;
-				if(c == ' ')
+				// If vertex has been defined before.
+				it = set.find(s);
+				if (it != set.end())
 				{
-					index = 0;
+					indices.push_back(std::distance(set.begin(), it));
 					continue;
 				}
 
-				i = static_cast<int32_t>(c);
-				switch (index)
-				{
-				case 0:
-					vert.position = positions[i];
-					break;
-				case 1:
-					vert.texCoords = texCoords[i];
-					break;
-				case 2:
-					vert.normal = normals[i];
-					vertices.push_back(vert);
-					break;
-				default:
-					fprintf(stdin, "Obj file is corrupted: %s\n", filename.c_str());
-					break;
-				}
+				// Now get the indices as integer values.
+				std::replace(s.begin(), s.end(), '/', ' ');
+				iss2 = std::istringstream(s);
+				iss2 >> x >> y >> z;
+
+				vert.position = positions[x - 1];
+				vert.texCoords = texCoords[y - 1];
+				vert.normal = normals[z - 1];
+
+				set.insert(s);
+				vertices.push_back(vert);
+				indices.push_back(set.size() - 1);
 			}
 			break;
 			// Either comments or material stuff.

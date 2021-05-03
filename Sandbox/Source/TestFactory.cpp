@@ -8,6 +8,7 @@
 #include "TextureLoader.h"
 #include "Vertex.h"
 #include "Components/Transform.h"
+#include "../ObjLoader.h"
 
 TestFactory::TestFactory()
 {
@@ -22,9 +23,9 @@ TestFactory::TestFactory()
 	// Define mesh.
 	std::vector<rut::Vertex> vertices;
 	std::vector<int32_t> indices;
-
+	ObjLoader::CreateModel("Resources/Cube.obj", vertices, indices);
 	// Generate quad mesh.
-	rut::QuadGenerator::Generate(vertices, indices, rut::QuadGenerator::Axes::y);
+	//rut::QuadGenerator::Generate(vertices, indices, rut::QuadGenerator::Axes::y);
 	_mesh = std::make_unique<rpi::CeMesh>(vertices.data(), vertices.size(), 
 		indices.data(), indices.size());
 
