@@ -33,6 +33,9 @@
     <ClCompile Include="Source\LightFwd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\BasicRenderSystem.h">
@@ -59,6 +62,9 @@
     <ClInclude Include="Include\LightFwd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ObjLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\frag.frag" />
@@ -75,5 +81,9 @@
     <Image Include="Resources\texture.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Resources\Gun.obj" />
+    <Object Include="Resources\Cube.obj" />
   </ItemGroup>
 </Project>

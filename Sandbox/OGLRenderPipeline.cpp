@@ -10,6 +10,8 @@
 #include "Components/PostEffectStack.h"
 #include "Components/Transform.h"
 #include "Modules/CeWindowModule.h"
+#include "ObjLoader.h"
+#include "Vertex.h"
 
 int main()
 {
@@ -65,6 +67,11 @@ int main()
 	// It's okay to be frame dependent. This is for testing purposes only.
 	float time = 0;
 	const float dt = 1.f / 500;
+
+	// Load model.
+	std::vector<rut::Vertex> vertices{};
+	std::vector<int32_t> indices{};
+	ObjLoader::CreateModel("Resources/Cube.obj", vertices, indices);
 
 	while (true)
 	{
