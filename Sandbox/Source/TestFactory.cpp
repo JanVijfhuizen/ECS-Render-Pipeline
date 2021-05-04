@@ -23,7 +23,7 @@ TestFactory::TestFactory()
 	// Define mesh.
 	std::vector<rut::Vertex> vertices;
 	std::vector<int32_t> indices;
-	ObjLoader::CreateModel("Resources/Cube.obj", vertices, indices);
+	ObjLoader::CreateModel("Resources/Test.obj", vertices, indices);
 	// Generate quad mesh.
 	//rut::QuadGenerator::Generate(vertices, indices, rut::QuadGenerator::Axes::y);
 	_mesh = std::make_unique<rpi::CeMesh>(vertices.data(), vertices.size(), 
@@ -35,10 +35,10 @@ TestFactory::TestFactory()
 	_modelProto.mesh = _mesh.get();
 	
 	// Define material.
-	_diffuseTex = rut::TextureLoader::Load("Resources/ground.png");
+	_diffuseTex = rut::TextureLoader::Load("Resources/tex.png");
 	_normalTex = rut::TextureLoader::Load("Resources/normal.png");
 	// Just using a normal texture as a specular map.
-	_specularityTex = rut::TextureLoader::Load("Resources/ground.png");
+	_specularityTex = rut::TextureLoader::Load("Resources/tex.png");
 
 	// Set up prototype component.
 	_matProto.diffuseTex = _diffuseTex->GetHandle();

@@ -81,6 +81,9 @@
     <Image Include="Resources\texture.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\tex.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Object Include="Resources\Gun.obj" />
