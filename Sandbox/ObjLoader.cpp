@@ -24,11 +24,17 @@ bool ObjLoader::CreateModel(const std::string& filename,
 		if (line[0] == 'o')
 			break;
 
+	// Store all the vertex data.
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec2> texCoords;
 	std::vector<glm::vec3> normals;
 
-	std::unordered_set<std::string> set;
+	// Use the set to check if it already exist, and use the vector to quickly get it by index.
+	std::unordered_set<std::string> vertSet;
+	std::vector<rut::Vertex> vertVec;
+
+	// Store the vertex indices of the current face.
+	std::vector<int32_t> faceInds;
 
 	while (std::getline(file, line))
 	{
@@ -36,17 +42,26 @@ bool ObjLoader::CreateModel(const std::string& filename,
 		char pre1 = line[0];
 		char pre2 = line[1];
 
+		// Pretty annoying but I can't declare variables in the switch cases.
+
 		// Used for parsing.
 		std::istringstream iss(line);
 		std::string prefix;
 
+		// Used to parse in vertex attributes.
 		glm::vec3 vec3;
-		std::string s;
+		// s1 = p/t/n, s2 = p t n
+		std::string s1, s2;
+		// Used for parsing the faces, where / is used.
 		std::istringstream iss2;
 
+		// Used to iterate over the hashset.
 		std::unordered_set<std::string>::iterator it;
-		int32_t x, y, z;
-		rut::Vertex vert;
+		int32_t i;
+
+		// Used to parse in indices information.
+		int32_t posIndex, texIndex, norIndex;
+		rut::Vertex vertex;
 
 		switch (pre1)
 		{
@@ -74,32 +89,56 @@ bool ObjLoader::CreateModel(const std::string& filename,
 				break;
 			}
 			break;
-			// Indices.
+			// Faces.
 		case 'f':
-			// Get the indices as a string.
+			// Get the faces as a string.
 			iss >> prefix;
-			while(iss >> s)
+			faceInds.clear();
+
+			// Collect all the indices.
+			while(iss >> s1)
 			{
+				i = indices.size();
+				it = vertSet.find(s1);
+
 				// If vertex has been defined before.
-				it = set.find(s);
-				if (it != set.end())
+				if (it != vertSet.end())
+					i = std::distance(vertSet.begin(), it);
+				// Otherwise add it to the set.
+				else
 				{
-					indices.push_back(std::distance(set.begin(), it));
-					continue;
+					// Deconstruct string into a vertex.
+					s2 = s1;
+					std::replace(s2.begin(), s2.end(), '/', ' ');
+					iss2 = std::istringstream(s2);
+
+					iss2 >> posIndex >> texIndex >> norIndex;
+					vertex.position = positions[posIndex - 1];
+					vertex.texCoords = texCoords[texIndex - 1];
+					vertex.normal = normals[norIndex - 1];
+
+					vertSet.insert(s1);
+					vertVec.push_back(vertex);
 				}
 
-				// Now get the indices as integer values.
-				std::replace(s.begin(), s.end(), '/', ' ');
-				iss2 = std::istringstream(s);
-				iss2 >> x >> y >> z;
+				// Collect the indices that make up the current face.
+				faceInds.push_back(i);
+				indices.push_back(i);
+			}
 
-				vert.position = positions[x - 1];
-				vert.texCoords = texCoords[y - 1];
-				vert.normal = normals[z - 1];
-
-				set.insert(s);
-				vertices.push_back(vert);
-				indices.push_back(set.size() - 1);
+			// Now convert the face indices into triangles.
+			i = vertVec.size();
+			switch (i)
+			{
+				// Triangle.
+			case 3:
+				break;
+				// Quad.
+			case 4:
+				break;
+				// Ngon.
+			default:
+				break;
 			}
 			break;
 			// Either comments or material stuff.

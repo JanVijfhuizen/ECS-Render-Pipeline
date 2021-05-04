@@ -68,7 +68,7 @@ int main()
 	factory.Construct(testObj);
 	auto& trans = transforms[testObj.index];
 	trans.position = glm::vec3(0, 14, -2);
-	trans.scale = glm::vec3{ 3, 3, 3 };
+	trans.scale = glm::vec3{ 5 };
 
 	// It's okay to be frame dependent. This is for testing purposes only.
 	float time = 0;
