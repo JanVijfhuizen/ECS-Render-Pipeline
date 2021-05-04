@@ -33,9 +33,6 @@
     <ClCompile Include="Source\LightFwd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ObjLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\BasicRenderSystem.h">
@@ -60,9 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Include\LightFwd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

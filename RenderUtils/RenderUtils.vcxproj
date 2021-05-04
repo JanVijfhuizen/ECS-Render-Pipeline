@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Source\ObjLoader.cpp" />
     <ClCompile Include="Source\PostEffectModule.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\PostEffect.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Mesh.h" />
+    <ClInclude Include="Include\ObjLoader.h" />
     <ClInclude Include="Include\PostEffect.h" />
     <ClInclude Include="Include\QuadGenerator.h" />
     <ClInclude Include="Include\Shader.h" />

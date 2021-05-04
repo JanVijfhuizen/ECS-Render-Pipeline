@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Source\LightFwd.cpp" />
     <ClCompile Include="Source\BasicRenderSystem.cpp" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
@@ -164,7 +163,6 @@
     <ClInclude Include="Include\ShaderExtensions.h" />
     <ClInclude Include="Include\TestFactory.h" />
     <ClInclude Include="Include\LightFwd.h" />
-    <ClInclude Include="ObjLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\combine.frag" />

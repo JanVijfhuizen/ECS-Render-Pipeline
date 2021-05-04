@@ -74,6 +74,10 @@ namespace rut
 
 	void PostEffectModule::RenderEnd()
 	{
+		// Disable custom depth buffer.
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+			GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
+
 		// Render to a quad that fills the whole screen.
 		glBindVertexArray(_vao);
 		glActiveTexture(GL_TEXTURE0);
@@ -104,10 +108,6 @@ namespace rut
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		
 		_odd = !_odd;
-
-		// Disable custom depth buffer.
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER,
-			GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
 	}
 
 	void PostEffectModule::PostRender()

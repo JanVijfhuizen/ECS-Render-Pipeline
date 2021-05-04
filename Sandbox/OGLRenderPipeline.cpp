@@ -39,7 +39,7 @@ int main()
 	const auto cam1 = cecsar.Spawn();
 	const auto cam2 = cecsar.Spawn();
 
-	//auto& camera1 = cameras.Insert(cam1.index);
+	auto& camera1 = cameras.Insert(cam1.index);
 	cameras.Insert(cam2.index);
 
 	auto& postEffectStacks = jecs::MapSet<rpi::PostEffectStack>::Get();
@@ -47,9 +47,9 @@ int main()
 
 	// Add some post effects.
 	rpi::InverseEffect effect;
-	//stack.effects.push_back(&effect);
-	//stack.effects.push_back(&effect);
-	//stack.effects.push_back(&effect);
+	stack.effects.push_back(&effect);
+	stack.effects.push_back(&effect);
+	stack.effects.push_back(&effect);
 
 	auto& cam1Trans = transforms.Insert(cam1.index);
 	auto& cam2Trans = transforms.Insert(cam2.index);
@@ -61,7 +61,7 @@ int main()
 
 	// Change the position of the first camera.
 	cam1Trans.position = { 4, 0, -15 };
-	//camera1.target = { 4, 0, 0 };
+	camera1.target = { 4, 0, 0 };
 
 	// Spawn one big object.
 	const auto testObj = cecsar.Spawn();
