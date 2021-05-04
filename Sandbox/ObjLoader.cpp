@@ -56,7 +56,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 
 		// Used to iterate over the hashset.
 		std::unordered_set<std::string>::iterator it;
-		int32_t i;
+		int32_t index;
 
 		// Used to parse in indices information.
 		int32_t posIndex, texIndex, norIndex;
@@ -97,12 +97,12 @@ bool ObjLoader::CreateModel(const std::string& filename,
 			// Collect all the indices.
 			while(iss >> s1)
 			{
-				i = vertices.size();
+				index = vertices.size();
 				it = vertSet.find(s1);
 
 				// If vertex has been defined before.
 				if (it != vertSet.end())
-					i = std::distance(vertSet.begin(), it);
+					index = std::distance(vertSet.begin(), it);
 				// Otherwise add it to the set.
 				else
 				{
@@ -121,18 +121,25 @@ bool ObjLoader::CreateModel(const std::string& filename,
 				}
 
 				// Collect the indices that make up the current face.
-				faceInds.push_back(i);
+				faceInds.push_back(index);
 			}
 
 			// Now convert the face indices into triangles.
-			i = faceInds.size();
-			switch (i)
+			index = faceInds.size();
+			switch (index)
 			{
-				// Triangle.
+				// Triangle.			
 			case 3:
+				for (auto& ind : faceInds)
+					indices.push_back(ind);
 				break;
 				// Quad.
 			case 4:
+				for (int32_t i = 0; i < 3; ++i)
+					indices.push_back(faceInds[i]);
+				for (int32_t i = 2; i < 4; ++i)
+					indices.push_back(faceInds[i]);
+				indices.push_back(faceInds[0]);
 				break;
 				// Ngon.
 			default:
