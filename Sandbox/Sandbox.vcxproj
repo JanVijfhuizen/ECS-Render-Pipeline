@@ -135,6 +135,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)/Include/;$(SolutionDir)/glfw-3.3.4.bin.WIN64/include/GLFW;$(SolutionDir)/glm;$(SolutionDir)/GLAD/include;$(SolutionDir)/Cecsar/Include;$(SolutionDir)/RenderUtils/Include;$(SolutionDir)/OGLRenderPipeline/Include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
