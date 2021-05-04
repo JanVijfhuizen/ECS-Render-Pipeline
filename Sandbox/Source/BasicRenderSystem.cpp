@@ -12,6 +12,7 @@
 #include "Systems/CameraSystem.h"
 #include "Modules/CePostEffectModule.h"
 #include "Systems/TransformSystem.h"
+#include <glfw3.h>
 
 void BasicRenderSystem::Update()
 {
@@ -73,5 +74,20 @@ void BasicRenderSystem::Update()
 	}
 
 	// Draw the post effect's final image to the screen.
+	// Also enable gamma correction and anti aliasing.
+	if (aaSamples > 0) 
+	{
+		glfwWindowHint(GLFW_SAMPLES, aaSamples);
+		glEnable(GL_MULTISAMPLE);
+	}
+
+	glEnable(GL_FRAMEBUFFER_SRGB);
 	postEffectModule.PostRender();
+	glDisable(GL_FRAMEBUFFER_SRGB);
+
+	if (aaSamples > 0)
+	{
+		glfwWindowHint(GLFW_SAMPLES, aaSamples);
+		glDisable(GL_MULTISAMPLE);
+	}
 }

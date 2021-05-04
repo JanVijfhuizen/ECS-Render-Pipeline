@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Source\LightFwd.cpp" />
     <ClCompile Include="Source\BasicRenderSystem.cpp" />
     <ClCompile Include="OGLRenderPipeline.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Include\ShaderExtensions.h" />
     <ClInclude Include="Include\TestFactory.h" />
     <ClInclude Include="Include\LightFwd.h" />
+    <ClInclude Include="ObjLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\combine.frag" />
@@ -175,10 +177,24 @@
     <None Include="Resources\vertInstanced.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\tex.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Image>
     <Image Include="Resources\texture.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Resources\Cube.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="Resources\Gun.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Object>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

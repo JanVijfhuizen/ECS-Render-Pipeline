@@ -34,6 +34,7 @@ namespace rut
 	private:
 		GLuint _fbo = 0;
 		GLuint _textureBuffers[4]{};
+		GLuint _rbo = 0;
 		
 		GLuint _vao = 0;
 		GLuint _programPass = 0;
