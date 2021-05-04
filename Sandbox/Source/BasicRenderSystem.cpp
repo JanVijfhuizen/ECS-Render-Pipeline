@@ -53,7 +53,7 @@ void BasicRenderSystem::Update()
 		auto& effects = postEffectStack.effects;
 		
 		// Write to the post effect buffers instead of the screen.
-		//postEffectModule.RenderBegin(effects.data(), effects.size());
+		postEffectModule.RenderBegin(effects.data(), effects.size());
 		
 		const auto eye = transforms[camIndex].position;
 		const auto view = rpi::CameraSystem::GetView(camIndex);
@@ -70,7 +70,7 @@ void BasicRenderSystem::Update()
 		}
 
 		// Use the post effects and draw the buffer on top of the other camera's output.
-		//postEffectModule.RenderEnd();
+		postEffectModule.RenderEnd();
 	}
 
 	// Draw the post effect's final image to the screen.
@@ -82,7 +82,7 @@ void BasicRenderSystem::Update()
 	}
 
 	glEnable(GL_FRAMEBUFFER_SRGB);
-	//postEffectModule.PostRender();
+	postEffectModule.PostRender();
 	glDisable(GL_FRAMEBUFFER_SRGB);
 
 	if (aaSamples > 0)

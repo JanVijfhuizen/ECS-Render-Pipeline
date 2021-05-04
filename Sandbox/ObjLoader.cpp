@@ -4,7 +4,6 @@
 #include "Vertex.h"
 #include <algorithm>
 #include <unordered_set>
-#include <iostream>
 
 bool ObjLoader::CreateModel(const std::string& filename, 
 	std::vector<rut::Vertex>& vertices, 
@@ -35,8 +34,6 @@ bool ObjLoader::CreateModel(const std::string& filename,
 
 	while (std::getline(file, line))
 	{
-		std::cout << line << std::endl;
-
 		// Used to check type of parsed data.
 		char pre1 = line[0];
 
