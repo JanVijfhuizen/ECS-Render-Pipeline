@@ -3,7 +3,7 @@
 #include <sstream>
 #include "Vertex.h"
 #include <algorithm>
-#include <unordered_set>
+#include <set>
 
 bool ObjLoader::CreateModel(const std::string& filename, 
 	std::vector<rut::Vertex>& vertices, 
@@ -30,7 +30,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 	std::vector<glm::vec3> normals;
 
 	// Use the set to check if the face already exists.
-	std::unordered_set<std::string> vertSet;
+	std::set<std::string> vertSet;
 
 	// Store the vertex indices of the current face.
 	std::vector<int32_t> faceInds;
@@ -55,7 +55,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 		std::istringstream iss2;
 
 		// Used to iterate over the hashset.
-		std::unordered_set<std::string>::iterator it;
+		std::set<std::string>::iterator it;
 		int32_t index;
 
 		// Used to parse in indices information.
@@ -135,14 +135,18 @@ bool ObjLoader::CreateModel(const std::string& filename,
 				break;
 				// Quad.
 			case 4:
-				for (int32_t i = 0; i < 3; ++i)
+				// Triangle #1.
+				for (int32_t i = 0; i < 2; ++i)
 					indices.push_back(faceInds[i]);
-				for (int32_t i = 2; i < 4; ++i)
+				indices.push_back(faceInds[3]);
+
+				// Triangle #2.
+				for (int32_t i = 1; i < 4; ++i)
 					indices.push_back(faceInds[i]);
-				indices.push_back(faceInds[0]);
 				break;
 				// Ngon.
 			default:
+				assert(false);
 				break;
 			}
 			break;
