@@ -29,9 +29,8 @@ bool ObjLoader::CreateModel(const std::string& filename,
 	std::vector<glm::vec2> texCoords;
 	std::vector<glm::vec3> normals;
 
-	// Use the set to check if it already exist, and use the vector to quickly get it by index.
+	// Use the set to check if the face already exists.
 	std::unordered_set<std::string> vertSet;
-	std::vector<rut::Vertex> vertVec;
 
 	// Store the vertex indices of the current face.
 	std::vector<int32_t> faceInds;
@@ -98,7 +97,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 			// Collect all the indices.
 			while(iss >> s1)
 			{
-				i = vertSet.size();
+				i = vertices.size();
 				it = vertSet.find(s1);
 
 				// If vertex has been defined before.
@@ -118,7 +117,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 					vertex.normal = normals[norIndex - 1];
 
 					vertSet.insert(s1);
-					vertVec.push_back(vertex);
+					vertices.push_back(vertex);
 				}
 
 				// Collect the indices that make up the current face.
@@ -126,7 +125,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 			}
 
 			// Now convert the face indices into triangles.
-			i = vertVec.size();
+			i = faceInds.size();
 			switch (i)
 			{
 				// Triangle.
