@@ -128,9 +128,8 @@ bool ObjLoader::CreateModel(const std::string& filename,
 				for (int32_t i = 1; i < 4; ++i)
 					indices.push_back(faceIndices[i]);
 				break;
-				// Ngon.
 			default:
-				assert(false);
+				fprintf(stdin, "Ngons are not supported: %s\n", filename.c_str());
 				break;
 			}
 		}
