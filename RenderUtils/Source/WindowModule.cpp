@@ -42,6 +42,10 @@ namespace rut
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 
+		// Cull back faces.
+		glFrontFace(GL_CCW);
+		glCullFace(GL_BACK);
+
 		// Disable VSync.
 		if(!settings.vSync)
 			glfwSwapInterval(0);

@@ -42,9 +42,9 @@ namespace rpi
 		
 		// Scale.
 		const auto& s = transform.scale;
-		mat[1][1] *= s.x;
-		mat[2][2] *= s.y;
-		mat[3][3] *= s.z;
+		mat[0][0] *= s.x;
+		mat[1][1] *= s.y;
+		mat[2][2] *= s.z;
 		
 		return mat;
 	}
