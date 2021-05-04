@@ -138,7 +138,7 @@ namespace rut
 	{
 		glDrawBuffer(GL_COLOR_ATTACHMENT0 + index);
 		glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.a);
-		glClear(GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	void PostEffectModule::SetupShader()
