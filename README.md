@@ -36,7 +36,7 @@ for (const auto [camera, camIndex] : cameras)
 ```
 
 Model loading, textures and lighting:
-![](Vids/rendering.gif)
+![](Vids/rendering.mp4)
 
 Here, two cameras are being used. One uses an inverse post effect.
-![](Vids/stackedCameras.gif)
+![](Vids/stackedCameras.mp4)
