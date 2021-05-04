@@ -31,14 +31,13 @@ namespace rut
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		}
-		/*
+
 		// Add depth buffer.
-		glGenRenderbuffers(1, &_depthBuffer);
-		glBindRenderbuffer(GL_TEXTURE_2D, _depthBuffer);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_STENCIL_INDEX8, 
+		glGenRenderbuffers(1, &_rbo);
+		glBindRenderbuffer(GL_RENDERBUFFER, _rbo);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16,
 			resolution.x, resolution.y);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH24_STENCIL8, GL_RENDERBUFFER, _depthBuffer);
-		*/
+
 		// Validate post effect buffers.
 		assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -50,7 +49,7 @@ namespace rut
 	PostEffectModule::~PostEffectModule()
 	{
 		glDeleteTextures(4, _textureBuffers);
-		glDeleteTextures(1, &_depthBuffer);
+		glDeleteRenderbuffers(1, &_rbo);
 		glDeleteFramebuffers(1, &_fbo);
 
 		glDeleteVertexArrays(1, &_vao);
@@ -66,6 +65,11 @@ namespace rut
 		// Bind the Frame Buffer Object so that every new drawn object will be written to this texture.
 		glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 		BindTextureBuffer(0);
+
+		// Enable custom depth buffer.
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+			GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _rbo);
+		glClear(GL_DEPTH_BUFFER_BIT);
 	}
 
 	void PostEffectModule::RenderEnd()
@@ -100,6 +104,10 @@ namespace rut
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 		
 		_odd = !_odd;
+
+		// Disable custom depth buffer.
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER,
+			GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, 0);
 	}
 
 	void PostEffectModule::PostRender()
@@ -130,7 +138,7 @@ namespace rut
 	{
 		glDrawBuffer(GL_COLOR_ATTACHMENT0 + index);
 		glClearColor(clearColor.x, clearColor.y, clearColor.z, clearColor.a);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT); //  | GL_DEPTH_BUFFER_BIT
 	}
 
 	void PostEffectModule::SetupShader()
