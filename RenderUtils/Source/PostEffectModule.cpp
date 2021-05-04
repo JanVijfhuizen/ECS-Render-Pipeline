@@ -31,7 +31,15 @@ namespace rut
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		}
-		
+		/*
+		// Add depth buffer.
+		glGenRenderbuffers(1, &_depthBuffer);
+		glBindRenderbuffer(GL_TEXTURE_2D, _depthBuffer);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_STENCIL_INDEX8, 
+			resolution.x, resolution.y);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH24_STENCIL8, GL_RENDERBUFFER, _depthBuffer);
+		*/
+		// Validate post effect buffers.
 		assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -42,6 +50,7 @@ namespace rut
 	PostEffectModule::~PostEffectModule()
 	{
 		glDeleteTextures(4, _textureBuffers);
+		glDeleteTextures(1, &_depthBuffer);
 		glDeleteFramebuffers(1, &_fbo);
 
 		glDeleteVertexArrays(1, &_vao);
