@@ -22,7 +22,7 @@ int main()
 
 	auto& cameras = jecs::MapSet<rpi::Camera>::Get();
 	auto& transforms = jecs::SparseSet<rpi::Transform>::Get();
-	/*
+	
 	// Add some test objects.
 	for (int i = 0; i < 20; ++i)
 		for (int32_t j = 0; j < 20; ++j)
@@ -31,14 +31,15 @@ int main()
 			factory.Construct(testObj);
 
 			auto& trans = transforms[testObj.index];
-			trans.position = glm::vec3{ i, j, 0 } - glm::vec3(10, 10, 0);
+			trans.position = glm::vec3{(rand() % 200 - 100) * .1f, 
+				(rand() % 200 - 100) * .1f , (rand() % 200 - 100) * .1f };
 		}
-	*/
+
 	// Add some cameras.
 	const auto cam1 = cecsar.Spawn();
 	const auto cam2 = cecsar.Spawn();
 
-	auto& camera1 = cameras.Insert(cam1.index);
+	//auto& camera1 = cameras.Insert(cam1.index);
 	cameras.Insert(cam2.index);
 
 	auto& postEffectStacks = jecs::MapSet<rpi::PostEffectStack>::Get();
@@ -60,7 +61,7 @@ int main()
 
 	// Change the position of the first camera.
 	cam1Trans.position = { 4, 0, -15 };
-	camera1.target = { 4, 0, 0 };
+	//camera1.target = { 4, 0, 0 };
 
 	// Spawn one big object.
 	const auto testObj = cecsar.Spawn();
