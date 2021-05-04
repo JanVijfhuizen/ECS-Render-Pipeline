@@ -8,11 +8,8 @@ I've provided a basic renderer system which shows some of the capabilities of th
 individual components.
 
 Among other things, this project contains:
-- Shader/Texture loaders.
-- Mesh/Shader wrapper classes.
-- a Post Processing stack.
-- a Window module.
-
-Instancing/batching will be implemented later on.
-Later on I'll also provide a default shader with lightmaps, shadows and proper shading.
+- Shader, texture and model (.obj) loaders.
+- Mesh/shader wrapper classes.
+- Post processing stack that supports multiple cameras.
+- Window module.
 
