@@ -98,7 +98,7 @@ bool ObjLoader::CreateModel(const std::string& filename,
 			// Collect all the indices.
 			while(iss >> s1)
 			{
-				i = indices.size();
+				i = vertSet.size();
 				it = vertSet.find(s1);
 
 				// If vertex has been defined before.
@@ -123,7 +123,6 @@ bool ObjLoader::CreateModel(const std::string& filename,
 
 				// Collect the indices that make up the current face.
 				faceInds.push_back(i);
-				indices.push_back(i);
 			}
 
 			// Now convert the face indices into triangles.
